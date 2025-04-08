@@ -18,6 +18,21 @@ public class TileInteraction : MonoBehaviour
 
     private void OnMouseUp()
     {
-        Debug.Log("hello I am" + gameObject.name);
+
+        if (CompareTag("Land"))
+        {
+            Debug.Log("You can build a facotory");
+
+        }
+
+
+        if (CompareTag("Locked"))
+        {
+
+            Debug.Log("I'm locked, Cant do shit");
+
+        }
+
+        //Debug.Log("hello I am" + gameObject.name);
     }
 }
