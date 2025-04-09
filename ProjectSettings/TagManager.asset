@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Locked
   - Land
+  - Factory
   layers:
   - Default
   - TransparentFX

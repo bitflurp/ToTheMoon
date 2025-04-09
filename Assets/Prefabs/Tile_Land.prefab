@@ -189,6 +189,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f1029a66ced1f468889061cecefd78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  posX: 0
+  posY: 0
+  Tile_Factory: {fileID: 4493052943688991578, guid: 039035d482d506e4f99eea648cec125c, type: 3}
   highlight: {fileID: 532730739554934473}
 --- !u!61 &4815018758531884377
 BoxCollider2D:

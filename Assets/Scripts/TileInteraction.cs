@@ -5,6 +5,8 @@ public class TileInteraction : MonoBehaviour
     public int posX;
     public int posY;
     
+    public GameObject Tile_Factory;
+    
 
     [SerializeField] private GameObject highlight;
 
@@ -25,8 +27,9 @@ public class TileInteraction : MonoBehaviour
         if (CompareTag("Land"))
         {
             Debug.Log("You can build a facotory and my pos is" + posX + "," + posY);
-
-     
+            gameObject.SetActive(false);
+            // creates factory tile
+            Instantiate(Tile_Factory, transform.position, Quaternion.identity);
             
 
         }
