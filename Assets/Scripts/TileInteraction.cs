@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class TileInteraction : MonoBehaviour
 {
+    public int posX;
+    public int posY;
+    
 
     [SerializeField] private GameObject highlight;
 
@@ -21,7 +24,10 @@ public class TileInteraction : MonoBehaviour
 
         if (CompareTag("Land"))
         {
-            Debug.Log("You can build a facotory");
+            Debug.Log("You can build a facotory and my pos is" + posX + "," + posY);
+
+     
+            
 
         }
 

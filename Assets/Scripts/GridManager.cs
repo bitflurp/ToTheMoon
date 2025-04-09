@@ -32,6 +32,7 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < gridY; y++)
             {
+                // set every tile to be land
                 tiles[x, y] = 0;
 
             }
@@ -54,9 +55,14 @@ public class GridManager : MonoBehaviour
             {
                 tileTypes tt = tileTypes[tiles[x, y]];
 
-                var spawnedTile = Instantiate(tt.TileSpritePrefab, new Vector3(x, y, 0), Quaternion.identity);
+               GameObject curTile  = (GameObject)Instantiate(tt.TileSpritePrefab, new Vector3(x, y, 0), Quaternion.identity);
 
-                spawnedTile.name = $"Tile {tt.name} {x} {y}";
+                TileInteraction tI = curTile.GetComponent<TileInteraction>();
+
+                tI.posX = x;
+                tI.posY = y;
+
+               
 
             }
 
