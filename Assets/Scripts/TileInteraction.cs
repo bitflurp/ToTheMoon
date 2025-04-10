@@ -41,7 +41,12 @@ public class TileInteraction : MonoBehaviour
             Debug.Log("I'm locked, Cant do shit");
 
         }
+        if (CompareTag("Factory"))
+        {
 
+            Debug.Log("I'm a factory" + posX + "," + posY);
+
+        }
         //Debug.Log("hello I am" + gameObject.name);
     }
 }
