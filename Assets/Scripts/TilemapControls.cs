@@ -4,7 +4,8 @@ using UnityEngine.Tilemaps;
 public class TilemapControls : MonoBehaviour
 {
     public FactoryTile factoryTile;
-
+    public GameObject button;
+    public GameObject canvas;
     private Tilemap tilemap;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,8 +26,22 @@ public class TilemapControls : MonoBehaviour
         Vector3Int clickedCell = tilemap.WorldToCell(worldPos);
         TileBase tile = tilemap.GetTile(clickedCell);
 
+        // Coordinets for tiles = clickCell
+        // tile type is tile
+        Debug.Log($"TILE INFO" + clickedCell + tile);
+
         if (tile is LandTile)
         {
+             button.SetActive(true);
+             button.transform.position = clickedCell;
+            
+            
+            
+          
+            
+            
+            
+            
             tilemap.SetTile(clickedCell, factoryTile);
         }
     }
