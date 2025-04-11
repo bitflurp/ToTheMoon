@@ -31,16 +31,13 @@ public class Button : MonoBehaviour
 
         //Debug.Log($"I am" + currentCell + currentTile);
 
-<<<<<<< HEAD
-        //On click Sets current tile to Factory tile
-        tilemap.SetTile(currentCell,factoryTile);
-        //closes popup after creating factory
-         button.SetActive(false);
-=======
+      
+      
         if (curRec >= 5)
         {         //On click Sets current tile to Factory tile
             tilemap.SetTile(currentCell, factoryTile);
-
+              //closes popup after creating factory
+            button.SetActive(false);
             curRec = curRec - 5;
 
             tileData.rec = curRec;
@@ -50,11 +47,11 @@ public class Button : MonoBehaviour
         {
 
             Debug.Log($"NO DOUGH" + curRec);
-
+              //closes popup after no dough
+             button.SetActive(false);
         }
 
 
->>>>>>> c4372977ed3e000d84db78d2d24f17a79a837471
     }
 
     public void ClosePopup()
