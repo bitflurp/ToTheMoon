@@ -5,13 +5,17 @@ public class TilemapControls : MonoBehaviour
 {
     public FactoryTile factoryTile;
     public GameObject button;
-    public GameObject canvas;
     private Tilemap tilemap;
+    private Button cB;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         tilemap = GetComponent<Tilemap>();
+
+        //References Button to Give Cell Data
+        cB = GetComponent<Button>();
+
     }
 
     // Update is called once per frame
@@ -32,17 +36,24 @@ public class TilemapControls : MonoBehaviour
 
         if (tile is LandTile)
         {
-             button.SetActive(true);
-             button.transform.position = clickedCell;
             
-            
-            
-          
-            
-            
-            
-            
-            tilemap.SetTile(clickedCell, factoryTile);
+
+            //Makes Button visible and sends it to the cell position
+            button.SetActive(true);
+            button.transform.position = clickedCell;
+
+
+            //Sends button Current Cell Data to Button
+            cB.currentCell = clickedCell;
+            cB.currentTile = tile;
+
+
+
+
+
+
+
+            // tilemap.SetTile(clickedCell, factoryTile);
         }
     }
 }
