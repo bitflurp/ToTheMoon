@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+using TMPro;
 public class TilemapControls : MonoBehaviour
 {
     public FactoryTile factoryTile;
@@ -10,6 +10,9 @@ public class TilemapControls : MonoBehaviour
 
     public int rec = 10;
 
+    //for recource ui
+
+     public TMP_Text RecText;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,7 +24,11 @@ public class TilemapControls : MonoBehaviour
         cB = GetComponent<Button>();
 
     }
-
+    void Update()
+    {
+        //code
+        RecText.text = $"{rec}";
+    }
     // Update is called once per frame
     void OnMouseDown()
     {
@@ -62,4 +69,5 @@ public class TilemapControls : MonoBehaviour
             // tilemap.SetTile(clickedCell, factoryTile);
         }
     }
+
 }
