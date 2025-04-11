@@ -8,6 +8,10 @@ public class TilemapControls : MonoBehaviour
     private Tilemap tilemap;
     private Button cB;
 
+    public int rec = 10;
+
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,9 +34,11 @@ public class TilemapControls : MonoBehaviour
         Vector3Int clickedCell = tilemap.WorldToCell(worldPos);
         TileBase tile = tilemap.GetTile(clickedCell);
 
+
+        cB.curRec = rec;
         // Coordinets for tiles = clickCell
         // tile type is tile
-        Debug.Log($"TILE INFO" + clickedCell + tile);
+        Debug.Log($"TILE INFO" + clickedCell + tile + rec);
 
         if (tile is LandTile)
         {

@@ -6,18 +6,23 @@ public class Button : MonoBehaviour
 
     
     private Tilemap tilemap;
+    private TilemapControls tileData;
     public FactoryTile factoryTile;
 
     //Vars to Get Cell data from Tilemap controls
     public Vector3Int currentCell;
     public TileBase currentTile;
 
+    public int curRec;
 
-    
+
+
     void Start()
     {
-       //Reference Tilemap class to get setTile  
+        //Reference Tilemap class to get setTile  
         tilemap = GetComponent<Tilemap>();
+
+        tileData = GetComponent<TilemapControls>();
     }
 
     public void CreateFactory()
@@ -25,8 +30,22 @@ public class Button : MonoBehaviour
 
         //Debug.Log($"I am" + currentCell + currentTile);
 
-        //On click Sets current tile to Factory tile
-        tilemap.SetTile(currentCell,factoryTile);
+        if (curRec >= 5)
+        {         //On click Sets current tile to Factory tile
+            tilemap.SetTile(currentCell, factoryTile);
+
+            curRec = curRec - 5;
+
+            tileData.rec = curRec;
+
+        }
+        else
+        {
+
+            Debug.Log($"NO DOUGH" + curRec);
+
+        }
+
 
     }
 
