@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 
 public class Button : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class Button : MonoBehaviour
     public int curRec;
     public int curProdCount;
 
-
+    //List
+   
 
     void Start()
     {
@@ -43,6 +45,7 @@ public class Button : MonoBehaviour
 
             tileData.rec = curRec;
 
+
         }
         else
         {
@@ -59,6 +62,8 @@ public class Button : MonoBehaviour
     {
         curProdCount++;
         tileData.productionCounter = curProdCount;
+
+
         
 
     }
