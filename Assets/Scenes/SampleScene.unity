@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 154400140}
   - component: {fileID: 154400141}
   - component: {fileID: 154400142}
+  - component: {fileID: 154400143}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -640,12 +641,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d79803f82a445544ca33e6e641661544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSystem: {fileID: 1879708103}
   factoryTile: {fileID: 11400000, guid: 2d3225d76b58eef4082f3353e38dfa8b, type: 2}
   currentCell: {x: 0, y: 0, z: 0}
   currentTile: {fileID: 0}
   curRec: 0
   curProdCount: 0
+--- !u!114 &154400143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154400136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66262b174f66478448e3f0ea22103016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  turnCounter: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,7 +1139,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1879708103}
+      - m_Target: {fileID: 154400143}
         m_TargetAssemblyTypeName: TurnSystem, Assembly-CSharp
         m_MethodName: EndTurn
         m_Mode: 1
@@ -1607,7 +1621,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1879708104}
-  - component: {fileID: 1879708103}
   m_Layer: 0
   m_Name: TurnManager
   m_TagString: Untagged
@@ -1615,21 +1628,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1879708103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1879708102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66262b174f66478448e3f0ea22103016, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  turnCounter: 1
-  endProduction: 0
 --- !u!4 &1879708104
 Transform:
   m_ObjectHideFlags: 0
