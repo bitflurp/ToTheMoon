@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -5,10 +6,21 @@ public class TilemapControls : MonoBehaviour
 {
     public FactoryTile factoryTile;
     public GameObject button;
+    public GameObject buttonProduce;
+
+    //Classes
     private Tilemap tilemap;
     private Button cB;
+    private TurnSystem turnSystem;
+
 
     public int rec = 10;
+
+
+    //Vars
+    public int productionCounter = 0;
+
+   
 
     
 
@@ -19,6 +31,8 @@ public class TilemapControls : MonoBehaviour
 
         //References Button to Give Cell Data
         cB = GetComponent<Button>();
+
+       
 
     }
 
@@ -34,8 +48,10 @@ public class TilemapControls : MonoBehaviour
         Vector3Int clickedCell = tilemap.WorldToCell(worldPos);
         TileBase tile = tilemap.GetTile(clickedCell);
 
-
+        //Give rec data to button
         cB.curRec = rec;
+        cB.curProdCount = productionCounter;
+
         // Coordinets for tiles = clickCell
         // tile type is tile
         Debug.Log($"TILE INFO" + clickedCell + tile + rec);
@@ -53,13 +69,21 @@ public class TilemapControls : MonoBehaviour
             cB.currentCell = clickedCell;
             cB.currentTile = tile;
 
-
-
-
-
-
-
             // tilemap.SetTile(clickedCell, factoryTile);
+        }
+
+
+        if (tile is FactoryTile)
+        {
+            button.SetActive(false);
+
+            //Makes Button visible and sends it to the cell position
+            buttonProduce.SetActive(true);
+            buttonProduce.transform.position = clickedCell;
+
+            Debug.Log($"there is" + productionCounter + " Producing");
+           
+
         }
     }
 }

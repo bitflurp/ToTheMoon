@@ -4,9 +4,11 @@ using UnityEngine.Tilemaps;
 public class Button : MonoBehaviour
 {
 
-    
+
     private Tilemap tilemap;
     private TilemapControls tileData;
+
+
     public FactoryTile factoryTile;
 
     //Vars to Get Cell data from Tilemap controls
@@ -14,6 +16,7 @@ public class Button : MonoBehaviour
     public TileBase currentTile;
 
     public int curRec;
+    public int curProdCount;
 
 
 
@@ -23,6 +26,8 @@ public class Button : MonoBehaviour
         tilemap = GetComponent<Tilemap>();
 
         tileData = GetComponent<TilemapControls>();
+
+        
     }
 
     public void CreateFactory()
@@ -48,5 +53,15 @@ public class Button : MonoBehaviour
 
 
     }
+
+
+    public void Production()
+    {
+        curProdCount++;
+        tileData.productionCounter = curProdCount;
+        
+
+    }
+
 
 }
