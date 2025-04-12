@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 
 public class TilemapControls : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class TilemapControls : MonoBehaviour
 
     public int rec = 10;
 
+//for recource ui
+
+     public TMP_Text RecText;
 
     //Vars
     public int productionCounter = 0;
@@ -35,7 +39,11 @@ public class TilemapControls : MonoBehaviour
        
 
     }
-
+    void Update()
+    {
+        //code
+        RecText.text = $"{rec}";
+    }
     // Update is called once per frame
     void OnMouseDown()
     {
@@ -70,6 +78,11 @@ public class TilemapControls : MonoBehaviour
             cB.currentTile = tile;
 
             // tilemap.SetTile(clickedCell, factoryTile);
+
+            if(buttonProduce != null)
+                {
+                     buttonProduce.SetActive(false);
+                }
         }
 
 
@@ -80,6 +93,7 @@ public class TilemapControls : MonoBehaviour
             //Makes Button visible and sends it to the cell position
             buttonProduce.SetActive(true);
             buttonProduce.transform.position = clickedCell;
+
 
             Debug.Log($"there is" + productionCounter + " Producing");
            
