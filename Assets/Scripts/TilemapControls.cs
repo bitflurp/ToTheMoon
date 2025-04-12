@@ -14,14 +14,14 @@ public class TilemapControls : MonoBehaviour
     private Button cB;
     private TurnSystem turnSystem;
 
-
+    //Recourses Vars
     public int rec = 10;
 
-//for recource ui
-
+    
+    //for recource ui
      public TMP_Text RecText;
 
-    //Vars
+    //Vars for Procedures
     public int productionCounter = 0;
 
    
@@ -41,10 +41,10 @@ public class TilemapControls : MonoBehaviour
     }
     void Update()
     {
-        //code
+        // shows Current Rec
         RecText.text = $"{rec}";
     }
-    // Update is called once per frame
+
     void OnMouseDown()
     {
         // get the mouse position
@@ -73,12 +73,11 @@ public class TilemapControls : MonoBehaviour
             button.transform.position = clickedCell;
            
 
-            //Sends button Current Cell Data to Button
+            //Sends Current Cell Data to Button
             cB.currentCell = clickedCell;
             cB.currentTile = tile;
 
-            // tilemap.SetTile(clickedCell, factoryTile);
-
+            //If Produce Button Exists when clicking on a land time, if turns it off
             if(buttonProduce != null)
                 {
                      buttonProduce.SetActive(false);
@@ -93,6 +92,10 @@ public class TilemapControls : MonoBehaviour
             //Makes Button visible and sends it to the cell position
             buttonProduce.SetActive(true);
             buttonProduce.transform.position = clickedCell;
+
+            //Sends Current Cell Data to Button
+            cB.currentCell = clickedCell;
+            cB.currentTile = tile;
 
 
             Debug.Log($"there is" + productionCounter + " Producing");
