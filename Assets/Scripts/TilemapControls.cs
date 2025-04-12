@@ -6,8 +6,10 @@ using TMPro;
 public class TilemapControls : MonoBehaviour
 {
     public FactoryTile factoryTile;
-    public GameObject button;
+    public GameObject buttonCreate;
     public GameObject buttonProduce;
+
+    public GameObject buttonGather;
 
     //Classes
     private Tilemap tilemap;
@@ -17,12 +19,19 @@ public class TilemapControls : MonoBehaviour
     //Recourses Vars
     public int rec = 10;
 
-    
+    public int workForce = 10;
+    public int money = 10;
+
     //for recource ui
-     public TMP_Text RecText;
+     public TMP_Text recText;
+
+     public TMP_Text workForceText;
+
+     public TMP_Text moneyText;
 
     //Vars for Procedures
     public int productionCounter = 0;
+    public int gatherCounter = 0;
 
    
 
@@ -42,7 +51,11 @@ public class TilemapControls : MonoBehaviour
     void Update()
     {
         // shows Current Rec
-        RecText.text = $"{rec}";
+        recText.text = $"{rec}";
+
+        workForceText.text = $"{workForce}";
+
+        moneyText.text = $"{money}";
     }
 
     void OnMouseDown()
@@ -69,9 +82,9 @@ public class TilemapControls : MonoBehaviour
             
 
             //Makes Button visible and sends it to the cell position
-            button.SetActive(true);
-            button.transform.position = clickedCell;
-           
+            buttonCreate.SetActive(true);
+            buttonCreate.transform.position = clickedCell;
+
 
             //Sends Current Cell Data to Button
             cB.currentCell = clickedCell;
@@ -82,12 +95,13 @@ public class TilemapControls : MonoBehaviour
                 {
                      buttonProduce.SetActive(false);
                 }
+           
         }
 
 
         if (tile is FactoryTile)
         {
-            button.SetActive(false);
+            buttonCreate.SetActive(false);
 
             //Makes Button visible and sends it to the cell position
             buttonProduce.SetActive(true);
@@ -102,5 +116,17 @@ public class TilemapControls : MonoBehaviour
            
 
         }
+        if (tile is ResTile)
+            {
+                 //Makes Button visible and sends it to the cell position
+                buttonGather.SetActive(true);
+                buttonGather.transform.position = clickedCell;
+
+                 //Sends Current Cell Data to Button
+                 cB.currentCell = clickedCell;
+                 cB.currentTile = tile;
+
+                 Debug.Log($"ResTile is doing"+ gatherCounter);
+            }
     }
 }

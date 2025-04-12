@@ -21,7 +21,7 @@ public class Button : MonoBehaviour
     public int curRec;
     public int curProdCount;
 
-    public GameObject button;
+    public GameObject buttonCreate;
 
     //Lists
 
@@ -29,7 +29,7 @@ public class Button : MonoBehaviour
 
     void Start()
     {
-        //Reference Tilemap class to get setTile
+        //Reference Tilemap class to get setTile  
         tilemap = GetComponent<Tilemap>();
 
         tileData = GetComponent<TilemapControls>();
@@ -47,7 +47,7 @@ public class Button : MonoBehaviour
             tilemap.SetTile(currentCell, factoryTile);
 
             //closes popup after creating factory
-            button.SetActive(false);
+            buttonCreate.SetActive(false);
 
             curRec = curRec - 5;
 
@@ -60,7 +60,7 @@ public class Button : MonoBehaviour
             Debug.Log($"NO DOUGH" + curRec);
 
             //closes popup after no dough
-            button.SetActive(false);
+            buttonCreate.SetActive(false);
         }
 
 
@@ -69,7 +69,7 @@ public class Button : MonoBehaviour
     public void ClosePopup()
     {
         //closes popup
-        button.SetActive(false);
+        buttonCreate.SetActive(false);
     }
 
     public void Production()
@@ -104,4 +104,3 @@ public class Button : MonoBehaviour
 
 
 }
-
