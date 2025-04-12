@@ -71,7 +71,7 @@ public class TilemapControls : MonoBehaviour
             //Makes Button visible and sends it to the cell position
             button.SetActive(true);
             button.transform.position = clickedCell;
-
+           
 
             //Sends button Current Cell Data to Button
             cB.currentCell = clickedCell;

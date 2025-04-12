@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
+
+
 
 public class Button : MonoBehaviour
 {
@@ -20,15 +23,18 @@ public class Button : MonoBehaviour
 
     public GameObject button;
 
+    //Lists
+
+    List<Vector3Int> isProducing = new List<Vector3Int>();
 
     void Start()
     {
-        //Reference Tilemap class to get setTile  
+        //Reference Tilemap class to get setTile
         tilemap = GetComponent<Tilemap>();
 
         tileData = GetComponent<TilemapControls>();
 
-        
+
     }
 
     public void CreateFactory()
@@ -42,7 +48,7 @@ public class Button : MonoBehaviour
 
              //closes popup after creating factory
             button.SetActive(false);
-            
+
             curRec = curRec - 5;
 
             tileData.rec = curRec;
@@ -70,9 +76,11 @@ public class Button : MonoBehaviour
     {
         curProdCount++;
         tileData.productionCounter = curProdCount;
+
         
 
     }
 
 
 }
+
