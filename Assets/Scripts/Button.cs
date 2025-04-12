@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
+
+
 
 public class Button : MonoBehaviour
 {
@@ -20,6 +23,9 @@ public class Button : MonoBehaviour
 
     public GameObject button;
 
+    //Lists
+
+    List<Vector3Int> isProducing = new List<Vector3Int>();
 
     void Start()
     {
@@ -28,7 +34,7 @@ public class Button : MonoBehaviour
 
         tileData = GetComponent<TilemapControls>();
 
-        
+
     }
 
     public void CreateFactory()
@@ -40,9 +46,9 @@ public class Button : MonoBehaviour
         {         //On click Sets current tile to Factory tile
             tilemap.SetTile(currentCell, factoryTile);
 
-             //closes popup after creating factory
+            //closes popup after creating factory
             button.SetActive(false);
-            
+
             curRec = curRec - 5;
 
             tileData.rec = curRec;
@@ -53,8 +59,8 @@ public class Button : MonoBehaviour
 
             Debug.Log($"NO DOUGH" + curRec);
 
-              //closes popup after no dough
-             button.SetActive(false);
+            //closes popup after no dough
+            button.SetActive(false);
         }
 
 
@@ -63,16 +69,38 @@ public class Button : MonoBehaviour
     public void ClosePopup()
     {
         //closes popup
-         button.SetActive(false);
+        button.SetActive(false);
     }
 
     public void Production()
     {
-        curProdCount++;
-        tileData.productionCounter = curProdCount;
-        
+        if (isProducing.Contains(currentCell) == false)
+        {
+           
+            curProdCount++;
+            tileData.productionCounter = curProdCount;
+            isProducing.Add(currentCell);
+
+        }
+        else
+        {
+            //comment
+            Debug.Log($"already Producing");
+
+        }
+
 
     }
+
+    public void OnEndDay()
+    {
+
+        isProducing.Clear();
+
+    }
+
+
+
 
 
 }
