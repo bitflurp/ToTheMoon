@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a71551176023c1946ba591fd769ccbc0, type: 3}
-  m_Name: Factory Tile
+  m_Script: {fileID: 11500000, guid: 7e040653fb4d91a4b8eb84e9ab7ffc12, type: 3}
+  m_Name: Res Tile
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -714442255, guid: 9c86e4023a9e4b041823774d34c4d986, type: 3}
+  m_Sprite: {fileID: 2072923240, guid: 9c86e4023a9e4b041823774d34c4d986, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
