@@ -10,9 +10,13 @@ public class Button : MonoBehaviour
 
     private Tilemap tilemap;
     private TilemapControls tileData;
-
+    private int gridX = 10;
+    private int gridY = 10;
 
     public FactoryTile factoryTile;
+    public LandTile landTile;
+
+
 
     //Vars to Get Cell data from Tilemap controls
     public Vector3Int currentCell;
@@ -30,7 +34,8 @@ public class Button : MonoBehaviour
 
     public GameObject buttonCreate;
     public GameObject buttonProduce;
-    
+    public GameObject buttonExpodition;
+
 
 
     //Lists
@@ -78,7 +83,7 @@ public class Button : MonoBehaviour
 
     }
 
-  
+
 
     public void Production()
     {
@@ -145,7 +150,7 @@ public class Button : MonoBehaviour
         }
         else if (isProducing.Contains(currentCell) == true)
         {
-           
+
             Debug.Log($"This Factory is in Produciton");
 
         }
@@ -160,6 +165,34 @@ public class Button : MonoBehaviour
 
         buttonProduce.SetActive(false);
 
+
+    }
+    public void Expodition()
+    {
+        //checks if player has enough resources for expodition
+        if(curMoney >= 10){
+            curMoney -= 10;
+              tileData.money = curMoney;
+            // checks on the grid for rule tiles and sets them to land tiles
+            for (int x = 0; x < gridX; x++)
+                    {
+                        for (int y = 0; y < gridY; y++)
+                        {
+                            Vector3Int nowTilePos = new Vector3Int(x, y, 0);
+                            TileBase nowTile = tilemap.GetTile(nowTilePos);
+                        
+                            if (nowTile is RuleTile)
+                            {
+                                //change state locked tile to land
+                                tilemap.SetTile(nowTilePos, landTile);
+
+                                Debug.Log($"Expodion is doing");
+                            }
+                        }
+
+                    }
+        }
+       
 
     }
     public void ClosePopup()

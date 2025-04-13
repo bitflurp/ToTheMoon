@@ -5,16 +5,19 @@ using TMPro;
 
 public class TilemapControls : MonoBehaviour
 {
-    public FactoryTile factoryTile;
+    
     public GameObject buttonCreate;
     public GameObject buttonProduce;
 
     public GameObject buttonGather;
+    public GameObject buttonExpodition;
+    
 
     //Classes
     private Tilemap tilemap;
     private Button cB;
     private TurnSystem turnSystem;
+
 
     //Recourses Vars
     public int rec = 10;
@@ -54,7 +57,7 @@ public class TilemapControls : MonoBehaviour
 
         workForceText.text = $"WF: {workForce}";
 
-        moneyText.text = $"Profit: {money}";
+        moneyText.text = $"PROFIT: {money}";
     }
 
     void OnMouseDown()
@@ -139,5 +142,16 @@ public class TilemapControls : MonoBehaviour
 
                          Debug.Log($"there is" + gatherCounter + " Gathering");
                     }
+                if (tile is RuleTile)
+                    {
+                       buttonExpodition.SetActive(true);
+                        Debug.Log($"locked");
+                           //Sends Current Cell Data to Button
+                        cB.currentCell = clickedCell;
+                        cB.currentTile = tile;
+                    }
+                
+                
+                
     }
 }
