@@ -54,7 +54,7 @@ public class TilemapControls : MonoBehaviour
 
         workForceText.text = $"WF: {workForce}";
 
-        moneyText.text = $"CAPITAL: {money}";
+        moneyText.text = $"Profit: {money}";
     }
 
     void OnMouseDown()
