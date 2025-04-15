@@ -1,12 +1,15 @@
 using UnityEditorInternal;
 using UnityEngine;
-
+using TMPro;
 
 public enum turnState {start, end }
 public class TurnSystem : MonoBehaviour
 {
     public turnState state;
+    public TMP_Text dayText;
+    public TMP_Text stateText;
     public int turnCounter = 1;
+    
 
     private TilemapControls tileData;
     
@@ -28,7 +31,7 @@ public class TurnSystem : MonoBehaviour
     void Start()
     {
         state = turnState.start;
-        Debug.Log($"DAY" + turnCounter);
+        dayText.text = $"{$"DAY" + turnCounter}";
         tileData = GetComponent<TilemapControls>();
     }
 
@@ -171,8 +174,7 @@ public class TurnSystem : MonoBehaviour
         tileData.recruitCounter = endRecruit;
         tileData.workForce = CurWorkForceEnd;
 
-
-        Debug.Log($"DAY" + turnCounter);
+        dayText.text = $"{$"DAY" + turnCounter}";
 
     }
 
@@ -182,13 +184,12 @@ public class TurnSystem : MonoBehaviour
 
         if (curMoneyEnd >= 30)
         {
-
-            Debug.Log($"QUOTA REACHED");
+            stateText.text = $"{$"QUOTA REACHED"}";
 
         }
         else
         {
-
+            stateText.text = $"{$"QUOTA FAILED"}";
             Debug.Log($"QUOTA FAILED");
 
         }

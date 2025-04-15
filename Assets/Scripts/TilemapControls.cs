@@ -42,6 +42,8 @@ public class TilemapControls : MonoBehaviour
     public TMP_Text workForceText;
 
     public TMP_Text moneyText;
+    public TMP_Text stateText;
+    public TMP_Text dayText;
 
     //Vars for Procedures
     public int productionCounter = 0;
@@ -92,7 +94,7 @@ public class TilemapControls : MonoBehaviour
 
         // Coordinets for tiles = clickCell
         // tile type is tile
-        Debug.Log($"TILE INFO" + clickedCell + tile + rec);
+        stateText.text= $"{$"TILE INFO" + clickedCell + tile + rec}";
 
         if (tile is LandTile)
         {
@@ -100,15 +102,17 @@ public class TilemapControls : MonoBehaviour
 
             //Makes Button visible and sends it to the cell position
             buttonCreate.SetActive(true);
-            buttonCreate.transform.position = clickedCell;
+            
 
 
          
 
             //If Produce Button Exists when clicking on a land time, if turns it off
-            if (buttonProduce != null)
+            if (buttonProduce || buttonExpodition || buttonGather  != null)
             {
                 buttonProduce.SetActive(false);
+                buttonExpodition.SetActive(false);
+                buttonGather.SetActive(false);
             }
 
         }
@@ -124,16 +128,19 @@ public class TilemapControls : MonoBehaviour
             if (isRecruiting.Contains(clickedCell) == true)
             {
 
-                Debug.Log($"there is {recruitCounter} Recruiting");
+                stateText.text = $"{$"there is {recruitCounter} Recruiting"}";
 
             }
             else if (isProducing.Contains(clickedCell) == true) {
 
-                Debug.Log($"there is {productionCounter} Producing");
-
+                stateText.text = $"{$"there is {productionCounter} Producing"}";
             }
 
-            
+            if(buttonGather || buttonExpodition != null)
+            {
+                buttonGather.SetActive(false);
+                buttonExpodition.SetActive(false);
+            }
 
 
         }
@@ -141,17 +148,29 @@ public class TilemapControls : MonoBehaviour
         {
             //Makes Button visible and sends it to the cell position
             buttonGather.SetActive(true);
-            buttonGather.transform.position = clickedCell;
 
-          
-            Debug.Log($"there is" + gatherCounter + " Gathering");
+            stateText.text = $"{$"there is" + gatherCounter + " Gathering"}";
+            //
+            if(buttonCreate || buttonProduce || buttonExpodition != null)
+            {
+                buttonCreate.SetActive(false);
+                buttonProduce.SetActive(false);
+                buttonExpodition.SetActive(false);
+            }
         }
         if (tile is RuleTile)
         {
             buttonExpodition.SetActive(true);
-            Debug.Log($"locked");
-        }
+            stateText.text = $"{$"locked"}";
 
+              if(buttonCreate || buttonGather || buttonProduce != null) 
+                    {
+                        buttonCreate.SetActive(false);
+                        buttonGather.SetActive(false);
+                        buttonProduce.SetActive(false);
+                    }
+        }
+      
 
 
 
@@ -188,8 +207,7 @@ public class TilemapControls : MonoBehaviour
         }
         else
         {
-
-            Debug.Log($"NO DOUGH");
+            stateText.text = $"{$"NO DOUGH"}";
 
             //closes popup after no dough
             buttonCreate.SetActive(false);
@@ -206,17 +224,17 @@ public class TilemapControls : MonoBehaviour
 
             productionCounter++;
             isProducing.Add(clickedCell);
-            Debug.Log($"there is {productionCounter} Producing");
+            stateText.text = $"{$"there is {productionCounter} Producing"}";
+        
         }
         else if (isRecruiting.Contains(clickedCell) == true)
         {
-
-            Debug.Log($"This Factory is Recruiting ");
+            stateText.text = $"{$"This Factory is Recruiting "}";
+            
         }
         else
         {
-
-            Debug.Log($"Already Producing");
+            stateText.text = $"{$"Already Producing"}" ;
 
         }
 
@@ -233,19 +251,16 @@ public class TilemapControls : MonoBehaviour
 
             recruitCounter++;
             isRecruiting.Add(clickedCell);
-
-            Debug.Log($"there is {recruitCounter} Recruiting");
+            stateText.text = $"{$"there is {recruitCounter} Recruiting"}";
         }
         else if (isProducing.Contains(clickedCell) == true)
         {
-
-            Debug.Log($"This Factory is in Produciton");
+            stateText.text = $"{$"This Factory is in Produciton"}";
 
         }
         else
         {
-
-            Debug.Log($"Already Recruiting");
+            stateText.text = $"{$"Already Recruiting"}";
 
         }
 
@@ -264,13 +279,12 @@ public class TilemapControls : MonoBehaviour
 
             gatherCounter++;
             isGathering.Add(clickedCell);
-
-            Debug.Log($"there is {gatherCounter} Gathering");
+            stateText.text = $"{$"there is {gatherCounter} Gathering"}";
+            
         }
         else
         {
-            
-            Debug.Log($"already Gathering");
+            stateText.text = $"{$"already Gathering"}";
 
         }
 
@@ -299,7 +313,8 @@ public class TilemapControls : MonoBehaviour
                         //change state locked tile to land
                         tilemap.SetTile(nowTilePos, landTile);
 
-                        Debug.Log($"A new state has been discovered");
+                        stateText.text = $"{$"A new state has been discovered"}";
+                        
                     }
                 }
 
