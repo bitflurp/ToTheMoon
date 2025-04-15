@@ -152,9 +152,6 @@ public class TurnSystem : MonoBehaviour
             Debug.Log("no prodice");
         }
 
-
-
-
     }
     public void StartTurn()
     {

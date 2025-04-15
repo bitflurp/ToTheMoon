@@ -8,6 +8,9 @@ using TreeEditor;
 
 public class TilemapControls : MonoBehaviour
 {
+    private int dayCounter = 1;
+    private int nextQuota = 8;
+   
     //Grid Data
     private int gridX = 12;
     private int gridY = 12;
@@ -15,6 +18,7 @@ public class TilemapControls : MonoBehaviour
     //for Tiles
     public FactoryTile factoryTile;
     public LandTile landTile;
+    public StallTile stallTile;
 
     //For Game Obj
     public GameObject buttonCreate;
@@ -56,13 +60,18 @@ public class TilemapControls : MonoBehaviour
     List<Vector3Int> isRecruiting = new List<Vector3Int>();
 
 
+    //Dictionaries
+
+    Dictionary<Vector3Int, int> stallData = new();
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        tilemap = GetComponent<Tilemap>();
+        Debug.Log($"DAY {dayCounter}");
 
-      
+
+        tilemap = GetComponent<Tilemap>();
 
 
     }
@@ -227,32 +236,34 @@ public class TilemapControls : MonoBehaviour
 
     public void Recruit()
     {
-        if (isRecruiting.Contains(clickedCell) == false && isProducing.Contains(clickedCell) == false)
+
+        int whenStallEnds = dayCounter + 2;
+
+
+
+        if (tile is StallTile)
         {
-
-
-            recruitCounter++;
-            isRecruiting.Add(clickedCell);
-
-            Debug.Log($"there is {recruitCounter} Recruiting");
-        }
-        else if (isProducing.Contains(clickedCell) == true)
-        {
-
-            Debug.Log($"This Factory is in Produciton");
+            Debug.Log($"STALLING");
 
         }
         else
         {
+            //curRecruitCount++;
+           
+            isRecruiting.Add(clickedCell);
 
-            Debug.Log($"Already Recruiting");
+            // add location of current cell + when the stall will end for that specific cell
+            stallData.Add(clickedCell, whenStallEnds);
+
+
+            //Set tile to stall tile
+            tilemap.SetTile(clickedCell, stallTile);
+
+            Debug.Log($"there is Recruiting");
+
+
 
         }
-
-
-
-        buttonProduce.SetActive(false);
-
 
     }
 
@@ -310,22 +321,171 @@ public class TilemapControls : MonoBehaviour
 
 
 
-    public void OnEndDay()
-    {
+   
+    
+    
+    
+    
+    //On End Turn Procedure
 
+    public void EndTurn()
+    {
+       
+
+
+
+        //Clear Lists
         isProducing.Clear();
         isGathering.Clear();
         isRecruiting.Clear();
 
+
+        //Increment Turn
+        dayCounter++;
+
+
+
+        StallCheck();
+
+
+
+
+
+        //GetProfit
+        ProductionProfit();
+        GatherProfit();
+        RecruitProfit();
+
+        if (dayCounter == nextQuota)
+        {
+            QuotaReach();
+            //changes deadline to next week (have to add it into a fail/win state 
+            nextQuota += 7;
+
+
+        }
+
+
+
+
+        StartTurn();
+    }
+
+    public void ProductionProfit()
+    {
+        //Debug.Log($"PRODUCE" + endProduction);
+
+        // Multiply Factories producing by product per factory producing (2)
+        int addMoney = productionCounter * 2;
+
+        //add profit Recourse to player Recourse 
+        money = money + addMoney;
+
+        // Reset Factory Production 
+        productionCounter = 0;
+
+    }
+
+    public void GatherProfit()
+    {
+
+            //Debug.Log($"GATHER" + endProduction);
+
+            // Multiply Factories producing by product per factory producing (2)
+            int addRec = gatherCounter * 2;
+
+            //add profit Recourse to player Recourse 
+            rec = rec + addRec;
+
+            // Reset Factory Production 
+            gatherCounter = 0;
+
+
+    }
+
+    public void RecruitProfit()
+    {
+
+        
+            //Debug.Log($"Recruit" + endRecruit);
+
+            // Multiply Factories producing by product per factory producing (2)
+            int addWorkForce = recruitCounter * 1;
+
+            //add profit Recourse to player Recourse 
+            workForce = workForce + addWorkForce;
+
+            // Reset Factory Production 
+            recruitCounter = 0;
+
+
+  
     }
 
 
 
+    public void QuotaReach()
+    {
+
+        if (money >= 30)
+        {
+
+            Debug.Log($"QUOTA REACHED");
+
+        }
+        else
+        {
+
+            Debug.Log($"QUOTA FAILED");
+
+        }
+
+    }
+
+    public void StartTurn()
+    {
+      
+
+
+        Debug.Log($"DAY {dayCounter}");
+
+    }
+
+    public void StallCheck()
+    {
+
+        for (int x = 1; x < gridX; x++)
+        {
+            for (int y = 1; y < gridY; y++)
+            {
+                Vector3Int nowTilePos = new Vector3Int(x, y, 0);
+                TileBase nowTile = tilemap.GetTile(nowTilePos);
+
+                if (nowTile is StallTile)
+                {
+                    if (stallData[nowTilePos] == dayCounter)
+                    {
+
+                        recruitCounter++;
+
+
+                        Debug.Log($"RECRUIT: {recruitCounter}");
+
+                        //Removesdata from dictionary
+                        stallData.Remove(nowTilePos);
+
+                        //change stall Tile to Facotry
+                        tilemap.SetTile(nowTilePos, factoryTile);
+
+                        Debug.Log($"Has Unstalled");
+                    }
+                }
+            }
+        }
 
 
 
 
-
-
+    }
 
 }
