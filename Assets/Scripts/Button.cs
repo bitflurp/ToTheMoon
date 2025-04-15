@@ -10,8 +10,8 @@ public class Button : MonoBehaviour
 
     private Tilemap tilemap;
     private TilemapControls tileData;
-    private int gridX = 10;
-    private int gridY = 10;
+    private int gridX = 12;
+    private int gridY = 12;
 
     public FactoryTile factoryTile;
     public LandTile landTile;
