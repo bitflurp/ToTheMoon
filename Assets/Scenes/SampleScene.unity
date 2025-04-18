@@ -265,7 +265,6 @@ GameObject:
   - component: {fileID: 154400138}
   - component: {fileID: 154400140}
   - component: {fileID: 154400141}
-  - component: {fileID: 154400142}
   - component: {fileID: 154400143}
   m_Layer: 0
   m_Name: Tilemap
@@ -1494,18 +1493,6 @@ MonoBehaviour:
   productionCounter: 0
   gatherCounter: 0
   recruitCounter: 0
---- !u!114 &154400142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154400136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d79803f82a445544ca33e6e641661544, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &154400143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1989,7 +1976,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.97
+  orthographic size: 7.32
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
