@@ -8,6 +8,10 @@ using UnityEngine.Rendering.Universal;
 
 public class TilemapControls : MonoBehaviour
 {
+    //turn Data
+    private int dayCounter = 1;
+    private int nextQuota = 8;
+
     //Grid Data
     private int gridX = 12;
     private int gridY = 12;
@@ -15,6 +19,7 @@ public class TilemapControls : MonoBehaviour
     //for Tiles
     public FactoryTile factoryTile;
     public LandTile landTile;
+    public StallTile stallTile;
 
     //For Game Obj
     public GameObject buttonCreate;
@@ -38,9 +43,7 @@ public class TilemapControls : MonoBehaviour
 
     //for recource ui
     public TMP_Text recText;
-
     public TMP_Text workForceText;
-
     public TMP_Text moneyText;
     public TMP_Text stateText;
     public TMP_Text dayText;
@@ -58,13 +61,17 @@ public class TilemapControls : MonoBehaviour
     List<Vector3Int> isRecruiting = new List<Vector3Int>();
 
 
+    //Dictionaries
+
+    Dictionary<Vector3Int, int> stallData = new();
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         tilemap = GetComponent<Tilemap>();
 
-      
+        dayText.text = $"{$"DAY {dayCounter}"}";
 
 
     }
@@ -245,13 +252,23 @@ public class TilemapControls : MonoBehaviour
 
     public void Recruit()
     {
+
+        int whenStallEnds = dayCounter + 2;
+
+
         if (isRecruiting.Contains(clickedCell) == false && isProducing.Contains(clickedCell) == false)
         {
 
-
-            recruitCounter++;
             isRecruiting.Add(clickedCell);
-            stateText.text = $"{$"there is {recruitCounter} Recruiting"}";
+
+            // add location of current cell + when the stall will end for that specific cell
+            stallData.Add(clickedCell, whenStallEnds);
+
+
+            //Set tile to stall tile
+            tilemap.SetTile(clickedCell, stallTile);
+
+            Debug.Log(isRecruiting.Count);
         }
         else if (isProducing.Contains(clickedCell) == true)
         {
@@ -325,22 +342,177 @@ public class TilemapControls : MonoBehaviour
 
 
 
-    public void OnEndDay()
+
+    //On End Turn Procedure
+
+    public void EndTurn()
     {
 
+
+
+
+        //Clear Lists
+        //Don't Need to clear Recruit list Due to stallchecks as it clears it there
         isProducing.Clear();
         isGathering.Clear();
-        isRecruiting.Clear();
+        
+
+
+        //Increment Turn
+        dayCounter++;
+
+
+
+        StallCheck();
+
+
+
+
+
+        //GetProfit
+        ProductionProfit();
+        GatherProfit();
+        RecruitProfit();
+
+        if (dayCounter == nextQuota)
+        {
+            QuotaReach();
+            //changes deadline to next week (have to add it into a fail/win state 
+            nextQuota += 7;
+
+
+        }
+
+
+
+
+        StartTurn();
+    }
+
+    public void ProductionProfit()
+    {
+        
+        // Multiply Factories producing by product per factory producing (2)
+        int addMoney = productionCounter * 2;
+
+        //add profit Recourse to player Recourse 
+        money = money + addMoney;
+
+        // Reset Factory Production 
+        productionCounter = 0;
+
+    }
+
+    public void GatherProfit()
+    {
+
+        
+
+        // Multiply Factories producing by product per factory producing (2)
+        int addRec = gatherCounter * 2;
+
+        //add profit Recourse to player Recourse 
+        rec = rec + addRec;
+
+        // Reset Factory Production 
+        gatherCounter = 0;
+
+
+    }
+
+    public void RecruitProfit()
+    {
+
+
+        // Multiply Factories producing by product per factory producing (2)
+        int addWorkForce = recruitCounter * 1;
+
+        //add profit Recourse to player Recourse 
+        workForce = workForce + addWorkForce;
+
+        // Reset Factory Production 
+        recruitCounter = 0;
+
+
 
     }
 
 
 
+    public void QuotaReach()
+    {
+
+        if (money >= 30)
+        {
+
+            stateText.text = $"{$"QUOTA REACHED"}";
+
+        }
+        else
+        {
+
+            stateText.text = $"{$"QUOTA FAILED"}";
+
+        }
+
+    }
+
+    public void StartTurn()
+    {
+
+
+
+        dayText.text = $"{$"DAY {dayCounter}"}";
+
+    }
+
+    
+    
+    //Checks for StallTiles, on stall tile gets its Data, 
+    //Checks dictionary for when the stall ends, 
+    //check if today is when stall ends and if it is :
+    //turns it back into a factory tile, adds to recruit counter, and removes that tiles entry form their dictionary and list
+    public void StallCheck()
+    {
+
+        for (int x = 1; x < gridX; x++)
+        {
+            for (int y = 1; y < gridY; y++)
+            {
+                Vector3Int nowTilePos = new Vector3Int(x, y, 0);
+                TileBase nowTile = tilemap.GetTile(nowTilePos);
+
+                if (nowTile is StallTile)
+                {
+                    if (stallData[nowTilePos] == dayCounter)
+                    {
+
+                        recruitCounter++;
+
+
+                        Debug.Log($"RECRUIT: {recruitCounter}");
+
+                        isRecruiting.Remove(nowTilePos);
+
+                        //Removesdata from dictionary
+                        stallData.Remove(nowTilePos);
+
+                        //change stall Tile to Facotry
+                        tilemap.SetTile(nowTilePos, factoryTile);
+
+                        Debug.Log($"Has Unstalled");
+                    }
+                }
+            }
+        }
 
 
 
 
-
-
+    }
 
 }
+
+
+
+
