@@ -361,11 +361,19 @@ public class TilemapControls : MonoBehaviour
 
     public void WFAProduction()
     {
+        if (workForce >= workForceAllocation)
+        {
+            isProducing.Add(clickedCell);
+            workForceProduction.Add(clickedCell, workForceAllocation);
+            workForce -= workForceAllocation;
+            workForceAllocation = 0;
+        }
+        else
+        {
 
-        isProducing.Add(clickedCell);
-        workForceProduction.Add(clickedCell, workForceAllocation);
+            stateText.text = $"{$"You don't have enough workers"}";
 
-        workForceAllocation = 0;
+        }
 
         buttonStartProcedure.SetActive(false);
     }
@@ -461,6 +469,9 @@ public class TilemapControls : MonoBehaviour
 
         // Reset Factory Production 
         productionCounter = 0;
+
+        //workforce Resets
+        workForce += tempWFA;
 
     }
 
