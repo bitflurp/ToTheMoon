@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
+using System.Linq;
 
 
 public class TilemapControls : MonoBehaviour
@@ -21,11 +22,14 @@ public class TilemapControls : MonoBehaviour
     public LandTile landTile;
     public StallTile stallTile;
 
-    //For Game Obj
+    //For Buttons
     public GameObject buttonCreate;
     public GameObject buttonProduce;
     public GameObject buttonGather;
     public GameObject buttonExpodition;
+
+    public GameObject buttonIncrement;
+    public GameObject buttonStartProcedure;
 
     //TileData Vars
     public Vector3Int clickedCell;
@@ -48,10 +52,15 @@ public class TilemapControls : MonoBehaviour
     public TMP_Text stateText;
     public TMP_Text dayText;
 
+    public TMP_Text workForceNoText;
+
     //Vars for Procedures
     public int productionCounter = 0;
     public int gatherCounter = 0;
     public int recruitCounter = 0;
+
+    //Vars for WFA
+    private int workForceAllocation = 0;
 
 
     //Lists
@@ -64,6 +73,8 @@ public class TilemapControls : MonoBehaviour
     //Dictionaries
 
     Dictionary<Vector3Int, int> stallData = new();
+    Dictionary<Vector3Int, int> workForceProduction = new();
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -115,11 +126,12 @@ public class TilemapControls : MonoBehaviour
          
 
             //If Produce Button Exists when clicking on a land time, if turns it off
-            if (buttonProduce || buttonExpodition || buttonGather  != null)
+            if (buttonProduce || buttonExpodition || buttonGather || buttonStartProcedure  != null)
             {
                 buttonProduce.SetActive(false);
                 buttonExpodition.SetActive(false);
                 buttonGather.SetActive(false);
+                buttonStartProcedure.SetActive(false);
             }
 
         }
@@ -140,7 +152,7 @@ public class TilemapControls : MonoBehaviour
             }
             else if (isProducing.Contains(clickedCell) == true) {
 
-                stateText.text = $"{$"there is {productionCounter} Producing"}";
+                stateText.text = $"{$"there is {workForceProduction[clickedCell]} Producing"}";
             }
 
             if(buttonGather || buttonExpodition != null)
@@ -229,10 +241,13 @@ public class TilemapControls : MonoBehaviour
         if (isProducing.Contains(clickedCell) == false && isRecruiting.Contains(clickedCell) == false)
         {
 
-            productionCounter++;
-            isProducing.Add(clickedCell);
-            stateText.text = $"{$"there is {productionCounter} Producing"}";
-        
+            //productionCounter++;
+            //isProducing.Add(clickedCell);
+            //stateText.text = $"{$"there is {productionCounter} Producing"}";
+
+            buttonStartProcedure.SetActive(true);
+            workForceNoText.text = $"{workForceAllocation}";
+
         }
         else if (isRecruiting.Contains(clickedCell) == true)
         {
@@ -341,6 +356,38 @@ public class TilemapControls : MonoBehaviour
     }
 
 
+    //WFA Procedures
+
+
+    public void WFAProduction()
+    {
+
+        isProducing.Add(clickedCell);
+        workForceProduction.Add(clickedCell, workForceAllocation);
+
+        workForceAllocation = 0;
+
+        buttonStartProcedure.SetActive(false);
+    }
+
+    public void WFAChoice()
+    {
+
+        if (workForceAllocation < 5)
+        {
+            workForceAllocation++;
+            workForceNoText.text = $"{workForceAllocation}";
+        }
+        else
+        {
+
+            stateText.text = $"{$"Maximum WorkForce limit Reached"}";
+
+        }
+
+
+
+    }
 
 
     //On End Turn Procedure
@@ -391,9 +438,23 @@ public class TilemapControls : MonoBehaviour
 
     public void ProductionProfit()
     {
-        
+        int tempWFA = 0;
+
+        for(int i = workForceProduction.Count - 1; i >=0; i-- )
+        {
+            var item = workForceProduction.ElementAt(i);
+            var itemKey = item.Key;
+            var itemValue = item.Value;
+
+            tempWFA += itemValue;
+            workForceProduction.Remove(itemKey);
+
+        }
+
+
+
         // Multiply Factories producing by product per factory producing (2)
-        int addMoney = productionCounter * 2;
+        int addMoney = tempWFA * 2;
 
         //add profit Recourse to player Recourse 
         money = money + addMoney;
