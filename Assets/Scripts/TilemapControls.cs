@@ -5,7 +5,8 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
 using System.Linq;
-
+using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
 public class TilemapControls : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class TilemapControls : MonoBehaviour
     public GameObject buttonExpodition;
 
     public GameObject buttonIncrement;
+    public GameObject buttonReduce;
     public GameObject buttonStartProcedure;
 
     //TileData Vars
@@ -60,7 +62,7 @@ public class TilemapControls : MonoBehaviour
     public int recruitCounter = 0;
 
     //Vars for WFA
-    private int workForceAllocation = 0;
+    private int workForceAllocation = 1;
 
 
     //Lists
@@ -155,10 +157,11 @@ public class TilemapControls : MonoBehaviour
                 stateText.text = $"{$"there is {workForceProduction[clickedCell]} Producing"}";
             }
 
-            if(buttonGather || buttonExpodition != null)
+            if(buttonGather || buttonExpodition || buttonStartProcedure != null)
             {
                 buttonGather.SetActive(false);
                 buttonExpodition.SetActive(false);
+                buttonStartProcedure.SetActive(false);
             }
 
 
@@ -170,11 +173,12 @@ public class TilemapControls : MonoBehaviour
 
             stateText.text = $"{$"there is" + gatherCounter + " Gathering"}";
             //
-            if(buttonCreate || buttonProduce || buttonExpodition != null)
+            if(buttonCreate || buttonProduce || buttonExpodition || buttonStartProcedure != null)
             {
                 buttonCreate.SetActive(false);
                 buttonProduce.SetActive(false);
                 buttonExpodition.SetActive(false);
+                buttonStartProcedure.SetActive(false);
             }
         }
         if (tile is RuleTile)
@@ -182,11 +186,12 @@ public class TilemapControls : MonoBehaviour
             buttonExpodition.SetActive(true);
             stateText.text = $"{$"locked"}";
 
-              if(buttonCreate || buttonGather || buttonProduce != null) 
+              if(buttonCreate || buttonGather || buttonProduce || buttonStartProcedure != null) 
                     {
                         buttonCreate.SetActive(false);
                         buttonGather.SetActive(false);
                         buttonProduce.SetActive(false);
+                        buttonStartProcedure.SetActive(false);
                     }
         }
       
@@ -366,7 +371,7 @@ public class TilemapControls : MonoBehaviour
             isProducing.Add(clickedCell);
             workForceProduction.Add(clickedCell, workForceAllocation);
             workForce -= workForceAllocation;
-            workForceAllocation = 0;
+
         }
         else
         {
@@ -375,21 +380,52 @@ public class TilemapControls : MonoBehaviour
 
         }
 
+        workForceAllocation = 0;
         buttonStartProcedure.SetActive(false);
     }
 
     public void WFAChoice()
     {
 
-        if (workForceAllocation < 5)
-        {
-            workForceAllocation++;
-            workForceNoText.text = $"{workForceAllocation}";
-        }
-        else
+
+        // Gets Current Button Pressed and puts it into curButton Temp Var
+        GameObject curButton = EventSystem.current.currentSelectedGameObject;
+
+
+        switch (true)
         {
 
-            stateText.text = $"{$"Maximum WorkForce limit Reached"}";
+            //If button is Increment: Increments WFA + Checks for MAX
+            case true when curButton == buttonIncrement:
+                if (workForceAllocation < 5)
+                {
+                    workForceAllocation++;
+                    workForceNoText.text = $"{workForceAllocation}";
+                }
+                else
+                {
+
+                    stateText.text = $"{$"Maximum WorkForce limit Reached"}";
+
+                }
+                break;
+
+            //if Button is Reduce: Reduces WFA + Checks for MIN
+            case true when curButton == buttonReduce:
+                if (workForceAllocation > 1)
+                {
+                    workForceAllocation--;
+                    workForceNoText.text = $"{workForceAllocation}";
+                }
+                else
+                {
+
+                    stateText.text = $"{$"Cannot Have 0 WorkForce Allocated"}";
+
+                }
+
+
+                break;
 
         }
 
