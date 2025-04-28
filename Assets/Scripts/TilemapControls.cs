@@ -26,8 +26,12 @@ public class TilemapControls : MonoBehaviour
     //For Buttons
     public GameObject buttonCreate;
     public GameObject buttonProduce;
+    public GameObject buttonRecruit;
     public GameObject buttonGather;
     public GameObject buttonExpodition;
+
+
+
 
     public GameObject buttonIncrement;
     public GameObject buttonReduce;
@@ -55,6 +59,7 @@ public class TilemapControls : MonoBehaviour
     public TMP_Text dayText;
 
     public TMP_Text workForceNoText;
+    public TMP_Text workForceCostText;
 
     //Vars for Procedures
     public int productionCounter = 0;
@@ -75,9 +80,15 @@ public class TilemapControls : MonoBehaviour
     //Dictionaries
 
     Dictionary<Vector3Int, int> stallData = new();
+
+
     Dictionary<Vector3Int, int> workForceProduction = new();
+    Dictionary<Vector3Int, int> workForceRecruit = new();
+    Dictionary<Vector3Int, int> workForceGather = new();
 
 
+    //test vars
+    private GameObject curProcedure;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -152,12 +163,13 @@ public class TilemapControls : MonoBehaviour
                 stateText.text = $"{$"there is {recruitCounter} Recruiting"}";
 
             }
-            else if (isProducing.Contains(clickedCell) == true) {
+            else if (isProducing.Contains(clickedCell) == true)
+            {
 
                 stateText.text = $"{$"there is {workForceProduction[clickedCell]} Producing"}";
             }
 
-            if(buttonGather || buttonExpodition || buttonStartProcedure != null)
+            if (buttonGather || buttonExpodition || buttonStartProcedure != null)
             {
                 buttonGather.SetActive(false);
                 buttonExpodition.SetActive(false);
@@ -166,13 +178,20 @@ public class TilemapControls : MonoBehaviour
 
 
         }
+
         if (tile is ResTile)
         {
             //Makes Button visible and sends it to the cell position
             buttonGather.SetActive(true);
 
-            stateText.text = $"{$"there is" + gatherCounter + " Gathering"}";
-            //
+
+            if (isGathering.Contains(clickedCell) == true)
+            {
+                stateText.text = $"{$"there is {workForceGather[clickedCell]} Gathering"}";
+
+            }
+            
+            
             if(buttonCreate || buttonProduce || buttonExpodition || buttonStartProcedure != null)
             {
                 buttonCreate.SetActive(false);
@@ -223,8 +242,7 @@ public class TilemapControls : MonoBehaviour
 
             tilemap.SetTile(clickedCell, factoryTile);
 
-            //closes popup after creating factory
-            buttonCreate.SetActive(false);
+          
 
             rec -=  5;
 
@@ -233,11 +251,13 @@ public class TilemapControls : MonoBehaviour
         {
             stateText.text = $"{$"NO DOUGH"}";
 
-            //closes popup after no dough
-            buttonCreate.SetActive(false);
+           
         }
 
 
+
+        //closes popup 
+        buttonCreate.SetActive(false);
     }
 
 
@@ -250,9 +270,13 @@ public class TilemapControls : MonoBehaviour
             //isProducing.Add(clickedCell);
             //stateText.text = $"{$"there is {productionCounter} Producing"}";
 
+          
+            curProcedure  = EventSystem.current.currentSelectedGameObject;
+
+
             buttonStartProcedure.SetActive(true);
             workForceNoText.text = $"{workForceAllocation}";
-
+            
         }
         else if (isRecruiting.Contains(clickedCell) == true)
         {
@@ -273,22 +297,31 @@ public class TilemapControls : MonoBehaviour
     public void Recruit()
     {
 
-        int whenStallEnds = dayCounter + 2;
+        //int whenStallEnds = dayCounter + 2;
 
 
         if (isRecruiting.Contains(clickedCell) == false && isProducing.Contains(clickedCell) == false)
         {
 
-            isRecruiting.Add(clickedCell);
+            //isRecruiting.Add(clickedCell);
 
             // add location of current cell + when the stall will end for that specific cell
-            stallData.Add(clickedCell, whenStallEnds);
+            //stallData.Add(clickedCell, whenStallEnds);
 
 
             //Set tile to stall tile
-            tilemap.SetTile(clickedCell, stallTile);
+            //tilemap.SetTile(clickedCell, stallTile);
 
-            Debug.Log(isRecruiting.Count);
+            //Debug.Log(isRecruiting.Count);
+
+
+
+            curProcedure = EventSystem.current.currentSelectedGameObject;
+
+
+            buttonStartProcedure.SetActive(true);
+            workForceNoText.text = $"{workForceAllocation}";
+
         }
         else if (isProducing.Contains(clickedCell) == true)
         {
@@ -314,9 +347,15 @@ public class TilemapControls : MonoBehaviour
         if (isGathering.Contains(clickedCell) == false)
         {
 
-            gatherCounter++;
-            isGathering.Add(clickedCell);
-            stateText.text = $"{$"there is {gatherCounter} Gathering"}";
+            //gatherCounter++;
+            //isGathering.Add(clickedCell);
+
+            curProcedure = EventSystem.current.currentSelectedGameObject;
+
+
+            buttonStartProcedure.SetActive(true);
+            workForceNoText.text = $"{workForceAllocation}";
+  
             
         }
         else
@@ -326,7 +365,7 @@ public class TilemapControls : MonoBehaviour
         }
 
 
-
+        buttonGather.SetActive(false);
 
     }
 
@@ -366,19 +405,93 @@ public class TilemapControls : MonoBehaviour
 
     public void WFAProduction()
     {
-        if (workForce >= workForceAllocation)
-        {
-            isProducing.Add(clickedCell);
-            workForceProduction.Add(clickedCell, workForceAllocation);
-            workForce -= workForceAllocation;
 
-        }
-        else
+        int whenStallEnds = dayCounter + 2;
+
+
+
+        switch (true)
         {
 
-            stateText.text = $"{$"You don't have enough workers"}";
+            // WFA on Production
+            case true when curProcedure == buttonProduce:
+                
+                if (workForce >= workForceAllocation)
+                {
+                    isProducing.Add(clickedCell);
+                    workForceProduction.Add(clickedCell, workForceAllocation);
+                    workForce -= workForceAllocation;
+
+                }
+                else
+                {
+
+                    stateText.text = $"{$"You don't have enough workers"}";
+
+                }
+                break;
+
+
+            //WFA on Recruit
+            case true when curProcedure == buttonRecruit:
+
+                if (workForce >= workForceAllocation)
+                {
+
+
+                    isRecruiting.Add(clickedCell);
+
+                    // add location of current cell + when the stall will end for that specific cell
+                    stallData.Add(clickedCell, whenStallEnds);
+
+                    workForceRecruit.Add(clickedCell, workForceAllocation);
+                    workForce -= workForceAllocation;
+
+                    //Set tile to stall tile
+                    tilemap.SetTile(clickedCell, stallTile);
+
+                    Debug.Log($"there is {workForceRecruit[clickedCell]} Recruiting");
+                }
+                else
+                {
+
+                    stateText.text = $"{$"You don't have enough workers"}";
+
+                }
+
+
+
+
+                break;
+
+            //WFA on Gather
+            case true when curProcedure == buttonGather:
+
+                if (workForce >= workForceAllocation)
+                {
+
+
+                    isGathering.Add(clickedCell);
+                    workForceGather.Add(clickedCell, workForceAllocation);
+                    workForce -= workForceAllocation;
+
+                    Debug.Log($"there is {workForceGather[clickedCell]} Gathering");
+                }
+                else
+                {
+
+                    stateText.text = $"{$"You don't have enough workers"}";
+
+                }
+
+
+                break;
+
+
+
 
         }
+        
 
         workForceAllocation = 0;
         buttonStartProcedure.SetActive(false);
@@ -429,9 +542,12 @@ public class TilemapControls : MonoBehaviour
 
         }
 
-
+        
 
     }
+
+
+   
 
 
     //On End Turn Procedure
@@ -463,7 +579,7 @@ public class TilemapControls : MonoBehaviour
         //GetProfit
         ProductionProfit();
         GatherProfit();
-        RecruitProfit();
+        //RecruitProfit();
 
         if (dayCounter == nextQuota)
         {
@@ -482,7 +598,7 @@ public class TilemapControls : MonoBehaviour
 
     public void ProductionProfit()
     {
-        int tempWFA = 0;
+        
 
         for(int i = workForceProduction.Count - 1; i >=0; i-- )
         {
@@ -490,7 +606,7 @@ public class TilemapControls : MonoBehaviour
             var itemKey = item.Key;
             var itemValue = item.Value;
 
-            tempWFA += itemValue;
+            productionCounter += itemValue;
             workForceProduction.Remove(itemKey);
 
         }
@@ -498,29 +614,41 @@ public class TilemapControls : MonoBehaviour
 
 
         // Multiply Factories producing by product per factory producing (2)
-        int addMoney = tempWFA * 2;
+        int addMoney = productionCounter * 2;
 
         //add profit Recourse to player Recourse 
         money = money + addMoney;
 
+        //workforce Resets
+        workForce += productionCounter;
+
         // Reset Factory Production 
         productionCounter = 0;
-
-        //workforce Resets
-        workForce += tempWFA;
-
     }
 
     public void GatherProfit()
     {
+        for (int i = workForceGather.Count - 1; i >= 0; i--)
+        {
+            var item = workForceGather.ElementAt(i);
+            var itemKey = item.Key;
+            var itemValue = item.Value;
 
-        
+            gatherCounter += itemValue;
+            workForceGather.Remove(itemKey);
+
+        }
+
+
+
 
         // Multiply Factories producing by product per factory producing (2)
         int addRec = gatherCounter * 2;
 
         //add profit Recourse to player Recourse 
         rec = rec + addRec;
+
+        workForce += gatherCounter;
 
         // Reset Factory Production 
         gatherCounter = 0;
@@ -532,14 +660,20 @@ public class TilemapControls : MonoBehaviour
     {
 
 
-        // Multiply Factories producing by product per factory producing (2)
-        int addWorkForce = recruitCounter * 1;
+        //THIS METHOD IS NOT NEEDED AS PROFIT IS CALCULATED ON STALLCHECK NOW
+        //CODE IS LEFT HERE JUST IN CASE
+      
 
-        //add profit Recourse to player Recourse 
-        workForce = workForce + addWorkForce;
+        // Multiply Factories producing by product per factory producing (2)
+        //int addWorkForce = recruitCounter * 1;
 
         // Reset Factory Production 
-        recruitCounter = 0;
+        //recruitCounter = 0;
+
+        //add profit Recourse to player Recourse 
+        //workForce = workForce + addWorkForce;
+
+    
 
 
 
@@ -595,15 +729,35 @@ public class TilemapControls : MonoBehaviour
                     if (stallData[nowTilePos] == dayCounter)
                     {
 
-                        recruitCounter++;
+                        recruitCounter += workForceRecruit[nowTilePos];
 
 
+
+                        
+                        
+                        // Multiply Factories producing by product per factory producing (2)
+                        int addWorkForce = recruitCounter * 1;
+
+                        //add profit Recourse to player Recourse 
+                        workForce += addWorkForce;
+
+                        //Resets workforce
+                        workForce += recruitCounter;
+
+                        // Reset Factory Production 
+                        recruitCounter = 0;
+                        
+                        
+                        
                         Debug.Log($"RECRUIT: {recruitCounter}");
 
                         isRecruiting.Remove(nowTilePos);
 
                         //Removesdata from dictionary
                         stallData.Remove(nowTilePos);
+
+                        //removes workforce data from dictionary
+                        workForceRecruit.Remove(nowTilePos);
 
                         //change stall Tile to Facotry
                         tilemap.SetTile(nowTilePos, factoryTile);
