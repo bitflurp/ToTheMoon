@@ -7,6 +7,7 @@ using UnityEngine.Rendering.Universal;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
+using System.Data.SqlTypes;
 
 public class TilemapControls : MonoBehaviour
 {
@@ -43,8 +44,6 @@ public class TilemapControls : MonoBehaviour
 
     //Classes
     private Tilemap tilemap;
-    private TurnSystem turnSystem;
-
 
     //Recourses Vars
     public int rec = 10;
@@ -89,6 +88,7 @@ public class TilemapControls : MonoBehaviour
 
     //test vars
     private GameObject curProcedure;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -107,6 +107,11 @@ public class TilemapControls : MonoBehaviour
         workForceText.text = $"WF: {workForce}";
 
         moneyText.text = $"PROFIT: {money}";
+
+
+
+        workForceCostText.text = $"Produce: {workForceAllocation}$ :{workForceAllocation} Rec \nRecruit: {workForceAllocation*2}$ : TURN STALL \nGather: {workForceAllocation*2}$";
+
     }
 
     void OnMouseDown()
@@ -190,9 +195,9 @@ public class TilemapControls : MonoBehaviour
                 stateText.text = $"{$"there is {workForceGather[clickedCell]} Gathering"}";
 
             }
-            
-            
-            if(buttonCreate || buttonProduce || buttonExpodition || buttonStartProcedure != null)
+
+
+            if (buttonCreate || buttonProduce || buttonExpodition || buttonStartProcedure != null)
             {
                 buttonCreate.SetActive(false);
                 buttonProduce.SetActive(false);
@@ -200,6 +205,7 @@ public class TilemapControls : MonoBehaviour
                 buttonStartProcedure.SetActive(false);
             }
         }
+
         if (tile is RuleTile)
         {
             buttonExpodition.SetActive(true);
@@ -233,28 +239,16 @@ public class TilemapControls : MonoBehaviour
     public void CreateFactory()
     {
 
-        //Debug.Log($"I am" + currentCell + currentTile);
-
         if (rec >= 5)
-
-
         {   //On click Sets current tile to Factory tile
-
             tilemap.SetTile(clickedCell, factoryTile);
-
-          
-
             rec -=  5;
 
         }
         else
         {
             stateText.text = $"{$"NO DOUGH"}";
-
-           
         }
-
-
 
         //closes popup 
         buttonCreate.SetActive(false);
@@ -265,11 +259,6 @@ public class TilemapControls : MonoBehaviour
     {
         if (isProducing.Contains(clickedCell) == false && isRecruiting.Contains(clickedCell) == false)
         {
-
-            //productionCounter++;
-            //isProducing.Add(clickedCell);
-            //stateText.text = $"{$"there is {productionCounter} Producing"}";
-
           
             curProcedure  = EventSystem.current.currentSelectedGameObject;
 
@@ -297,24 +286,9 @@ public class TilemapControls : MonoBehaviour
     public void Recruit()
     {
 
-        //int whenStallEnds = dayCounter + 2;
-
 
         if (isRecruiting.Contains(clickedCell) == false && isProducing.Contains(clickedCell) == false)
         {
-
-            //isRecruiting.Add(clickedCell);
-
-            // add location of current cell + when the stall will end for that specific cell
-            //stallData.Add(clickedCell, whenStallEnds);
-
-
-            //Set tile to stall tile
-            //tilemap.SetTile(clickedCell, stallTile);
-
-            //Debug.Log(isRecruiting.Count);
-
-
 
             curProcedure = EventSystem.current.currentSelectedGameObject;
 
@@ -347,9 +321,6 @@ public class TilemapControls : MonoBehaviour
         if (isGathering.Contains(clickedCell) == false)
         {
 
-            //gatherCounter++;
-            //isGathering.Add(clickedCell);
-
             curProcedure = EventSystem.current.currentSelectedGameObject;
 
 
@@ -371,33 +342,47 @@ public class TilemapControls : MonoBehaviour
 
     public void Expodition()
     {
+
+        TileBase stateTile = tile;
+
+        ExpoditionCheck(stateTile);
+
+        buttonExpodition.SetActive(false);
+
+    }
+
+    public void ExpoditionCheck(TileBase stateTile) {
+
         //checks if player has enough resources for expodition
         if (money >= 10)
         {
             money -= 10;
-           
+
             // checks on the grid for rule tiles and sets them to land tiles
             for (int x = 2; x < gridX; x++)
             {
                 for (int y = 1; y < gridY; y++)
                 {
                     Vector3Int nowTilePos = new Vector3Int(x, y, 0);
-                    TileBase nowTile = tilemap.GetTile(nowTilePos);
+                    TileBase nowTile = tilemap.GetTile(nowTilePos); 
 
-                    if (nowTile is RuleTile)
+                    if (nowTile == stateTile)
                     {
                         //change state locked tile to land
                         tilemap.SetTile(nowTilePos, landTile);
 
                         stateText.text = $"{$"A new state has been discovered"}";
-                        
+
                     }
                 }
 
             }
         }
 
+
     }
+
+
 
 
     //WFA Procedures
@@ -416,17 +401,21 @@ public class TilemapControls : MonoBehaviour
             // WFA on Production
             case true when curProcedure == buttonProduce:
                 
-                if (workForce >= workForceAllocation)
+                if (workForce >= workForceAllocation && rec >= workForceAllocation)
                 {
                     isProducing.Add(clickedCell);
                     workForceProduction.Add(clickedCell, workForceAllocation);
-                    workForce -= workForceAllocation;
 
+                    //costs
+                    workForce -= workForceAllocation;
+                    money -= workForceAllocation;
+                    rec -= workForceAllocation;
+                    DebtCheck();
                 }
                 else
                 {
 
-                    stateText.text = $"{$"You don't have enough workers"}";
+                    stateText.text = $"{$"You don't have enough recources"}";
 
                 }
                 break;
@@ -438,14 +427,18 @@ public class TilemapControls : MonoBehaviour
                 if (workForce >= workForceAllocation)
                 {
 
-
                     isRecruiting.Add(clickedCell);
 
                     // add location of current cell + when the stall will end for that specific cell
                     stallData.Add(clickedCell, whenStallEnds);
 
                     workForceRecruit.Add(clickedCell, workForceAllocation);
+
+                    //costs
                     workForce -= workForceAllocation;
+                    money -= workForceAllocation * 2;
+                    DebtCheck();
+
 
                     //Set tile to stall tile
                     tilemap.SetTile(clickedCell, stallTile);
@@ -455,11 +448,9 @@ public class TilemapControls : MonoBehaviour
                 else
                 {
 
-                    stateText.text = $"{$"You don't have enough workers"}";
+                    stateText.text = $"{$"You don't have enough recources"}";
 
                 }
-
-
 
 
                 break;
@@ -473,14 +464,18 @@ public class TilemapControls : MonoBehaviour
 
                     isGathering.Add(clickedCell);
                     workForceGather.Add(clickedCell, workForceAllocation);
+
+                    //Costs
                     workForce -= workForceAllocation;
+                    money -= workForceAllocation * 2;
+                    DebtCheck();
 
                     Debug.Log($"there is {workForceGather[clickedCell]} Gathering");
                 }
                 else
                 {
 
-                    stateText.text = $"{$"You don't have enough workers"}";
+                    stateText.text = $"{$"You don't have enough recources"}";
 
                 }
 
@@ -492,8 +487,8 @@ public class TilemapControls : MonoBehaviour
 
         }
         
-
-        workForceAllocation = 0;
+        // set WFA to 1 so on next procedure it starts on 1 WF chosen
+        workForceAllocation = 1;
         buttonStartProcedure.SetActive(false);
     }
 
@@ -573,21 +568,17 @@ public class TilemapControls : MonoBehaviour
         StallCheck();
 
 
-
-
-
         //GetProfit
         ProductionProfit();
         GatherProfit();
-        //RecruitProfit();
+       
 
         if (dayCounter == nextQuota)
         {
+
             QuotaReach();
             //changes deadline to next week (have to add it into a fail/win state 
             nextQuota += 7;
-
-
         }
 
 
@@ -598,7 +589,7 @@ public class TilemapControls : MonoBehaviour
 
     public void ProductionProfit()
     {
-        
+        int addMoney = 0;
 
         for(int i = workForceProduction.Count - 1; i >=0; i-- )
         {
@@ -611,10 +602,19 @@ public class TilemapControls : MonoBehaviour
 
         }
 
+        ///For Randomized Profits (Commented cause its hard to playtest with it)
+        for (int i = productionCounter; i > 0; i--)
+        {
+            int randomProfit = Random.Range(1, 4);
+
+            addMoney += randomProfit;
+            Debug.Log($"{randomProfit} was added: now is {addMoney}");
+        }
+
 
 
         // Multiply Factories producing by product per factory producing (2)
-        int addMoney = productionCounter * 2;
+        // addMoney = productionCounter * 2;
 
         //add profit Recourse to player Recourse 
         money = money + addMoney;
@@ -641,7 +641,6 @@ public class TilemapControls : MonoBehaviour
 
 
 
-
         // Multiply Factories producing by product per factory producing (2)
         int addRec = gatherCounter * 2;
 
@@ -652,29 +651,6 @@ public class TilemapControls : MonoBehaviour
 
         // Reset Factory Production 
         gatherCounter = 0;
-
-
-    }
-
-    public void RecruitProfit()
-    {
-
-
-        //THIS METHOD IS NOT NEEDED AS PROFIT IS CALCULATED ON STALLCHECK NOW
-        //CODE IS LEFT HERE JUST IN CASE
-      
-
-        // Multiply Factories producing by product per factory producing (2)
-        //int addWorkForce = recruitCounter * 1;
-
-        // Reset Factory Production 
-        //recruitCounter = 0;
-
-        //add profit Recourse to player Recourse 
-        //workForce = workForce + addWorkForce;
-
-    
-
 
 
     }
@@ -773,6 +749,23 @@ public class TilemapControls : MonoBehaviour
 
     }
 
+
+
+
+
+
+
+public void DebtCheck() {
+
+        if (money < -100) {
+
+            gameObject.SetActive(false);
+        
+        }
+    
+    
+    
+    }
 }
 
 
