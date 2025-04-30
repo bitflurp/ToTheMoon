@@ -1,26 +1,47 @@
+using System.Collections;
 using UnityEngine;
 
 public class CameraTrans : MonoBehaviour
 {
     private bool shouldMove = false;
-    private Transform persPos = (6,18,40);
-  public void ChangeCamera()
-  {
-    Camera.main.orthographic = false;
-    Transition();
-    
-  //  Camera.main.transform.position = new Vector3(6,18,40);
-    // Camera.main.transform.rotation = Quaternion.Euler(16,0,0);
-  }
-  
+    private Vector3 perPos =new Vector3(6, 18, 40); 
+    public void ChangeCamera()
+    {
+        Camera.main.orthographic = false;
+        Transition();
+
+        //  Camera.main.transform.position = new Vector3(6,18,40);
+        // Camera.main.transform.rotation = Quaternion.Euler(16,0,0);
+
+    }
+
     IEnumerator Transition()
     {
-        while(!Camera.main.transform.position = (6,18,40))
+        Vector3 curCamPos = Camera.main.transform.position;
+        bool isThere = false;
+        
+        
+        
+        
+        
+        while (isThere == false)
         {
-             Camera.main.transform.position = Vector3.Lerp((6,5,-34),(6,18,40),Time.deltaTime);
-             yield return null;
-            
 
+
+            Camera.main.transform.position = Vector3.Lerp(curCamPos, perPos , Time.deltaTime);
+           
+           
+            
+            if (curCamPos == perPos)
+            {
+            isThere = true;
+
+            }
+
+            yield return null;
         }
     }
+
+
+
 }
