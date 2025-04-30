@@ -24,6 +24,10 @@ public class TilemapControls : MonoBehaviour
     public LandTile landTile;
     public StallTile stallTile;
 
+
+    //For LandTiles
+    public NewYorkLand nyLand;
+
     //For Buttons
     public GameObject buttonCreate;
     public GameObject buttonProduce;
@@ -77,8 +81,12 @@ public class TilemapControls : MonoBehaviour
 
 
     //Dictionaries
+    
+
+
 
     Dictionary<Vector3Int, int> stallData = new();
+    Dictionary<Vector3Int, int> recData = new();
 
 
     Dictionary<Vector3Int, int> workForceProduction = new();
@@ -88,12 +96,17 @@ public class TilemapControls : MonoBehaviour
 
     //test vars
     private GameObject curProcedure;
+    //delete afeter
+    
+    private Vector3 test =new Vector3(1,2,3);
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         tilemap = GetComponent<Tilemap>();
+
+        RecourceAdd();
 
         dayText.text = $"{$"DAY {dayCounter}"}";
 
@@ -190,6 +203,9 @@ public class TilemapControls : MonoBehaviour
             buttonGather.SetActive(true);
 
 
+            stateText.text= $"{recData[clickedCell]}/30 Recourses left";
+
+
             if (isGathering.Contains(clickedCell) == true)
             {
                 stateText.text = $"{$"there is {workForceGather[clickedCell]} Gathering"}";
@@ -244,7 +260,9 @@ public class TilemapControls : MonoBehaviour
             tilemap.SetTile(clickedCell, factoryTile);
             rec -=  5;
 
-        }
+           
+
+}
         else
         {
             stateText.text = $"{$"NO DOUGH"}";
@@ -368,8 +386,24 @@ public class TilemapControls : MonoBehaviour
 
                     if (nowTile == stateTile)
                     {
-                        //change state locked tile to land
-                        tilemap.SetTile(nowTilePos, landTile);
+                        switch (nowTile) {
+
+
+
+                            case NewYorkTile:
+
+                                    //change state locked tile to land
+                                tilemap.SetTile(nowTilePos, nyLand);
+
+                                break;
+
+
+                            case WyomingTile:
+                                //change state locked tile to land
+                                tilemap.SetTile(nowTilePos, factoryTile);
+                                break;
+               
+                        }
 
                         stateText.text = $"{$"A new state has been discovered"}";
 
@@ -635,11 +669,29 @@ public class TilemapControls : MonoBehaviour
             var itemValue = item.Value;
 
             gatherCounter += itemValue;
+            //Removes the gathered recourse from recourse tile
+            recData[itemKey] -= itemValue*2;
+
+
+            //Check if the recourse tile is depleted
+            if (recData[itemKey] <= 0)
+            {
+                //changes tile
+                tilemap.SetTile(itemKey, landTile);
+
+                //makes sure that player doesnt profit more recourse then there is availible
+                gatherCounter += recData[itemKey] / 2;
+
+                //Removes tile from dictionary
+                recData.Remove(itemKey);
+
+            }
+
             workForceGather.Remove(itemKey);
 
         }
 
-
+        
 
         // Multiply Factories producing by product per factory producing (2)
         int addRec = gatherCounter * 2;
@@ -750,7 +802,34 @@ public class TilemapControls : MonoBehaviour
     }
 
 
+    public void RecourceAdd() {
 
+        
+
+
+        for (int x = 1; x < gridX; x++)
+        {
+            for (int y = 1; y < gridY; y++)
+            {
+                Vector3Int nowTilePos = new Vector3Int(x, y, 0);
+                TileBase nowTile = tilemap.GetTile(nowTilePos);
+
+                if (nowTile is ResTile)
+                {
+                    if (!recData.ContainsKey(nowTilePos))
+                    {
+                        recData.Add(nowTilePos, 30);
+                        
+                    } 
+                }
+            }
+        }
+
+
+
+
+
+    }
 
 
 
