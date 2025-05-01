@@ -27,6 +27,7 @@ public class TilemapControls : MonoBehaviour
 
     //For LandTiles
     public NewYorkLand nyLand;
+    public WyomingLand wyoLand;
 
     //For Buttons
     public GameObject buttonCreate;
@@ -81,8 +82,9 @@ public class TilemapControls : MonoBehaviour
 
 
     //Dictionaries
-    
+    Dictionary<Vector3Int, TileBase> factoryStateData = new();
 
+    Dictionary<Vector3Int, TileBase> weatherData = new();
 
 
     Dictionary<Vector3Int, int> stallData = new();
@@ -96,15 +98,17 @@ public class TilemapControls : MonoBehaviour
 
     //test vars
     private GameObject curProcedure;
-    //delete afeter
+    private int dayToRemove;
+    private int statesUnlocked = 1;
+
     
-    private Vector3 test =new Vector3(1,2,3);
-    
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         tilemap = GetComponent<Tilemap>();
+       
 
         RecourceAdd();
 
@@ -123,7 +127,7 @@ public class TilemapControls : MonoBehaviour
 
 
 
-        workForceCostText.text = $"Produce: {workForceAllocation}$ :{workForceAllocation} Rec \nRecruit: {workForceAllocation*2}$ : TURN STALL \nGather: {workForceAllocation*2}$";
+        workForceCostText.text = $"Produce: {workForceAllocation}$ :{workForceAllocation} Rec \nRecruit: {workForceAllocation * 2}$ : TURN STALL \nGather: {workForceAllocation * 2}$";
 
     }
 
@@ -138,12 +142,12 @@ public class TilemapControls : MonoBehaviour
         clickedCell = tilemap.WorldToCell(worldPos);
         tile = tilemap.GetTile(clickedCell);
 
-     
+
 
 
         // Coordinets for tiles = clickCell
         // tile type is tile
-        stateText.text= $"{$"TILE INFO" + clickedCell + tile + rec}";
+        stateText.text = $"{$"TILE INFO" + clickedCell + tile + rec}";
 
         if (tile is LandTile)
         {
@@ -151,13 +155,13 @@ public class TilemapControls : MonoBehaviour
 
             //Makes Button visible and sends it to the cell position
             buttonCreate.SetActive(true);
-            
 
 
-         
+
+
 
             //If Produce Button Exists when clicking on a land time, if turns it off
-            if (buttonProduce || buttonExpodition || buttonGather || buttonStartProcedure  != null)
+            if (buttonProduce || buttonExpodition || buttonGather || buttonStartProcedure != null)
             {
                 buttonProduce.SetActive(false);
                 buttonExpodition.SetActive(false);
@@ -203,7 +207,7 @@ public class TilemapControls : MonoBehaviour
             buttonGather.SetActive(true);
 
 
-            stateText.text= $"{recData[clickedCell]}/30 Recourses left";
+            stateText.text = $"{recData[clickedCell]}/30 Recourses left";
 
 
             if (isGathering.Contains(clickedCell) == true)
@@ -227,15 +231,15 @@ public class TilemapControls : MonoBehaviour
             buttonExpodition.SetActive(true);
             stateText.text = $"{$"locked"}";
 
-              if(buttonCreate || buttonGather || buttonProduce || buttonStartProcedure != null) 
-                    {
-                        buttonCreate.SetActive(false);
-                        buttonGather.SetActive(false);
-                        buttonProduce.SetActive(false);
-                        buttonStartProcedure.SetActive(false);
-                    }
+            if (buttonCreate || buttonGather || buttonProduce || buttonStartProcedure != null)
+            {
+                buttonCreate.SetActive(false);
+                buttonGather.SetActive(false);
+                buttonProduce.SetActive(false);
+                buttonStartProcedure.SetActive(false);
+            }
         }
-      
+
 
 
 
@@ -256,13 +260,19 @@ public class TilemapControls : MonoBehaviour
     {
 
         if (rec >= 5)
-        {   //On click Sets current tile to Factory tile
-            tilemap.SetTile(clickedCell, factoryTile);
-            rec -=  5;
-
+        {
            
+            // Gets the state Tile the factory was placed on 
+            factoryStateData.Add(clickedCell, tile);
 
-}
+
+            //On click Sets current tile to Factory tile
+            tilemap.SetTile(clickedCell, factoryTile);
+            rec -= 5;
+
+
+
+        }
         else
         {
             stateText.text = $"{$"NO DOUGH"}";
@@ -277,22 +287,22 @@ public class TilemapControls : MonoBehaviour
     {
         if (isProducing.Contains(clickedCell) == false && isRecruiting.Contains(clickedCell) == false)
         {
-          
-            curProcedure  = EventSystem.current.currentSelectedGameObject;
+
+            curProcedure = EventSystem.current.currentSelectedGameObject;
 
 
             buttonStartProcedure.SetActive(true);
             workForceNoText.text = $"{workForceAllocation}";
-            
+
         }
         else if (isRecruiting.Contains(clickedCell) == true)
         {
             stateText.text = $"{$"This Factory is Recruiting "}";
-            
+
         }
         else
         {
-            stateText.text = $"{$"Already Producing"}" ;
+            stateText.text = $"{$"Already Producing"}";
 
         }
 
@@ -344,8 +354,8 @@ public class TilemapControls : MonoBehaviour
 
             buttonStartProcedure.SetActive(true);
             workForceNoText.text = $"{workForceAllocation}";
-  
-            
+
+
         }
         else
         {
@@ -369,12 +379,15 @@ public class TilemapControls : MonoBehaviour
 
     }
 
-    public void ExpoditionCheck(TileBase stateTile) {
+    public void ExpoditionCheck(TileBase stateTile)
+    {
 
         //checks if player has enough resources for expodition
         if (money >= 10)
         {
             money -= 10;
+
+            statesUnlocked++;
 
             // checks on the grid for rule tiles and sets them to land tiles
             for (int x = 2; x < gridX; x++)
@@ -382,17 +395,18 @@ public class TilemapControls : MonoBehaviour
                 for (int y = 1; y < gridY; y++)
                 {
                     Vector3Int nowTilePos = new Vector3Int(x, y, 0);
-                    TileBase nowTile = tilemap.GetTile(nowTilePos); 
+                    TileBase nowTile = tilemap.GetTile(nowTilePos);
 
                     if (nowTile == stateTile)
                     {
-                        switch (nowTile) {
+                        switch (nowTile)
+                        {
 
 
 
                             case NewYorkTile:
 
-                                    //change state locked tile to land
+                                //change state locked tile to land
                                 tilemap.SetTile(nowTilePos, nyLand);
 
                                 break;
@@ -400,9 +414,9 @@ public class TilemapControls : MonoBehaviour
 
                             case WyomingTile:
                                 //change state locked tile to land
-                                tilemap.SetTile(nowTilePos, factoryTile);
+                                tilemap.SetTile(nowTilePos, wyoLand);
                                 break;
-               
+
                         }
 
                         stateText.text = $"{$"A new state has been discovered"}";
@@ -434,7 +448,7 @@ public class TilemapControls : MonoBehaviour
 
             // WFA on Production
             case true when curProcedure == buttonProduce:
-                
+
                 if (workForce >= workForceAllocation && rec >= workForceAllocation)
                 {
                     isProducing.Add(clickedCell);
@@ -520,7 +534,7 @@ public class TilemapControls : MonoBehaviour
 
 
         }
-        
+
         // set WFA to 1 so on next procedure it starts on 1 WF chosen
         workForceAllocation = 1;
         buttonStartProcedure.SetActive(false);
@@ -571,12 +585,12 @@ public class TilemapControls : MonoBehaviour
 
         }
 
-        
+
 
     }
 
 
-   
+
 
 
     //On End Turn Procedure
@@ -591,7 +605,7 @@ public class TilemapControls : MonoBehaviour
         //Don't Need to clear Recruit list Due to stallchecks as it clears it there
         isProducing.Clear();
         isGathering.Clear();
-        
+
 
 
         //Increment Turn
@@ -599,13 +613,16 @@ public class TilemapControls : MonoBehaviour
 
 
 
+        WeatherApply();
+        WeatherRemove();
+
         StallCheck();
 
 
         //GetProfit
         ProductionProfit();
         GatherProfit();
-       
+
 
         if (dayCounter == nextQuota)
         {
@@ -617,6 +634,8 @@ public class TilemapControls : MonoBehaviour
 
 
 
+      
+
 
         StartTurn();
     }
@@ -625,7 +644,7 @@ public class TilemapControls : MonoBehaviour
     {
         int addMoney = 0;
 
-        for(int i = workForceProduction.Count - 1; i >=0; i-- )
+        for (int i = workForceProduction.Count - 1; i >= 0; i--)
         {
             var item = workForceProduction.ElementAt(i);
             var itemKey = item.Key;
@@ -637,18 +656,18 @@ public class TilemapControls : MonoBehaviour
         }
 
         ///For Randomized Profits (Commented cause its hard to playtest with it)
-        for (int i = productionCounter; i > 0; i--)
-        {
-            int randomProfit = Random.Range(1, 4);
+        //for (int i = productionCounter; i > 0; i--)
+        //{
+           // int randomProfit = Random.Range(1, 5);
 
-            addMoney += randomProfit;
-            Debug.Log($"{randomProfit} was added: now is {addMoney}");
-        }
+          //  addMoney += randomProfit;
+            //Debug.Log($"{randomProfit} was added: now is {addMoney}");
+        //}
 
 
 
         // Multiply Factories producing by product per factory producing (2)
-        // addMoney = productionCounter * 2;
+        addMoney = productionCounter * 2;
 
         //add profit Recourse to player Recourse 
         money = money + addMoney;
@@ -670,7 +689,7 @@ public class TilemapControls : MonoBehaviour
 
             gatherCounter += itemValue;
             //Removes the gathered recourse from recourse tile
-            recData[itemKey] -= itemValue*2;
+            recData[itemKey] -= itemValue * 2;
 
 
             //Check if the recourse tile is depleted
@@ -691,7 +710,7 @@ public class TilemapControls : MonoBehaviour
 
         }
 
-        
+
 
         // Multiply Factories producing by product per factory producing (2)
         int addRec = gatherCounter * 2;
@@ -736,8 +755,8 @@ public class TilemapControls : MonoBehaviour
 
     }
 
-    
-    
+
+
     //Checks for StallTiles, on stall tile gets its Data, 
     //Checks dictionary for when the stall ends, 
     //check if today is when stall ends and if it is :
@@ -761,8 +780,8 @@ public class TilemapControls : MonoBehaviour
 
 
 
-                        
-                        
+
+
                         // Multiply Factories producing by product per factory producing (2)
                         int addWorkForce = recruitCounter * 1;
 
@@ -774,10 +793,10 @@ public class TilemapControls : MonoBehaviour
 
                         // Reset Factory Production 
                         recruitCounter = 0;
-                        
-                        
-                        
-                        Debug.Log($"RECRUIT: {recruitCounter}");
+
+
+
+ 
 
                         isRecruiting.Remove(nowTilePos);
 
@@ -802,9 +821,10 @@ public class TilemapControls : MonoBehaviour
     }
 
 
-    public void RecourceAdd() {
+    public void RecourceAdd()
+    {
 
-        
+
 
 
         for (int x = 1; x < gridX; x++)
@@ -819,8 +839,8 @@ public class TilemapControls : MonoBehaviour
                     if (!recData.ContainsKey(nowTilePos))
                     {
                         recData.Add(nowTilePos, 30);
-                        
-                    } 
+
+                    }
                 }
             }
         }
@@ -834,19 +854,171 @@ public class TilemapControls : MonoBehaviour
 
 
 
-public void DebtCheck() {
+    public void DebtCheck()
+    {
 
-        if (money < -100) {
+        if (money < -100)
+        {
 
             gameObject.SetActive(false);
-        
+
         }
-    
-    
-    
+
+
+
     }
+
+
+
+
+    //WEATHER CODE
+    public void WeatherApply()
+    {
+
+        int chanceWeather = 3; //Random.Range(1, 4);
+        
+
+        //Checks if weather Hits and if its the day to remove Weather so as to not constantly be in WEATHER STATE
+        if (chanceWeather == 3 &&  dayCounter != dayToRemove ) {
+
+            //Makes it so day the weather gets removes is the next turn
+            dayToRemove = dayCounter + 1;
+
+            //Randomizes which state to effect
+            int chanceStateWeather = Random.Range(1, statesUnlocked);
+            Debug.Log($"{chanceStateWeather}");
+
+            for (int x = 2; x < gridX; x++)
+        {
+            for (int y = 1; y < gridY; y++)
+            {
+                Vector3Int nowTilePos = new Vector3Int(x, y, 0);
+                TileBase nowTile = tilemap.GetTile(nowTilePos);
+
+
+               //Checks if current tile is factory, and if it is gets the state tile it was placed on
+               factoryStateData.TryGetValue(nowTilePos, out TileBase factoryState);
+
+                    //Effects only chosen weather
+                    switch (chanceStateWeather) {
+
+
+
+
+                        //if New York got selected
+                        case 1:
+
+
+                            if (nowTile is NewYorkLand || factoryState is NewYorkLand)
+                            {
+
+                                weatherData.Add(nowTilePos, nowTile);
+
+                                tilemap.SetTile(nowTilePos, null);
+
+                               // Debug.Log($"Bad weather has made {nowTile} unworkable");
+                            }
+
+
+
+
+
+                            break;
+
+                        //If Wyoming Got selected
+                        case 2:
+
+
+
+                            if (nowTile is WyomingLand || factoryState is WyomingLand)
+                            {
+
+                                weatherData.Add(nowTilePos, nowTile);
+
+                                tilemap.SetTile(nowTilePos, null);
+
+                                //Debug.Log($"Bad weather has made {nowTile} unworkable");
+                            }
+
+
+                            break;
+
+
+                        default:
+
+                            Debug.Log($"the range is fucked");
+
+                            break;
+                    }
+              
+
+
+
+            }
+        }
+
+        }
+    }
+
+
+    public void WeatherRemove()
+    {
+
+        if (dayToRemove == dayCounter)
+        {
+
+
+            for (int i = weatherData.Count - 1; i >= 0; i--)
+            {
+                var item = weatherData.ElementAt(i);
+                var itemKey = item.Key;
+                var itemValue = item.Value;
+
+
+                tilemap.SetTile(itemKey, itemValue);
+
+                weatherData.Remove(itemKey);
+
+
+            }
+
+
+
+
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
-
-
 
 

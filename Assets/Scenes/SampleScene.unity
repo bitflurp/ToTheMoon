@@ -2522,9 +2522,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WeatherSystem, Assembly-CSharp
-        m_MethodName: WeatherCheck
+      - m_Target: {fileID: 154400141}
+        m_TargetAssemblyTypeName: TilemapControls, Assembly-CSharp
+        m_MethodName: EndTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
