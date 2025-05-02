@@ -83,7 +83,7 @@ public class TilemapControls : MonoBehaviour
 
     //Dictionaries
     Dictionary<Vector3Int, TileBase> factoryStateData = new();
-
+  
     Dictionary<Vector3Int, TileBase> weatherData = new();
 
 
@@ -229,7 +229,7 @@ public class TilemapControls : MonoBehaviour
         if (tile is RuleTile)
         {
             buttonExpodition.SetActive(true);
-            stateText.text = $"{$"locked"}";
+            //stateText.text = $"{$"locked"}";
 
             if (buttonCreate || buttonGather || buttonProduce || buttonStartProcedure != null)
             {
@@ -771,7 +771,7 @@ public class TilemapControls : MonoBehaviour
                 Vector3Int nowTilePos = new Vector3Int(x, y, 0);
                 TileBase nowTile = tilemap.GetTile(nowTilePos);
 
-                if (nowTile is StallTile)
+                if (stallData.ContainsKey(nowTilePos))
                 {
                     if (stallData[nowTilePos] == dayCounter)
                     {
