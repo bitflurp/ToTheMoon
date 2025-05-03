@@ -8,6 +8,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 using System.Data.SqlTypes;
+using System;
 
 public class TilemapControls : MonoBehaviour
 {
@@ -24,10 +25,18 @@ public class TilemapControls : MonoBehaviour
     public LandTile landTile;
     public StallTile stallTile;
 
-
+  
     //For LandTiles
     public NewYorkLand nyLand;
     public WyomingLand wyoLand;
+
+    //For Recourse Tiles
+    public RecNY recNY;
+    public RecWyo RecWyo;
+
+    //For Checks (LockedTiles)
+    public TileBase newYorkTile;
+    public TileBase wyomingTile;
 
     //For Buttons
     public GameObject buttonCreate;
@@ -83,7 +92,12 @@ public class TilemapControls : MonoBehaviour
 
     //Dictionaries
     Dictionary<Vector3Int, TileBase> factoryStateData = new();
-  
+    Dictionary<Vector3Int, TileBase> factoryStateDataCache = new();
+
+
+    Dictionary<Vector3Int, TileBase> recourseStateData = new();
+
+
     Dictionary<Vector3Int, TileBase> weatherData = new();
 
 
@@ -96,12 +110,14 @@ public class TilemapControls : MonoBehaviour
     Dictionary<Vector3Int, int> workForceGather = new();
 
 
+    
+
     //test vars
     private GameObject curProcedure;
     private int dayToRemove;
     private int statesUnlocked = 1;
 
-    
+  
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -226,7 +242,7 @@ public class TilemapControls : MonoBehaviour
             }
         }
 
-        if (tile is RuleTile)
+        if (tile is StateTile)
         {
             buttonExpodition.SetActive(true);
             //stateText.text = $"{$"locked"}";
@@ -371,7 +387,41 @@ public class TilemapControls : MonoBehaviour
     public void Expodition()
     {
 
+        
+
+
+
+
         TileBase stateTile = tile;
+
+
+        switch (stateTile) {
+
+
+            case RecLockedNY:
+
+                stateTile = newYorkTile;
+
+                break;
+
+
+            case RecLockedWyo:
+
+                stateTile = wyomingTile;
+
+                break;
+
+
+
+
+
+
+        }
+
+
+
+
+
 
         ExpoditionCheck(stateTile);
 
@@ -381,6 +431,8 @@ public class TilemapControls : MonoBehaviour
 
     public void ExpoditionCheck(TileBase stateTile)
     {
+
+   
 
         //checks if player has enough resources for expodition
         if (money >= 10)
@@ -397,7 +449,11 @@ public class TilemapControls : MonoBehaviour
                     Vector3Int nowTilePos = new Vector3Int(x, y, 0);
                     TileBase nowTile = tilemap.GetTile(nowTilePos);
 
-                    if (nowTile == stateTile)
+
+                    recourseStateData.TryGetValue(nowTilePos, out TileBase currentState);
+                   
+
+                    if (nowTile == stateTile || currentState == stateTile  )
                     {
                         switch (nowTile)
                         {
@@ -405,16 +461,39 @@ public class TilemapControls : MonoBehaviour
 
 
                             case NewYorkTile:
-
+                            case RecLockedNY:
+                                
+                                if (nowTile is NewYorkTile) { 
                                 //change state locked tile to land
                                 tilemap.SetTile(nowTilePos, nyLand);
+                                }
+                                else if (nowTile is RecLockedNY) {
+
+                                    tilemap.SetTile(nowTilePos,recNY );
+                                    //on expedition, will add recourse data
+                                    recData.Add(nowTilePos, 30);
+                                }
+
 
                                 break;
 
 
                             case WyomingTile:
-                                //change state locked tile to land
-                                tilemap.SetTile(nowTilePos, wyoLand);
+                            case RecLockedWyo:
+                                
+                                
+                                if (nowTile is WyomingTile)
+                                {
+                                    //change state locked tile to land
+                                    tilemap.SetTile(nowTilePos, wyoLand);
+                                }
+                                else if (nowTile is RecLockedWyo)
+                                {
+
+                                    tilemap.SetTile(nowTilePos, RecWyo);
+                                    //on expedition, will add recourse data
+                                    recData.Add(nowTilePos, 30);
+                                }
                                 break;
 
                         }
@@ -481,6 +560,8 @@ public class TilemapControls : MonoBehaviour
                     stallData.Add(clickedCell, whenStallEnds);
 
                     workForceRecruit.Add(clickedCell, workForceAllocation);
+
+
 
                     //costs
                     workForce -= workForceAllocation;
@@ -634,8 +715,8 @@ public class TilemapControls : MonoBehaviour
 
 
 
-      
 
+        RemoveUI();
 
         StartTurn();
     }
@@ -796,7 +877,8 @@ public class TilemapControls : MonoBehaviour
 
 
 
- 
+
+
 
                         isRecruiting.Remove(nowTilePos);
 
@@ -806,9 +888,28 @@ public class TilemapControls : MonoBehaviour
                         //removes workforce data from dictionary
                         workForceRecruit.Remove(nowTilePos);
 
-                        //change stall Tile to Facotry
-                        tilemap.SetTile(nowTilePos, factoryTile);
 
+
+                        //If stall is unstalled during a turn where the tile is weathered
+                        //it will check if the current tile is the state which is weathered through
+                        //weatherData.ContainsValue(factoryStateData[nowTilePos])
+                        // and if it is will set the tile to weathered" and add that tile to weatherdata
+                        //so as weather stops , all effected state tiles will be set back to their og state
+                        if (weatherData.ContainsValue(factoryStateData[nowTilePos]) )
+                        {
+
+                            tilemap.SetTile(nowTilePos, null);
+                            weatherData[nowTilePos] = factoryTile;
+                               
+                        }
+                        else {
+
+                            //change stall Tile to Facotry
+                            tilemap.SetTile(nowTilePos, factoryTile);
+
+                        }
+
+                          
                         Debug.Log($"Has Unstalled");
                     }
                 }
@@ -839,8 +940,31 @@ public class TilemapControls : MonoBehaviour
                     if (!recData.ContainsKey(nowTilePos))
                     {
                         recData.Add(nowTilePos, 30);
-
+                       
+                       
                     }
+
+                }
+
+
+                switch (nowTile)
+                {
+
+
+                    case RecLockedNY:
+
+                        recourseStateData.Add(nowTilePos, newYorkTile);
+                        Debug.Log("Done");
+                        break;
+
+
+                    case RecLockedWyo:
+
+                        recourseStateData.Add(nowTilePos, wyomingTile);
+                        Debug.Log("Done");
+                        break;
+
+
                 }
             }
         }
@@ -875,17 +999,19 @@ public class TilemapControls : MonoBehaviour
     public void WeatherApply()
     {
 
-        int chanceWeather = 3; //Random.Range(1, 4);
+        int chanceWeather = 3;
         
 
         //Checks if weather Hits and if its the day to remove Weather so as to not constantly be in WEATHER STATE
-        if (chanceWeather == 3 &&  dayCounter != dayToRemove ) {
+        if (chanceWeather == 3 &&  weatherData.Count == 0 ) {
 
             //Makes it so day the weather gets removes is the next turn
+            //BUG NOTE: CANT BE MORE THAN 1 IF IT WILL COINTINOUSLY ADD AND DAY COUNTER WILL NEVER REACH DAY TO REMOVE
+            //FIXED :) (switched dayremove  to weatherdata.counmt to check if weathering)
             dayToRemove = dayCounter + 1;
 
             //Randomizes which state to effect
-            int chanceStateWeather = Random.Range(1, statesUnlocked);
+            int chanceStateWeather = 2;
             Debug.Log($"{chanceStateWeather}");
 
             for (int x = 2; x < gridX; x++)
@@ -909,9 +1035,9 @@ public class TilemapControls : MonoBehaviour
                         case 1:
 
 
-                            if (nowTile is NewYorkLand || factoryState is NewYorkLand)
+                            if (nowTile is NewYorkLand || nowTile is RecNY || factoryState is NewYorkLand )
                             {
-
+                                
                                 weatherData.Add(nowTilePos, nowTile);
 
                                 tilemap.SetTile(nowTilePos, null);
@@ -930,7 +1056,7 @@ public class TilemapControls : MonoBehaviour
 
 
 
-                            if (nowTile is WyomingLand || factoryState is WyomingLand)
+                            if (nowTile is WyomingLand || nowTile is RecWyo || factoryState is WyomingLand)
                             {
 
                                 weatherData.Add(nowTilePos, nowTile);
@@ -1005,6 +1131,32 @@ public class TilemapControls : MonoBehaviour
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+    //stupid stuff Ignore
+
+
+    public void RemoveUI()
+    {
+
+
+        buttonCreate.SetActive(false);
+        buttonGather.SetActive(false);
+        buttonProduce.SetActive(false);
+        buttonExpodition.SetActive(false);
+        buttonStartProcedure.SetActive(false);
+
+
+    }
 
 
 

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(fileName = "Wyoming Tile", menuName = "Custom Tiles/Locked Tiles/Wyoming Tile")]
-public class WyomingTile : RuleTile
+public class WyomingTile : StateTile
 {
   
 }

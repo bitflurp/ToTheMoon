@@ -1479,6 +1479,7 @@ MonoBehaviour:
   landTile: {fileID: 11400000, guid: 05982f72bd64e81418cb98dc1956d6eb, type: 2}
   stallTile: {fileID: 11400000, guid: 81c7f36e6ffe4a240afe931cbf5f8f12, type: 2}
   nyLand: {fileID: 11400000, guid: 30a116ad8f58de74db9d1b67eb0d1341, type: 2}
+  wyoLand: {fileID: 11400000, guid: cdc019ff265f6984e9c4d68347d5ea81, type: 2}
   buttonCreate: {fileID: 8213496004471658934}
   buttonProduce: {fileID: 929107078}
   buttonRecruit: {fileID: 287241675}

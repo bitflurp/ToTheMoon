@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ba5731a971018e448b1d1e04397c500, type: 3}
-  m_Name: Wyoming Land
+  m_Script: {fileID: 11500000, guid: 99a3f95d864c1b94b9041117304040fa, type: 3}
+  m_Name: Rec NY
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1280852735, guid: 9c86e4023a9e4b041823774d34c4d986, type: 3}
-  m_Color: {r: 0.4764151, g: 0.74995077, b: 1, a: 1}
+  m_Sprite: {fileID: 246621341, guid: 9c86e4023a9e4b041823774d34c4d986, type: 3}
+  m_Color: {r: 1, g: 0.514151, b: 0.514151, a: 1}
   m_Transform:
     e00: 1
     e01: 0
