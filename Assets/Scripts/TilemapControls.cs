@@ -796,7 +796,8 @@ public class TilemapControls : MonoBehaviour
 
 
 
- 
+
+
 
                         isRecruiting.Remove(nowTilePos);
 
@@ -806,8 +807,28 @@ public class TilemapControls : MonoBehaviour
                         //removes workforce data from dictionary
                         workForceRecruit.Remove(nowTilePos);
 
-                        //change stall Tile to Facotry
-                        tilemap.SetTile(nowTilePos, factoryTile);
+
+
+                        //If stall is unstalled during a turn where the tile is weathered
+                        //it will check if the current tile is the state which is weathered through
+                        //weatherData.ContainsValue(factoryStateData[nowTilePos])
+                        // and if it is will set the tile to weathered" and add that tile to weatherdata
+                        //so as weather stops , all effected state tiles will be set back to their og state
+                        if (weatherData.ContainsValue(factoryStateData[nowTilePos]))
+                        {
+
+                            tilemap.SetTile(nowTilePos, null);
+                            weatherData[nowTilePos] = factoryTile;
+
+                        }
+                        else
+                        {
+
+                            //change stall Tile to Facotry
+                            tilemap.SetTile(nowTilePos, factoryTile);
+
+                        }
+
 
                         Debug.Log($"Has Unstalled");
                     }
@@ -879,7 +900,7 @@ public class TilemapControls : MonoBehaviour
         
 
         //Checks if weather Hits and if its the day to remove Weather so as to not constantly be in WEATHER STATE
-        if (chanceWeather == 3 &&  dayCounter != dayToRemove ) {
+        if (chanceWeather == 3 &&  weatherData.Count()  == 0 ) {
 
             //Makes it so day the weather gets removes is the next turn
             dayToRemove = dayCounter + 1;
