@@ -3,6 +3,8 @@ using System.Collections;
 
 [RequireComponent(typeof(MatrixBlender))]
 public class PerspectiveSwitcher : MonoBehaviour {
+     [SerializeField] 
+    private GameObject[] _cameras;
     private Matrix4x4 ortho,
                         perspective;
     public float fov = 60f,
@@ -13,7 +15,7 @@ public class PerspectiveSwitcher : MonoBehaviour {
     private MatrixBlender blender;
     private bool orthoOn;
     Camera m_camera;
-
+   
     void Start() {
         aspect = (float)Screen.width / (float)Screen.height;
         ortho = Matrix4x4.Ortho(-orthographicSize * aspect, orthographicSize * aspect, -orthographicSize, orthographicSize, near, far);
@@ -30,12 +32,13 @@ public class PerspectiveSwitcher : MonoBehaviour {
         if(orthoOn)
         {
             blender.BlendToMatrix(ortho, 1f, 8, true);
-            //if we want to switch the camera position we will need to use cinemachine
+            _cameras[0].SetActive(true);
         }
         else
         {
             blender.BlendToMatrix(perspective, 1f,8, false);
-            //if we want to switch the camera position we will need to use cinemachine
+            
+           _cameras[0].SetActive(false);
         }
     }
 }
