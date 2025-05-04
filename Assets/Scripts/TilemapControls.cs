@@ -115,6 +115,8 @@ public class TilemapControls : MonoBehaviour
     private int dayToRemove;
     private int statesUnlocked = 1;
 
+    //Check Vars
+    private int industryCounter = 0;
     
 
 
@@ -285,7 +287,7 @@ public class TilemapControls : MonoBehaviour
             tilemap.SetTile(clickedCell, factoryTile);
             rec -= 5;
 
-
+            industryCounter++;
 
         }
         else
@@ -681,8 +683,14 @@ public class TilemapControls : MonoBehaviour
         GatherProfit();
 
 
+        if (industryCounter >= 5 ) {
 
-        Pale();
+            tilemap.SetTile(new Vector3Int(11,10,0), paleTile);
+            Pale();
+
+
+        }
+      
 
 
         if (dayCounter == nextQuota)
@@ -1096,7 +1104,7 @@ public class TilemapControls : MonoBehaviour
         List<Vector3Int> paleHit = new List<Vector3Int>();
         List<Vector3Int> paleEffect = new List<Vector3Int>();
 
-        List<Vector3Int> Juiced = new List<Vector3Int>();
+        //List<Vector3Int> Juiced = new List<Vector3Int>();
         for (int x = 1; x < gridX; x++)
         {
             for (int y = 1; y < gridY; y++)
@@ -1105,13 +1113,13 @@ public class TilemapControls : MonoBehaviour
                 TileBase nowTile = tilemap.GetTile(nowTilePos);
                 //Debug.Log(nowTilePos);
 
-                if (nowTile is PaleTile && Juiced.Contains(nowTilePos) == false)
+                if (nowTile is PaleTile) 
                 {
 
 
 
 
-                    if (paleEffect.Contains(nowTilePos) == false )
+                    if (paleEffect.Contains(nowTilePos) == false)  //&& Juiced.Contains(nowTilePos) == false)
                     {
 
 
@@ -1129,7 +1137,7 @@ public class TilemapControls : MonoBehaviour
                         paleHit.Add(E);
 
 
-
+                        //Juiced.Add(nowTilePos);
                         tilemap.SetTile(nowTilePos, paleJuice);
 
 
