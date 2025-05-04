@@ -8,6 +8,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 using System.Data.SqlTypes;
+using System;
 
 public class TilemapControls : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class TilemapControls : MonoBehaviour
     public FactoryTile factoryTile;
     public LandTile landTile;
     public StallTile stallTile;
-
+    public ResTile recTile;
 
     //For LandTiles
     public NewYorkLand nyLand;
@@ -83,7 +84,7 @@ public class TilemapControls : MonoBehaviour
 
     //Dictionaries
     Dictionary<Vector3Int, TileBase> factoryStateData = new();
-  
+    Dictionary<Vector3Int, TileBase> RecStateData = new();
     Dictionary<Vector3Int, TileBase> weatherData = new();
 
 
@@ -95,6 +96,17 @@ public class TilemapControls : MonoBehaviour
     Dictionary<Vector3Int, int> workForceRecruit = new();
     Dictionary<Vector3Int, int> workForceGather = new();
 
+
+    Dictionary<Type, List<Vector3Int>> recStatePos = new() {
+
+        {typeof(NewYorkTile) , new List<Vector3Int>{new Vector3Int(5,1,0), new Vector3Int(6,1,0) } } ,
+
+
+        {typeof(WyomingTile) , new List<Vector3Int>{new Vector3Int(9,1,0), new Vector3Int(10,1,0) , new Vector3Int(11,1,0) }  },
+
+
+
+    };
 
     //test vars
     private GameObject curProcedure;
@@ -142,6 +154,7 @@ public class TilemapControls : MonoBehaviour
         clickedCell = tilemap.WorldToCell(worldPos);
         tile = tilemap.GetTile(clickedCell);
 
+        Debug.Log($"{tile.GetType()}");
 
 
 
@@ -406,15 +419,57 @@ public class TilemapControls : MonoBehaviour
 
                             case NewYorkTile:
 
-                                //change state locked tile to land
-                                tilemap.SetTile(nowTilePos, nyLand);
+                                if (recStatePos.ContainsKey(nowTile.GetType()))
+                                {
+
+                                    if (recStatePos[nowTile.GetType()].Contains(nowTilePos) == true)
+                                    {   
+                                        //Adding what state the rec tiles are in
+                                        RecStateData.Add(nowTilePos, nowTile);
+                                        //Adding the amount of recourses for newly added rec tiles
+                                        recData.Add(nowTilePos, 30);
+
+                                        tilemap.SetTile(nowTilePos, recTile);
+                                       
+
+                                    }
+                                    else
+                                    {
+
+                                        //change state locked tile to land
+                                        tilemap.SetTile(nowTilePos, nyLand);
+                                    }
+                                }
+                               
+                                  
 
                                 break;
 
 
                             case WyomingTile:
-                                //change state locked tile to land
-                                tilemap.SetTile(nowTilePos, wyoLand);
+
+                                if (recStatePos.ContainsKey(nowTile.GetType()))
+                                {
+
+                                    if (recStatePos[nowTile.GetType()].Contains(nowTilePos) == true)
+                                    {
+                                        //Adding what state the rec tiles are in
+                                        RecStateData.Add(nowTilePos, nowTile);
+                                        //Adding the amount of recourses for newly added rec tiles
+                                        recData.Add(nowTilePos, 30);
+
+                                        tilemap.SetTile(nowTilePos, recTile);
+
+
+                                    }
+                                    else
+                                    {
+
+                                        //change state locked tile to land
+                                        tilemap.SetTile(nowTilePos, wyoLand);
+                                    }
+                                }
+
                                 break;
 
                         }
@@ -897,7 +952,7 @@ public class TilemapControls : MonoBehaviour
     {
 
         int chanceWeather = 3; //Random.Range(1, 4);
-        
+       
 
         //Checks if weather Hits and if its the day to remove Weather so as to not constantly be in WEATHER STATE
         if (chanceWeather == 3 &&  weatherData.Count()  == 0 ) {
@@ -906,19 +961,29 @@ public class TilemapControls : MonoBehaviour
             dayToRemove = dayCounter + 1;
 
             //Randomizes which state to effect
-            int chanceStateWeather = Random.Range(1, statesUnlocked);
+            int chanceStateWeather = 1; //Random.Range(1, statesUnlocked);
             Debug.Log($"{chanceStateWeather}");
+
+
+
 
             for (int x = 2; x < gridX; x++)
         {
             for (int y = 1; y < gridY; y++)
             {
+               
+                    
                 Vector3Int nowTilePos = new Vector3Int(x, y, 0);
                 TileBase nowTile = tilemap.GetTile(nowTilePos);
+               
 
+              
 
                //Checks if current tile is factory, and if it is gets the state tile it was placed on
                factoryStateData.TryGetValue(nowTilePos, out TileBase factoryState);
+               RecStateData.TryGetValue(nowTilePos, out TileBase recState);
+
+
 
                     //Effects only chosen weather
                     switch (chanceStateWeather) {
@@ -930,7 +995,7 @@ public class TilemapControls : MonoBehaviour
                         case 1:
 
 
-                            if (nowTile is NewYorkLand || factoryState is NewYorkLand)
+                            if (nowTile is NewYorkLand || factoryState is NewYorkLand || recState is NewYorkTile)
                             {
 
                                 weatherData.Add(nowTilePos, nowTile);
