@@ -1614,6 +1614,7 @@ MonoBehaviour:
   factoryTile: {fileID: 11400000, guid: 2d3225d76b58eef4082f3353e38dfa8b, type: 2}
   landTile: {fileID: 11400000, guid: 05982f72bd64e81418cb98dc1956d6eb, type: 2}
   stallTile: {fileID: 11400000, guid: 81c7f36e6ffe4a240afe931cbf5f8f12, type: 2}
+  recTile: {fileID: 0}
   nyLand: {fileID: 11400000, guid: 30a116ad8f58de74db9d1b67eb0d1341, type: 2}
   wyoLand: {fileID: 0}
   buttonCreate: {fileID: 8213496004471658934}
@@ -2340,7 +2341,7 @@ MonoBehaviour:
     Enabled: 1
     DefaultMode: 0
   DefaultBlend:
-    Style: 1
+    Style: 5
     Time: 2
     CustomCurve:
       serializedVersion: 2
