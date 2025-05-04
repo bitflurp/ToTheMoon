@@ -25,6 +25,8 @@ public class TilemapControls : MonoBehaviour
     public LandTile landTile;
     public StallTile stallTile;
     public ResTile recTile;
+    public PaleTile paleTile;
+    public PaleJuicedTile paleJuice;
 
     //For LandTiles
     public NewYorkLand nyLand;
@@ -154,7 +156,7 @@ public class TilemapControls : MonoBehaviour
         clickedCell = tilemap.WorldToCell(worldPos);
         tile = tilemap.GetTile(clickedCell);
 
-        Debug.Log($"{tile.GetType()}");
+        //Debug.Log($"{tile.GetType()}");
 
 
 
@@ -653,7 +655,7 @@ public class TilemapControls : MonoBehaviour
     public void EndTurn()
     {
 
-
+        RemoveUI();
 
 
         //Clear Lists
@@ -668,8 +670,8 @@ public class TilemapControls : MonoBehaviour
 
 
 
-        WeatherApply();
-        WeatherRemove();
+        //WeatherApply();
+        //WeatherRemove();
 
         StallCheck();
 
@@ -677,6 +679,10 @@ public class TilemapControls : MonoBehaviour
         //GetProfit
         ProductionProfit();
         GatherProfit();
+
+
+
+        Pale();
 
 
         if (dayCounter == nextQuota)
@@ -1084,6 +1090,100 @@ public class TilemapControls : MonoBehaviour
 
 
 
+    //PALE CODE
+    public void Pale() {
+
+        List<Vector3Int> paleHit = new List<Vector3Int>();
+        List<Vector3Int> paleEffect = new List<Vector3Int>();
+
+        List<Vector3Int> Juiced = new List<Vector3Int>();
+        for (int x = 1; x < gridX; x++)
+        {
+            for (int y = 1; y < gridY; y++)
+            {
+                Vector3Int nowTilePos = new Vector3Int(x, y, 0);
+                TileBase nowTile = tilemap.GetTile(nowTilePos);
+                //Debug.Log(nowTilePos);
+
+                if (nowTile is PaleTile && Juiced.Contains(nowTilePos) == false)
+                {
+
+
+
+
+                    if (paleEffect.Contains(nowTilePos) == false )
+                    {
+
+
+                        Vector3Int N = new Vector3Int(x, y + 1, 0);
+                        Vector3Int S = new Vector3Int(x, y - 1, 0);
+                        Vector3Int W = new Vector3Int(x - 1, y, 0);
+                        Vector3Int E = new Vector3Int(x + 1, y, 0);
+
+                        paleHit.Add(N);
+
+                        paleHit.Add(S);
+
+                        paleHit.Add(W);
+
+                        paleHit.Add(E);
+
+
+
+                        tilemap.SetTile(nowTilePos, paleJuice);
+
+
+                    }
+
+
+
+                    for (int i = paleHit.Count - 1; i >= 0; i--)
+                    {
+
+                       
+                        var item = paleHit.ElementAt(i);
+
+
+                        if (tilemap.GetTile(item) != null) {
+
+
+                            tilemap.SetTile(item, paleTile);
+                            paleEffect.Add(item);
+                        }
+
+                        
+
+                      
+
+
+                    }
+
+                }
+
+
+            }
+
+
+        }
+
+
+
+
+        //Debug.Log(paleHit.Count);
+        //Debug.Log(paleEffect.Count);
+
+        paleHit.Clear();
+        paleEffect.Clear(); 
+
+
+
+
+
+
+
+
+
+    }
 
 
 
@@ -1097,6 +1197,43 @@ public class TilemapControls : MonoBehaviour
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //EXTRA STUFF IGNORE
+    public void RemoveUI() {
+
+
+
+        buttonCreate.SetActive(false);
+        buttonGather.SetActive(false);
+        buttonProduce.SetActive(false);
+        buttonStartProcedure.SetActive(false);
+        buttonExpodition.SetActive(false);
+
+
+
+
+
+
+
+    }
 
 
 
