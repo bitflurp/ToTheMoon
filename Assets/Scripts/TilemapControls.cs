@@ -116,6 +116,8 @@ public class TilemapControls : MonoBehaviour
     private GameObject curProcedure;
     private int dayToRemove;
     private int statesUnlocked = 1;
+    private int workTemp = 0;
+
 
     //Check Vars
     private int industryCounter = 0;
@@ -278,7 +280,7 @@ public class TilemapControls : MonoBehaviour
     public void CreateFactory()
     {
 
-        if (rec >= 5)
+        if (rec >= 5 && workForce >= 5 )
         {
            
             // Gets the state Tile the factory was placed on 
@@ -287,7 +289,14 @@ public class TilemapControls : MonoBehaviour
 
             //On click Sets current tile to Factory tile
             tilemap.SetTile(clickedCell, factoryTile);
+
+            //Recourse out
             rec -= 5;
+            workForce -= 5;
+            money -= 5;
+
+            //to put back int wf later
+            workTemp += 5;
 
             industryCounter++;
 
@@ -402,9 +411,14 @@ public class TilemapControls : MonoBehaviour
     {
 
         //checks if player has enough resources for expodition
-        if (money >= 10)
+        if (rec >= 10 && workForce >= 5)
         {
             money -= 10;
+            rec -= 10;
+            workForce -= 5;
+
+
+            workTemp += 5;
 
             statesUnlocked++;
 
@@ -690,6 +704,7 @@ public class TilemapControls : MonoBehaviour
         //GetProfit
         ProductionProfit();
         GatherProfit();
+        CreateExProfit();
 
 
         if (industryCounter >= 10 ) {
@@ -801,6 +816,15 @@ public class TilemapControls : MonoBehaviour
         gatherCounter = 0;
 
 
+    }
+
+    public void CreateExProfit() {
+
+        workForce += workTemp;
+
+        workTemp = 0;
+    
+    
     }
 
 
