@@ -64,6 +64,7 @@ public class TilemapControls : MonoBehaviour
     public TMP_Text moneyText;
     public TMP_Text stateText;
     public TMP_Text dayText;
+    public TMP_Text quotaText;
 
     public TMP_Text workForceNoText;
     public TMP_Text workForceCostText;
@@ -117,7 +118,7 @@ public class TilemapControls : MonoBehaviour
 
     //Check Vars
     private int industryCounter = 0;
-    
+    private int quota = 30;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -129,7 +130,7 @@ public class TilemapControls : MonoBehaviour
         RecourceAdd();
 
         dayText.text = $"{$"DAY {dayCounter}"}";
-
+        quotaText.text = ($"Quota: {quota}$  (Day {nextQuota - 1})");
 
     }
     void Update()
@@ -143,7 +144,7 @@ public class TilemapControls : MonoBehaviour
 
 
 
-        workForceCostText.text = $"Produce: {workForceAllocation}$ :{workForceAllocation} Rec \nRecruit: {workForceAllocation * 2}$ : TURN STALL \nGather: {workForceAllocation * 2}$";
+        workForceCostText.text = $"Produce: {workForceAllocation}$ :{workForceAllocation} Rec | +{workForceAllocation*2}$ \nRecruit: {workForceAllocation * 2}$ : TURN STALL  | +{workForceAllocation} WF \nGather: {workForceAllocation * 2}$  | +{workForceAllocation * 2} Rec";
 
     }
 
@@ -697,8 +698,7 @@ public class TilemapControls : MonoBehaviour
         {
 
             QuotaReach();
-            //changes deadline to next week (have to add it into a fail/win state 
-            nextQuota += 7;
+            
         }
 
 
@@ -800,10 +800,13 @@ public class TilemapControls : MonoBehaviour
     public void QuotaReach()
     {
 
-        if (money >= 30)
+        if (money >= quota)
         {
-
+            //changes deadline to next week (have to add it into a fail/win state 
+            nextQuota += 7;
+            quota = quota * 2;
             stateText.text = $"{$"QUOTA REACHED"}";
+            quotaText.text = ($"Quota: {quota}$  (Day {nextQuota - 1})");
 
         }
         else
