@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a39a8971927204eaa9aea958e7eef4, type: 3}
   m_Name: Ocean Tile
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1363398366, guid: 10579373d9a61494d9ee75980b122bc1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
