@@ -28,7 +28,7 @@ public class TilemapControls : MonoBehaviour
     public ResTile recTile;
     public PaleTile paleTile;
     public PaleJuicedTile paleJuice;
-
+    public WeatherTile weatherTile;
     //For LandTiles
     public NewYorkLand nyLand;
     public WyomingLand wyoLand;
@@ -261,6 +261,12 @@ public class TilemapControls : MonoBehaviour
             }
         }
 
+        if (tile is OceanTile || tile is WeatherTile)
+        {
+
+            RemoveUI();
+            
+        }
 
 
 
@@ -843,7 +849,7 @@ public class TilemapControls : MonoBehaviour
         }
         else
         {
-
+            gameObject.SetActive(false);
             stateText.text = $"{$"QUOTA FAILED"}";
 
         }
@@ -1049,7 +1055,7 @@ public class TilemapControls : MonoBehaviour
 
                                 weatherData.Add(nowTilePos, nowTile);
 
-                                tilemap.SetTile(nowTilePos, stallTile);
+                                tilemap.SetTile(nowTilePos, weatherTile);
 
                                //Debug.Log($"Bad weather has made New York unworkable");
                             }
@@ -1070,7 +1076,7 @@ public class TilemapControls : MonoBehaviour
 
                                 weatherData.Add(nowTilePos, nowTile);
 
-                                tilemap.SetTile(nowTilePos, null);
+                                tilemap.SetTile(nowTilePos, weatherTile);
 
                                 //Debug.Log($"Bad weather has made {nowTile} unworkable");
                             }
