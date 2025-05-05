@@ -103,10 +103,10 @@ public class TilemapControls : MonoBehaviour
 
     Dictionary<Type, List<Vector3Int>> recStatePos = new() {
 
-        {typeof(NewYorkTile) , new List<Vector3Int>{new Vector3Int(5,1,0), new Vector3Int(6,1,0) } } ,
+        {typeof(NewYorkTile) , new List<Vector3Int>{new Vector3Int(10,6,0), new Vector3Int(11,7,0), new Vector3Int(6,4,0), new Vector3Int(8,4,0) } } ,
 
 
-        {typeof(WyomingTile) , new List<Vector3Int>{new Vector3Int(9,1,0), new Vector3Int(10,1,0) , new Vector3Int(11,1,0) }  },
+        {typeof(WyomingTile) , new List<Vector3Int>{new Vector3Int(2,7,0), new Vector3Int(6,8,0) , new Vector3Int(11,10,0), new Vector3Int(4,3,0) }  },
 
 
 
@@ -121,7 +121,7 @@ public class TilemapControls : MonoBehaviour
 
     //Check Vars
     private int industryCounter = 0;
-    private int quota = 30;
+    private int quota = 15;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -261,7 +261,7 @@ public class TilemapControls : MonoBehaviour
             }
         }
 
-        if (tile is OceanTile || tile is WeatherTile)
+        if (tile is OceanTile || tile is WeatherTile || tile is PaleTile || tile is PaleJuicedTile)
         {
 
             RemoveUI();
@@ -753,19 +753,19 @@ public class TilemapControls : MonoBehaviour
 
         }
 
-        ///For Randomized Profits (Commented cause its hard to playtest with it)
-        //for (int i = productionCounter; i > 0; i--)
-        //{
-           // int randomProfit = Random.Range(1, 5);
+    
+        for (int i = productionCounter; i > 0; i--)
+        {
+            int randomProfit = Random.Range(1, 5);
 
-          //  addMoney += randomProfit;
-            //Debug.Log($"{randomProfit} was added: now is {addMoney}");
-        //}
+           addMoney += randomProfit;
+            Debug.Log($"{randomProfit} was added: now is {addMoney}");
+        }
 
 
 
         // Multiply Factories producing by product per factory producing (2)
-        addMoney = productionCounter * 2;
+        //addMoney = productionCounter * 2;
 
         //add profit Recourse to player Recourse 
         money = money + addMoney;
