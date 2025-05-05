@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 using System.Data.SqlTypes;
 using System;
+using Random=UnityEngine.Random;
 
 public class TilemapControls : MonoBehaviour
 {
@@ -673,8 +674,15 @@ public class TilemapControls : MonoBehaviour
 
 
 
-        //WeatherApply();
-        //WeatherRemove();
+      
+        if (industryCounter >= 5)
+        {
+
+            WeatherApply();
+            WeatherRemove();
+
+        }
+
 
         StallCheck();
 
@@ -684,7 +692,7 @@ public class TilemapControls : MonoBehaviour
         GatherProfit();
 
 
-        if (industryCounter >= 5 ) {
+        if (industryCounter >= 10 ) {
 
             tilemap.SetTile(new Vector3Int(11,10,0), paleTile);
             Pale();
@@ -968,8 +976,8 @@ public class TilemapControls : MonoBehaviour
     public void WeatherApply()
     {
 
-        int chanceWeather = 3; //Random.Range(1, 4);
-       
+        int chanceWeather = Random.Range(1, 4);
+        Debug.Log($"{chanceWeather}");
 
         //Checks if weather Hits and if its the day to remove Weather so as to not constantly be in WEATHER STATE
         if (chanceWeather == 3 &&  weatherData.Count()  == 0 ) {
@@ -978,7 +986,7 @@ public class TilemapControls : MonoBehaviour
             dayToRemove = dayCounter + 1;
 
             //Randomizes which state to effect
-            int chanceStateWeather = 1; //Random.Range(1, statesUnlocked);
+            int chanceStateWeather = Random.Range(1, statesUnlocked);
             Debug.Log($"{chanceStateWeather}");
 
 
@@ -1017,9 +1025,9 @@ public class TilemapControls : MonoBehaviour
 
                                 weatherData.Add(nowTilePos, nowTile);
 
-                                tilemap.SetTile(nowTilePos, null);
+                                tilemap.SetTile(nowTilePos, stallTile);
 
-                               // Debug.Log($"Bad weather has made {nowTile} unworkable");
+                               //Debug.Log($"Bad weather has made New York unworkable");
                             }
 
 
