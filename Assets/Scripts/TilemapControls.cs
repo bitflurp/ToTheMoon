@@ -610,7 +610,7 @@ public class TilemapControls : MonoBehaviour
 
             //If button is Increment: Increments WFA + Checks for MAX
             case true when curButton == buttonIncrement:
-                if (workForceAllocation < 5)
+                if (workForceAllocation < 5) //&& workForceAllocation <  recData[clickedCell]/2 )
                 {
                     workForceAllocation++;
                     workForceNoText.text = $"{workForceAllocation}";
@@ -682,7 +682,7 @@ public class TilemapControls : MonoBehaviour
 
 
 
-        Pale();
+       // Pale();
 
 
         if (dayCounter == nextQuota)
@@ -742,6 +742,9 @@ public class TilemapControls : MonoBehaviour
 
     public void GatherProfit()
     {
+        int wfTBA = 0 ;
+
+        
         for (int i = workForceGather.Count - 1; i >= 0; i--)
         {
             var item = workForceGather.ElementAt(i);
@@ -749,6 +752,7 @@ public class TilemapControls : MonoBehaviour
             var itemValue = item.Value;
 
             gatherCounter += itemValue;
+            wfTBA += itemValue;
             //Removes the gathered recourse from recourse tile
             recData[itemKey] -= itemValue * 2;
 
@@ -779,7 +783,7 @@ public class TilemapControls : MonoBehaviour
         //add profit Recourse to player Recourse 
         rec = rec + addRec;
 
-        workForce += gatherCounter;
+        workForce += wfTBA;
 
         // Reset Factory Production 
         gatherCounter = 0;
