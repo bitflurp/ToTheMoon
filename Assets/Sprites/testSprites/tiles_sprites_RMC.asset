@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d987c6e6bdb7d4c9567a522a47e088, type: 3}
-  m_Name: Land Tile
+  m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: tiles_sprites_RMC
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1550675521, guid: d2ddd027814f94642a5b138bae0550b5, type: 3}
-  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
+  m_Sprite: {fileID: 1779385251, guid: 4235fe9518d1e474495cbd7d156a6a87, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0
