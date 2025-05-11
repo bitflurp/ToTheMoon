@@ -74,59 +74,67 @@ public class Weather : MonoBehaviour
                     tileData.recStateData.TryGetValue(nowTilePos, out TileBase recState);
 
 
+                    if (!(nowTile is PaleTile)) {
 
-                    //Effects only chosen weather
-                    switch (chanceStateWeather)
-                    {
-
-
-
-
-                        //if New York got selected
-                        case 1:
-
-
-                            if (nowTile is NewYorkLand || factoryState is NewYorkLand || recState is NewYorkTile)
-                            {
-
-                                tileData.weatherData.Add(nowTilePos, nowTile);
-
-                                tilemap.SetTile(nowTilePos, null);
-
-                                // Debug.Log($"Bad weather has made {nowTile} unworkable");
-                            }
+                        //Effects only chosen weather
+                        switch (chanceStateWeather)
+                        {
 
 
 
 
-
-                            break;
-
-                        //If Wyoming Got selected
-                        case 2:
+                            //if New York got selected
+                            case 1:
 
 
+                                if (nowTile is NewYorkLand || factoryState is NewYorkLand || recState is NewYorkTile)
+                                {
 
-                            if (nowTile is WyomingLand || factoryState is WyomingLand || recState is WyomingTile)
-                            {
+                                    tileData.weatherData.Add(nowTilePos, nowTile);
 
-                                tileData.weatherData.Add(nowTilePos, nowTile);
+                                    tilemap.SetTile(nowTilePos, null);
 
-                                tilemap.SetTile(nowTilePos, null);
-
-                                //Debug.Log($"Bad weather has made {nowTile} unworkable");
-                            }
-
-
-                            break;
+                                    // Debug.Log($"Bad weather has made {nowTile} unworkable");
+                                }
 
 
-                        default:
 
-                            Debug.Log($"the range is fucked");
 
-                            break;
+
+                                break;
+
+                            //If Wyoming Got selected
+                            case 2:
+
+
+
+                                if (nowTile is WyomingLand || factoryState is WyomingLand || recState is WyomingTile)
+                                {
+
+                                    tileData.weatherData.Add(nowTilePos, nowTile);
+
+                                    tilemap.SetTile(nowTilePos, null);
+
+                                    //Debug.Log($"Bad weather has made {nowTile} unworkable");
+                                }
+
+
+                                break;
+
+
+                            default:
+
+                                Debug.Log($"the range is fucked");
+
+                                break;
+                        }
+
+
+
                     }
+
+
+
 
 
 

@@ -36,8 +36,8 @@ public class Turns : MonoBehaviour
 
 
 
-       // weatherData.WeatherApply();
-        //weatherData.WeatherRemove();
+        weatherData.WeatherApply();
+        weatherData.WeatherRemove();
 
         profitData.StallCheck();
 

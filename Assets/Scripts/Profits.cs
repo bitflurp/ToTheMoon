@@ -46,6 +46,9 @@ public class Profits : MonoBehaviour
             var itemValue = item.Value;
 
             totalWF += itemValue;
+
+            //For modifier Uncomment below and comment Addmoney + totalWF...
+            //addMoney += itemValue * itemValue;
             tileData.workForceProduction.Remove(itemKey);
 
         }
