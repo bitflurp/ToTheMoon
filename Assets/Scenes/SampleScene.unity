@@ -338,8 +338,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 154400141}
-        m_TargetAssemblyTypeName: TilemapControls, Assembly-CSharp
+      - m_Target: {fileID: 154400149}
+        m_TargetAssemblyTypeName: Procedures, Assembly-CSharp
         m_MethodName: Expodition
         m_Mode: 1
         m_Arguments:
@@ -401,6 +401,15 @@ GameObject:
   - component: {fileID: 154400138}
   - component: {fileID: 154400140}
   - component: {fileID: 154400141}
+  - component: {fileID: 154400142}
+  - component: {fileID: 154400150}
+  - component: {fileID: 154400149}
+  - component: {fileID: 154400148}
+  - component: {fileID: 154400143}
+  - component: {fileID: 154400147}
+  - component: {fileID: 154400146}
+  - component: {fileID: 154400145}
+  - component: {fileID: 154400144}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -1611,14 +1620,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3d64d6e2d9aa2f47aed0affd92f017d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factoryTile: {fileID: 11400000, guid: 2d3225d76b58eef4082f3353e38dfa8b, type: 2}
-  landTile: {fileID: 11400000, guid: 05982f72bd64e81418cb98dc1956d6eb, type: 2}
-  stallTile: {fileID: 11400000, guid: 81c7f36e6ffe4a240afe931cbf5f8f12, type: 2}
-  recTile: {fileID: 0}
-  paleTile: {fileID: 0}
-  paleJuice: {fileID: 0}
-  nyLand: {fileID: 11400000, guid: 30a116ad8f58de74db9d1b67eb0d1341, type: 2}
-  wyoLand: {fileID: 0}
+  clickedCell: {x: 0, y: 0, z: 0}
+  tile: {fileID: 0}
+--- !u!114 &154400142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154400136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 358294775f92f2642a8588c80687ba4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rec: 10
+  workForce: 10
+  money: 10
+  statesUnlocked: 1
+--- !u!114 &154400143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154400136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe0dcf346099b0d4ca82a460f6508422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayCounter: 1
+  nextQuota: 8
+--- !u!114 &154400144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154400136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccad93ec00abea64f94e6510d2b6861a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   buttonCreate: {fileID: 8213496004471658934}
   buttonProduce: {fileID: 929107078}
   buttonRecruit: {fileID: 287241675}
@@ -1627,11 +1672,6 @@ MonoBehaviour:
   buttonIncrement: {fileID: 1259005854}
   buttonReduce: {fileID: 2002930637}
   buttonStartProcedure: {fileID: 1120895341}
-  clickedCell: {x: 0, y: 0, z: 0}
-  tile: {fileID: 0}
-  rec: 10
-  workForce: 6
-  money: 30
   recText: {fileID: 197486246}
   workForceText: {fileID: 1401058637}
   moneyText: {fileID: 1408721699}
@@ -1639,9 +1679,90 @@ MonoBehaviour:
   dayText: {fileID: 162423993}
   workForceNoText: {fileID: 1977787467}
   workForceCostText: {fileID: 1348439503}
-  productionCounter: 0
-  gatherCounter: 0
-  recruitCounter: 0
+--- !u!114 &154400145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154400136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b01d18cfe4351468c4aba1b0a91dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &154400146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154400136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c59154b11e1304d9024c70ee094363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &154400147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154400136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b13bbe9695fe324382c1040c2d046fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &154400148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154400136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 630e7ee71f347c74aa176123aea49b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  workForceAllocation: 1
+--- !u!114 &154400149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154400136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e811b58704d9845b29538a64d0c1c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curProcedure: {fileID: 0}
+--- !u!114 &154400150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154400136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b243f4a184f4a014f9aebec1888ebf91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  factoryTile: {fileID: 11400000, guid: 2d3225d76b58eef4082f3353e38dfa8b, type: 2}
+  landTile: {fileID: 11400000, guid: 05982f72bd64e81418cb98dc1956d6eb, type: 2}
+  stallTile: {fileID: 11400000, guid: 81c7f36e6ffe4a240afe931cbf5f8f12, type: 2}
+  recTile: {fileID: 11400000, guid: 82eed57374e49004d9e7e5bf90deefac, type: 2}
+  paleTile: {fileID: 11400000, guid: 0f62e3aa1ba1f44418f2d7fcd1940cb5, type: 2}
+  paleJuice: {fileID: 11400000, guid: e163cb1c570114c49859f07f75e43103, type: 2}
+  nyLand: {fileID: 11400000, guid: 30a116ad8f58de74db9d1b67eb0d1341, type: 2}
+  wyoLand: {fileID: 11400000, guid: cdc019ff265f6984e9c4d68347d5ea81, type: 2}
+  gridX: 12
+  gridY: 12
 --- !u!1 &162423991
 GameObject:
   m_ObjectHideFlags: 0
@@ -2268,8 +2389,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 154400141}
-        m_TargetAssemblyTypeName: TilemapControls, Assembly-CSharp
+      - m_Target: {fileID: 154400149}
+        m_TargetAssemblyTypeName: Procedures, Assembly-CSharp
         m_MethodName: Recruit
         m_Mode: 1
         m_Arguments:
@@ -2999,8 +3120,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 154400141}
-        m_TargetAssemblyTypeName: TilemapControls, Assembly-CSharp
+      - m_Target: {fileID: 154400143}
+        m_TargetAssemblyTypeName: Turns, Assembly-CSharp
         m_MethodName: EndTurn
         m_Mode: 1
         m_Arguments:
@@ -3459,8 +3580,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 154400141}
-        m_TargetAssemblyTypeName: TilemapControls, Assembly-CSharp
+      - m_Target: {fileID: 154400149}
+        m_TargetAssemblyTypeName: Procedures, Assembly-CSharp
         m_MethodName: Production
         m_Mode: 1
         m_Arguments:
@@ -3708,8 +3829,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 154400141}
-        m_TargetAssemblyTypeName: TilemapControls, Assembly-CSharp
+      - m_Target: {fileID: 154400148}
+        m_TargetAssemblyTypeName: WFA, Assembly-CSharp
         m_MethodName: WFAProduction
         m_Mode: 1
         m_Arguments:
@@ -4001,8 +4122,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 154400141}
-        m_TargetAssemblyTypeName: TilemapControls, Assembly-CSharp
+      - m_Target: {fileID: 154400148}
+        m_TargetAssemblyTypeName: WFA, Assembly-CSharp
         m_MethodName: WFAChoice
         m_Mode: 1
         m_Arguments:
@@ -4897,8 +5018,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 154400141}
-        m_TargetAssemblyTypeName: TilemapControls, Assembly-CSharp
+      - m_Target: {fileID: 154400149}
+        m_TargetAssemblyTypeName: Procedures, Assembly-CSharp
         m_MethodName: Gather
         m_Mode: 1
         m_Arguments:
@@ -5548,8 +5669,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 154400141}
-        m_TargetAssemblyTypeName: TilemapControls, Assembly-CSharp
+      - m_Target: {fileID: 154400148}
+        m_TargetAssemblyTypeName: WFA, Assembly-CSharp
         m_MethodName: WFAChoice
         m_Mode: 1
         m_Arguments:
@@ -6058,8 +6179,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 154400141}
-        m_TargetAssemblyTypeName: TilemapControls, Assembly-CSharp
+      - m_Target: {fileID: 154400149}
+        m_TargetAssemblyTypeName: Procedures, Assembly-CSharp
         m_MethodName: CreateFactory
         m_Mode: 1
         m_Arguments:
