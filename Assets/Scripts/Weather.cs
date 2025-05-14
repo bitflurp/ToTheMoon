@@ -23,7 +23,15 @@ public class Weather : MonoBehaviour
 
     private int dayToRemove;
 
-
+    public int[,] weatherForecast = {
+    {2,0,0},
+    {3,0,0},
+    {4,0,0},
+    {5,0,0},
+    {6,0,0},
+    {7,0,0},
+    {8,0,0}
+    };
     private void Start()
     {
         tilemap = GetComponent<Tilemap>();
@@ -40,11 +48,11 @@ public class Weather : MonoBehaviour
     public void WeatherApply()
     {
 
-        int chanceWeather = 3; //Random.Range(1, 4);
+        //int chanceWeather = 3; //Random.Range(1, 4);
 
 
         //Checks if weather Hits and if its the day to remove Weather so as to not constantly be in WEATHER STATE
-        if (chanceWeather == 3 && tileData.weatherData.Count() == 0)
+        if (weatherForecast[turnData.weatherIndex, 1] == 3 && tileData.weatherData.Count() == 0)
         {
 
             //Makes it so day the weather gets removes is the next turn
@@ -170,5 +178,90 @@ public class Weather : MonoBehaviour
         }
 
     }
+
+
+    public void WeatherForcast() {
+
+        int quotaWeather = weatherForecast[6, 1];
+
+
+        for (int i = 0; i < weatherForecast.GetLength(0); i++) {
+
+            //Randomize each loop
+            int weatherHit = Random.Range(1, 4);
+            int stateHit = Random.Range(0, playerData.statesUnlocked);
+            
+            //day set
+            weatherForecast[i, 0] += 7;
+            //weather hit set
+            //weatherForecast[i, 1] = 3;//weatherHit;
+            
+            //Checking if the previous day had weather so that two weather days does not happen
+            if (i == 0)
+            {
+                if (quotaWeather != 3)
+                {
+
+
+                    weatherForecast[i, 1] = 3;//weatherHit;
+
+                }
+                else
+                {
+
+                    weatherForecast[i, 1] = 0;//weatherHit;
+                }
+
+
+
+            }
+            else
+            {
+
+                if (weatherForecast[i-1, 1] != 3 ) {
+
+
+                    weatherForecast[i, 1] = 3;//weatherHit;
+
+                }
+                else
+                {
+
+                    weatherForecast[i, 1] = 0;//weatherHit;
+                }
+
+
+            }
+
+            //state set
+            if (weatherForecast[i, 1] == 3)
+            {
+
+                weatherForecast[i, 2] = stateHit;
+
+
+            }
+            else
+            {
+
+                weatherForecast[i, 2] = 0;
+
+
+            }
+            
+
+        }
+
+
+        for (int i = 0; i < weatherForecast.GetLength(0); i++)
+        {
+
+            Debug.Log($"{weatherForecast[i, 0]} {weatherForecast[i, 1]} {weatherForecast[i, 2]}");
+
+        }
+
+    }
+
+
 
 }

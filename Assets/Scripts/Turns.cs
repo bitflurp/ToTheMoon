@@ -12,7 +12,7 @@ public class Turns : MonoBehaviour
    
     public int dayCounter = 1;
     public int nextQuota = 8;
-
+    public int weatherIndex = -1;
 
 
     private void Start()
@@ -22,6 +22,16 @@ public class Turns : MonoBehaviour
         uiData = GetComponent<UserInterface>();
         weatherData = GetComponent<Weather>();
         paleData = GetComponent<Pale>();
+
+        //test Delete after 
+
+        for (int i = 0; i < weatherData.weatherForecast.GetLength(0); i++)
+        {
+
+            Debug.Log($"{weatherData.weatherForecast[i, 0]} {weatherData.weatherForecast[i, 1]} {weatherData.weatherForecast[i, 2]}");
+
+        }
+
     }
 
 
@@ -33,7 +43,7 @@ public class Turns : MonoBehaviour
 
         //Increment Turn
         dayCounter++;
-
+        weatherIndex++;
 
 
         weatherData.WeatherApply();
@@ -57,6 +67,10 @@ public class Turns : MonoBehaviour
             QuotaReach();
             //changes deadline to next week (have to add it into a fail/win state 
             nextQuota += 7;
+            //weather index back to -1
+            weatherIndex = -1;
+
+            weatherData.WeatherForcast();
         }
 
 
