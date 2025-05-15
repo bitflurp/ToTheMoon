@@ -70,7 +70,8 @@ public class Turns : MonoBehaviour
             //weather index back to -1
             weatherIndex = -1;
 
-            weatherData.WeatherForcast();
+            weatherData.WeatherForecast();
+            uiData.ForecastTranslate(); 
         }
 
 

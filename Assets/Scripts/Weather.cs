@@ -15,7 +15,6 @@ public class Weather : MonoBehaviour
 {
 
 
-
     private Turns turnData;
     private Tilemap tilemap;
     private TileData tileData;
@@ -43,8 +42,6 @@ public class Weather : MonoBehaviour
 
 
 
-
-
     public void WeatherApply()
     {
 
@@ -64,7 +61,6 @@ public class Weather : MonoBehaviour
 
 
 
-
             for (int x = 2; x < tileData.gridX; x++)
             {
                 for (int y = 1; y < tileData.gridY; y++)
@@ -76,18 +72,17 @@ public class Weather : MonoBehaviour
 
 
 
-
                     //Checks if current tile is factory, and if it is gets the state tile it was placed on
                     tileData.factoryStateData.TryGetValue(nowTilePos, out TileBase factoryState);
                     tileData.recStateData.TryGetValue(nowTilePos, out TileBase recState);
 
 
-                    if (!(nowTile is PaleTile)) {
+                    if (!(nowTile is PaleTile))
+                    {
 
                         //Effects only chosen weather
-                        switch (chanceStateWeather)
+                        switch (weatherForecast[turnData.weatherIndex, 2])
                         {
-
 
 
 
@@ -107,13 +102,10 @@ public class Weather : MonoBehaviour
 
 
 
-
-
                                 break;
 
                             //If Wyoming Got selected
                             case 2:
-
 
 
                                 if (nowTile is WyomingLand || factoryState is WyomingLand || recState is WyomingTile)
@@ -138,11 +130,7 @@ public class Weather : MonoBehaviour
                         }
 
 
-
                     }
-
-
-
 
 
 
@@ -180,53 +168,46 @@ public class Weather : MonoBehaviour
     }
 
 
-    public void WeatherForcast() {
+    public void WeatherForecast()
+    {
 
         int quotaWeather = weatherForecast[6, 1];
 
 
-        for (int i = 0; i < weatherForecast.GetLength(0); i++) {
+        for (int i = 0; i < weatherForecast.GetLength(0); i++)
+        {
 
             //Randomize each loop
             int weatherHit = Random.Range(1, 4);
-            int stateHit = Random.Range(0, playerData.statesUnlocked);
-            
+            int stateHit = Random.Range(1, playerData.statesUnlocked);
+
             //day set
             weatherForecast[i, 0] += 7;
-            //weather hit set
+
             //weatherForecast[i, 1] = 3;//weatherHit;
-            
-            //Checking if the previous day had weather so that two weather days does not happen
+            //weather hit set
+            //Checking if the previous day had weather so that two weather days does not happen   
             if (i == 0)
             {
-                if (quotaWeather != 3)
+                if (quotaWeather != 3 && playerData.statesUnlocked > 1)
                 {
-
-
                     weatherForecast[i, 1] = 3;//weatherHit;
-
                 }
                 else
                 {
-
                     weatherForecast[i, 1] = 0;//weatherHit;
                 }
-
-
 
             }
             else
             {
 
-                if (weatherForecast[i-1, 1] != 3 ) {
-
-
-                    weatherForecast[i, 1] = 3;//weatherHit;
-
+                if (weatherForecast[i - 1, 1] != 3 && playerData.statesUnlocked > 1)
+                {
+                    weatherForecast[i, 1] = 3;//weatherHit
                 }
                 else
                 {
-
                     weatherForecast[i, 1] = 0;//weatherHit;
                 }
 
@@ -234,21 +215,15 @@ public class Weather : MonoBehaviour
             }
 
             //state set
-            if (weatherForecast[i, 1] == 3)
+            if (weatherForecast[i, 1] == 3 && playerData.statesUnlocked > 1)
             {
-
                 weatherForecast[i, 2] = stateHit;
-
-
             }
             else
             {
-
                 weatherForecast[i, 2] = 0;
-
-
             }
-            
+
 
         }
 
@@ -258,9 +233,13 @@ public class Weather : MonoBehaviour
 
             Debug.Log($"{weatherForecast[i, 0]} {weatherForecast[i, 1]} {weatherForecast[i, 2]}");
 
+
         }
 
     }
+
+
+
 
 
 
