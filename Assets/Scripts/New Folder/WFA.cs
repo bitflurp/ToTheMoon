@@ -177,6 +177,8 @@ public class WFA : MonoBehaviour
 
         }
 
+        //DO costs here
+
 
 
     }

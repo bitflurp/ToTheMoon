@@ -8,6 +8,7 @@ public class UserInterface : MonoBehaviour
     private PlayerData playerData;
     private WFA wfaData;
     private Weather weatherData;
+    private Procedures procedureData;
 
     //For Buttons
     public GameObject buttonCreate;
@@ -29,7 +30,12 @@ public class UserInterface : MonoBehaviour
     public TMP_Text weatherText;
 
     public TMP_Text workForceNoText;
-    public TMP_Text workForceCostText;
+
+
+    public TMP_Text wfCostText;
+    public TMP_Text recCostText;
+    public TMP_Text moneyCostText;
+
 
     private string[,] forecastText = {
     {"Day 2","Null","Null"},
@@ -47,6 +53,10 @@ public class UserInterface : MonoBehaviour
         playerData = GetComponent<PlayerData>();
         wfaData = GetComponent<WFA>();
         weatherData = GetComponent<Weather>();
+        procedureData = GetComponent<Procedures>();
+
+        
+
 
         //test Delete after
 
@@ -81,7 +91,7 @@ public class UserInterface : MonoBehaviour
         moneyText.text = $"PROFIT: {playerData.money}";
 
 
-        workForceCostText.text = $"Produce: {wfaData.workForceAllocation}$ :{wfaData.workForceAllocation} Rec \nRecruit: {wfaData.workForceAllocation * 2}$ : TURN STALL \nGather: {wfaData.workForceAllocation * 2}$";
+        //workForceCostText.text = $"Produce: {wfaData.workForceAllocation}$ :{wfaData.workForceAllocation} Rec \nRecruit: {wfaData.workForceAllocation * 2}$ : TURN STALL \nGather: {wfaData.workForceAllocation * 2}$";
 
         weatherText.text = $"{forecastText[0, 0]} {forecastText[0, 1]} {forecastText[0, 2]}\n " +
            $"{forecastText[1, 0]}{forecastText[1, 1]} {forecastText[1, 2]} \n" +
@@ -157,6 +167,39 @@ public class UserInterface : MonoBehaviour
        
            
 
+    }
+
+
+
+    public void SetUpCost() {
+
+        switch (true)
+        {
+
+            case true when procedureData.curProcedure == buttonProduce:
+                //cotsts
+                
+                break;
+
+
+            case true when procedureData.curProcedure == buttonRecruit:
+
+
+                break;
+
+            case true when procedureData.curProcedure == buttonGather:
+
+
+                break;
+
+
+
+
+
+        }
+    
+    
+    
     }
 
 

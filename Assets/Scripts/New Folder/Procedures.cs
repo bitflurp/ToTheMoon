@@ -70,7 +70,11 @@ public class Procedures : MonoBehaviour
 
             //UI Script
             uiData.workForceNoText.text = $"{wfaData.workForceAllocation}";
-
+            
+            //put iny istuff
+            
+            //uiData.wfCostText.enabled = true;
+            //uiData.recCostText.enabled = true;
         }
         else if (tileData.workForceRecruit.ContainsKey(clickData.clickedCell))
         {
