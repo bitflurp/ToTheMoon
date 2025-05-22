@@ -123,13 +123,15 @@ public class WFA : MonoBehaviour
                 break;
 
 
+            
+
 
 
         }
 
         // set WFA to 1 so on next procedure it starts on 1 WF chosen
         workForceAllocation = 1;
-        uiData.buttonStartProcedure.SetActive(false);
+        uiData.RemoveUI();
     }
 
     public void WFAChoice()
@@ -178,7 +180,7 @@ public class WFA : MonoBehaviour
         }
 
         //DO costs here
-
+        uiData.SetUpCost();
 
 
     }

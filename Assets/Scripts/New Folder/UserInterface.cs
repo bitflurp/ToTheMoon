@@ -37,6 +37,13 @@ public class UserInterface : MonoBehaviour
     public TMP_Text moneyCostText;
 
 
+    
+
+    //PS DATA
+    public GameObject psPanel;
+    public TMP_Text profitEndText;
+
+
     private string[,] forecastText = {
     {"Day 2","Null","Null"},
     {"Day 3","Null","Null"},
@@ -77,6 +84,12 @@ public class UserInterface : MonoBehaviour
         buttonStartProcedure.SetActive(false);
         buttonExpodition.SetActive(false);
 
+        wfCostText.enabled = false;
+        recCostText.enabled = false;
+        moneyCostText.enabled = false;
+
+        //SHouldnt be here but for ease of use now
+        wfaData.workForceAllocation = 1;
 
     }
 
@@ -178,16 +191,39 @@ public class UserInterface : MonoBehaviour
 
             case true when procedureData.curProcedure == buttonProduce:
                 //cotsts
-                
+
+             wfCostText.enabled = true;
+             recCostText.enabled = true;
+             moneyCostText.enabled = true;
+
+                wfCostText.text = $"- {wfaData.workForceAllocation}";
+                recCostText.text = $"- {wfaData.workForceAllocation}";
+                moneyCostText.text = $"- {wfaData.workForceAllocation}";
+
+
                 break;
 
 
             case true when procedureData.curProcedure == buttonRecruit:
+                wfCostText.enabled = true;
+                //recCostText.enabled = true;
+                moneyCostText.enabled = true;
+
+                wfCostText.text = $"-  {wfaData.workForceAllocation}";
+                //recCostText.text = $"{wfaData.workForceAllocation}";
+                moneyCostText.text = $"- {wfaData.workForceAllocation*2}";
 
 
                 break;
 
             case true when procedureData.curProcedure == buttonGather:
+                wfCostText.enabled = true;
+                //recCostText.enabled = true;
+                moneyCostText.enabled = true;
+
+
+                wfCostText.text = $"-  {wfaData.workForceAllocation}";
+                moneyCostText.text = $"- {wfaData.workForceAllocation*2}";
 
 
                 break;
@@ -197,10 +233,10 @@ public class UserInterface : MonoBehaviour
 
 
         }
-    
-    
-    
     }
+
+
+
 
 
 }

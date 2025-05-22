@@ -9,11 +9,13 @@ public class Turns : MonoBehaviour
     private UserInterface uiData;
     private Weather weatherData;
     private Pale paleData;
+    private ProfitScreen psData;
    
     public int dayCounter = 1;
     public int nextQuota = 8;
     public int weatherIndex = -1;
 
+    private Coroutine profitCo;
 
     private void Start()
     {
@@ -22,6 +24,7 @@ public class Turns : MonoBehaviour
         uiData = GetComponent<UserInterface>();
         weatherData = GetComponent<Weather>();
         paleData = GetComponent<Pale>();
+        psData = GetComponent<ProfitScreen>();
 
         //test Delete after 
 
@@ -55,6 +58,8 @@ public class Turns : MonoBehaviour
         //GetProfit
         profitData.ProductionProfit();
         profitData.GatherProfit();
+
+        profitCo = StartCoroutine(psData.ProfitAnim());  
 
 
 

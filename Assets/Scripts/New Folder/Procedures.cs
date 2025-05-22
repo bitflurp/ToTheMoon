@@ -71,7 +71,7 @@ public class Procedures : MonoBehaviour
             //UI Script
             uiData.workForceNoText.text = $"{wfaData.workForceAllocation}";
             
-            //put iny istuff
+            //put in istuff
             
             //uiData.wfCostText.enabled = true;
             //uiData.recCostText.enabled = true;
@@ -90,7 +90,7 @@ public class Procedures : MonoBehaviour
         }
 
         EventSystem.current.currentSelectedGameObject.SetActive(false);
-
+        uiData.SetUpCost();
     }
 
 
@@ -122,7 +122,7 @@ public class Procedures : MonoBehaviour
 
 
         uiData.buttonProduce.SetActive(false);
-
+        uiData.SetUpCost();
 
     }
 
@@ -148,7 +148,7 @@ public class Procedures : MonoBehaviour
 
 
         EventSystem.current.currentSelectedGameObject.SetActive(false);
-
+        uiData.SetUpCost();
     }
 
     public void Expodition()
