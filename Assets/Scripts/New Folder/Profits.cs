@@ -19,6 +19,7 @@ public class Profits : MonoBehaviour
     private PlayerData playerData;
     private TilemapControls clickData;
     private TileData tileData;
+    private ProfitScreen psData;
 
     private Turns turnData;
     //turnData = GetComponent<Turns>();
@@ -30,6 +31,8 @@ public class Profits : MonoBehaviour
         clickData = GetComponent<TilemapControls>();
         tileData = GetComponent<TileData>();  
          turnData = GetComponent<Turns>();
+        psData = GetComponent<ProfitScreen>();
+
     }
 
 
@@ -66,7 +69,7 @@ public class Profits : MonoBehaviour
 
         // Multiply Factories producing by product per factory producing (2)
         addMoney = totalWF * 2;
-
+        psData.moneyProfit = addMoney;
         //add profit Recourse to player Recourse 
         playerData.money += addMoney;
 
@@ -115,6 +118,7 @@ public class Profits : MonoBehaviour
 
         // Multiply Factories producing by product per factory producing (2)
         int addRec = totalWF * 2;
+      
 
         //add profit Recourse to player Recourse 
         playerData.rec += addRec;

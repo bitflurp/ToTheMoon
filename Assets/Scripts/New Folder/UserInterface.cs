@@ -8,6 +8,7 @@ public class UserInterface : MonoBehaviour
     private PlayerData playerData;
     private WFA wfaData;
     private Weather weatherData;
+    private Procedures procedureData;
 
     //For Buttons
     public GameObject buttonCreate;
@@ -29,7 +30,19 @@ public class UserInterface : MonoBehaviour
     public TMP_Text weatherText;
 
     public TMP_Text workForceNoText;
-    public TMP_Text workForceCostText;
+
+
+    public TMP_Text wfCostText;
+    public TMP_Text recCostText;
+    public TMP_Text moneyCostText;
+
+
+    
+
+    //PS DATA
+    public GameObject psPanel;
+    public TMP_Text profitEndText;
+
 
     private string[,] forecastText = {
     {"Day 2","Null","Null"},
@@ -47,6 +60,10 @@ public class UserInterface : MonoBehaviour
         playerData = GetComponent<PlayerData>();
         wfaData = GetComponent<WFA>();
         weatherData = GetComponent<Weather>();
+        procedureData = GetComponent<Procedures>();
+
+        
+
 
         //test Delete after
 
@@ -67,6 +84,12 @@ public class UserInterface : MonoBehaviour
         buttonStartProcedure.SetActive(false);
         buttonExpodition.SetActive(false);
 
+        wfCostText.enabled = false;
+        recCostText.enabled = false;
+        moneyCostText.enabled = false;
+
+        //SHouldnt be here but for ease of use now
+        wfaData.workForceAllocation = 1;
 
     }
 
@@ -81,7 +104,7 @@ public class UserInterface : MonoBehaviour
         moneyText.text = $"PROFIT: {playerData.money}";
 
 
-        workForceCostText.text = $"Produce: {wfaData.workForceAllocation}$ :{wfaData.workForceAllocation} Rec \nRecruit: {wfaData.workForceAllocation * 2}$ : TURN STALL \nGather: {wfaData.workForceAllocation * 2}$";
+        //workForceCostText.text = $"Produce: {wfaData.workForceAllocation}$ :{wfaData.workForceAllocation} Rec \nRecruit: {wfaData.workForceAllocation * 2}$ : TURN STALL \nGather: {wfaData.workForceAllocation * 2}$";
 
         weatherText.text = $"{forecastText[0, 0]} {forecastText[0, 1]} {forecastText[0, 2]}\n " +
            $"{forecastText[1, 0]}{forecastText[1, 1]} {forecastText[1, 2]} \n" +
@@ -158,6 +181,62 @@ public class UserInterface : MonoBehaviour
            
 
     }
+
+
+
+    public void SetUpCost() {
+
+        switch (true)
+        {
+
+            case true when procedureData.curProcedure == buttonProduce:
+                //cotsts
+
+             wfCostText.enabled = true;
+             recCostText.enabled = true;
+             moneyCostText.enabled = true;
+
+                wfCostText.text = $"- {wfaData.workForceAllocation}";
+                recCostText.text = $"- {wfaData.workForceAllocation}";
+                moneyCostText.text = $"- {wfaData.workForceAllocation}";
+
+
+                break;
+
+
+            case true when procedureData.curProcedure == buttonRecruit:
+                wfCostText.enabled = true;
+                //recCostText.enabled = true;
+                moneyCostText.enabled = true;
+
+                wfCostText.text = $"-  {wfaData.workForceAllocation}";
+                //recCostText.text = $"{wfaData.workForceAllocation}";
+                moneyCostText.text = $"- {wfaData.workForceAllocation*2}";
+
+
+                break;
+
+            case true when procedureData.curProcedure == buttonGather:
+                wfCostText.enabled = true;
+                //recCostText.enabled = true;
+                moneyCostText.enabled = true;
+
+
+                wfCostText.text = $"-  {wfaData.workForceAllocation}";
+                moneyCostText.text = $"- {wfaData.workForceAllocation*2}";
+
+
+                break;
+
+
+
+
+
+        }
+    }
+
+
+
 
 
 }

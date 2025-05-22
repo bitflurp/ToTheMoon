@@ -54,6 +54,7 @@ public class TileData : MonoBehaviour
     };
 
 
+    //test
+   public Dictionary<Vector3Int, TileBase> startData = new();
 
-   
 }
