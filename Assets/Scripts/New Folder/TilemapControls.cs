@@ -45,7 +45,7 @@ public class TilemapControls : MonoBehaviour
 
         RecourceAdd();
 
-        startCo = StartCoroutine(psData.StartAnim());
+        //startCo = StartCoroutine(psData.StartAnim());
 
         uiData.dayText.text = $"{$"DAY {turnData.dayCounter}"}";
 
@@ -185,23 +185,23 @@ public class TilemapControls : MonoBehaviour
         }
 
         //Test
-        for (int x = 1; x < tileData.gridX; x++)
-        {
-            for (int y = 1; y < tileData.gridY; y++)
-            {
-                Vector3Int nowTilePos = new Vector3Int(x, y, 0);
-                TileBase nowTile = tilemap.GetTile(nowTilePos);
+       // for (int x = 1; x < tileData.gridX; x++)
+        //{
+            //for (int y = 1; y < tileData.gridY; y++)
+            //{
+                //Vector3Int nowTilePos = new Vector3Int(x, y, 0);
+                //TileBase nowTile = tilemap.GetTile(nowTilePos);
 
-                if (nowTile != null)
-                {
+                //if (nowTile != null)
+                //{
 
-                    tileData.startData.Add(nowTilePos, nowTile);
-                    tilemap.SetTile(nowTilePos, null);
+                    //tileData.startData.Add(nowTilePos, nowTile);
+                    //tilemap.SetTile(nowTilePos, null);
 
-                }
+                //}
 
-            }
-        }
+            //}
+        //}
 
 
 
