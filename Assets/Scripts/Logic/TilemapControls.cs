@@ -73,7 +73,20 @@ public class TilemapControls : MonoBehaviour
         // tile type is tile
         uiData.stateText.text = $"{$"TILE INFO" + clickedCell + tile + playerData.rec}";
 
-        hoverData.click = true;
+             if (hoverData.click == true)
+                {
+
+                    hoverData.HoverTilemap.SetTile(hoverData.preMouse, hoverData.landTile);
+                    hoverData.HoverTilemap.SetTile(clickedCell, hoverData.hoverTile);
+
+                    hoverData.preMouse = clickedCell;
+
+                }
+                else
+                {
+                    hoverData.click = true;
+
+                }
 
         switch (tile)
         {

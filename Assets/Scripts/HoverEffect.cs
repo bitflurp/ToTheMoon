@@ -3,14 +3,14 @@ using UnityEngine.Tilemaps;
 
 public class HoverEffect : MonoBehaviour
 {
-    private Tilemap tilemap;
+    public Tilemap HoverTilemap;
     public Tile hoverTile;
     public bool click = false;
-    [SerializeField] private Tile landTile;
-    private Vector3Int preMouse = new Vector3Int();
+    public Tile landTile;
+    public Vector3Int preMouse = new Vector3Int();
     void Start()
     {
-        tilemap = GetComponent<Tilemap>();
+        HoverTilemap = GetComponent<Tilemap>();
     }
     void Update()
     {
@@ -22,21 +22,21 @@ public class HoverEffect : MonoBehaviour
         // changes screen to world position
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
 
-        clickedCell = tilemap.WorldToCell(worldPos);
-        tile = tilemap.GetTile(clickedCell);
+        clickedCell = HoverTilemap.WorldToCell(worldPos);
+        tile = HoverTilemap.GetTile(clickedCell);
         if (click == false)
         {
             if (tile != null)
             {
                 if (!clickedCell.Equals(preMouse))
                 {
-                    tilemap.SetTile(preMouse, landTile);
-                    tilemap.SetTile(clickedCell, hoverTile);
+                    HoverTilemap.SetTile(preMouse, landTile);
+                    HoverTilemap.SetTile(clickedCell, hoverTile);
                     preMouse = clickedCell;
 
                 }
             }
-            else { tilemap.SetTile(preMouse, landTile); }
+            else { HoverTilemap.SetTile(preMouse, landTile); }
         }
         else
         {
