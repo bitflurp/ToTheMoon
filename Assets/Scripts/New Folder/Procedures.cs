@@ -13,6 +13,7 @@ public class Procedures : MonoBehaviour
     private TileData tileData;
     private UserInterface uiData;
     private WFA wfaData;
+    private ParticleManager pData;
 
     public GameObject curProcedure;
 
@@ -25,6 +26,7 @@ public class Procedures : MonoBehaviour
         tileData= GetComponent<TileData>();
         uiData = GetComponent<UserInterface>();
         wfaData = GetComponent<WFA>();
+        pData = GetComponent<ParticleManager>();
     }
 
 
@@ -43,7 +45,7 @@ public class Procedures : MonoBehaviour
             tilemap.SetTile(clickData.clickedCell, tileData.factoryTile);
             playerData.rec -= 5;
 
-
+            pData.ParticleEffect();
 
         }
         else
