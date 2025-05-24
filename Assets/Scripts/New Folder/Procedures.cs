@@ -65,16 +65,12 @@ public class Procedures : MonoBehaviour
 
             curProcedure = EventSystem.current.currentSelectedGameObject;
 
-
             uiData.buttonStartProcedure.SetActive(true);
 
             //UI Script
             uiData.workForceNoText.text = $"{wfaData.workForceAllocation}";
-            
-            //put in istuff
-            
-            //uiData.wfCostText.enabled = true;
-            //uiData.recCostText.enabled = true;
+
+            uiData.SetUpCost();
         }
         else if (tileData.workForceRecruit.ContainsKey(clickData.clickedCell))
         {
@@ -90,7 +86,7 @@ public class Procedures : MonoBehaviour
         }
 
         EventSystem.current.currentSelectedGameObject.SetActive(false);
-        uiData.SetUpCost();
+       
     }
 
 
@@ -105,7 +101,9 @@ public class Procedures : MonoBehaviour
 
 
             uiData.buttonStartProcedure.SetActive(true);
+
             uiData.workForceNoText.text = $"{wfaData.workForceAllocation}";
+            uiData.SetUpCost();
 
         }
         else if (tileData.workForceProduction.ContainsKey(clickData.clickedCell))
@@ -122,7 +120,7 @@ public class Procedures : MonoBehaviour
 
 
         uiData.buttonProduce.SetActive(false);
-        uiData.SetUpCost();
+      
 
     }
 
@@ -137,6 +135,7 @@ public class Procedures : MonoBehaviour
 
             uiData.buttonStartProcedure.SetActive(true);
             uiData.workForceNoText.text = $"{wfaData.workForceAllocation}";
+            uiData.SetUpCost();
 
 
         }
@@ -148,7 +147,7 @@ public class Procedures : MonoBehaviour
 
 
         EventSystem.current.currentSelectedGameObject.SetActive(false);
-        uiData.SetUpCost();
+       
     }
 
     public void Expodition()

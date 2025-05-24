@@ -25,8 +25,8 @@ public class TilemapControls : MonoBehaviour
     private UserInterface uiData;
     private Turns turnData;
     private TileData tileData;
-    private ProfitScreen psData; 
-
+    private ProfitScreen psData;
+    private AudioManager audioData;
   
     
 
@@ -40,6 +40,7 @@ public class TilemapControls : MonoBehaviour
         turnData = GetComponent<Turns>();
         tileData = GetComponent<TileData>();
         psData = GetComponent<ProfitScreen>();
+        audioData = GetComponent<AudioManager>();
 
 
 
@@ -71,7 +72,7 @@ public class TilemapControls : MonoBehaviour
         // tile type is tile
         uiData.stateText.text = $"{$"TILE INFO" + clickedCell + tile + playerData.rec}";
 
-
+        audioData.PlaySFX();
         switch (tile) {
 
             case LandTile:
@@ -184,25 +185,7 @@ public class TilemapControls : MonoBehaviour
             }
         }
 
-        //Test
-       // for (int x = 1; x < tileData.gridX; x++)
-        //{
-            //for (int y = 1; y < tileData.gridY; y++)
-            //{
-                //Vector3Int nowTilePos = new Vector3Int(x, y, 0);
-                //TileBase nowTile = tilemap.GetTile(nowTilePos);
-
-                //if (nowTile != null)
-                //{
-
-                    //tileData.startData.Add(nowTilePos, nowTile);
-                    //tilemap.SetTile(nowTilePos, null);
-
-                //}
-
-            //}
-        //}
-
+     
 
 
     }

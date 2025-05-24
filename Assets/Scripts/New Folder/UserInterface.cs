@@ -99,7 +99,7 @@ public class UserInterface : MonoBehaviour
         // shows Current Rec
         recText.text = $"REC: {playerData.rec}";
 
-        workForceText.text = $"WF: {playerData.workForce}";
+        workForceText.text = $"WF: {playerData.maxWF}/{playerData.workForce}";
 
         moneyText.text = $"PROFIT: {playerData.money}";
 

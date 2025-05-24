@@ -11,6 +11,8 @@ public class ProfitScreen : MonoBehaviour
    
  
     public int moneyProfit;
+    public int wfProfit;
+    public int recProfit;
 
     private void Start()
     {
@@ -18,8 +20,8 @@ public class ProfitScreen : MonoBehaviour
         tileData = GetComponent<TileData>();
         tilemap = GetComponent<Tilemap>();
 
-        Coroutine startCo = StartCoroutine(StartScreen());
-
+        //Coroutine startCo = StartCoroutine(StartScreen());
+        
     }
     public IEnumerator ProfitAnim()
     {
@@ -29,11 +31,11 @@ public class ProfitScreen : MonoBehaviour
         
         char[] charactersM = mStr.ToCharArray();
 
-        string wfStr = $"\n\nWF Profit = {moneyProfit}";
+        string wfStr = $"\n\nWF Profit = {wfProfit}";
 
         char[] charactersWf = wfStr.ToCharArray();
 
-        string rStr = $"\n\nRec Profit = {moneyProfit}";
+        string rStr = $"\n\nRec Profit = {recProfit}";
 
         char[] charactersR = rStr.ToCharArray();
 
@@ -118,6 +120,8 @@ public class ProfitScreen : MonoBehaviour
         uiData.psPanel.gameObject.SetActive(true);
         uiData.profitEndText.enabled = true;
         uiData.profitEndText.fontSize = 13;
+
+        yield return new WaitForSeconds(1);
         //1st Text
         for (int i = 0; i < charactersM.GetLength(0); i++)
         {
@@ -126,7 +130,7 @@ public class ProfitScreen : MonoBehaviour
             uiData.profitEndText.text += charactersM[i];
 
             //Frame Wait
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 2; j++)
             {
                 yield return null;
             }
@@ -144,7 +148,7 @@ public class ProfitScreen : MonoBehaviour
 
 
             //Frame Wait
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 2; j++)
             {
                 yield return null;
             }
@@ -160,7 +164,7 @@ public class ProfitScreen : MonoBehaviour
             uiData.profitEndText.text += charactersR[i];
 
             //Frame Wait
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 2; j++)
             {
                 yield return null;
             }
@@ -205,11 +209,12 @@ public class ProfitScreen : MonoBehaviour
         uiData.psPanel.gameObject.SetActive(false);
         uiData.profitEndText.enabled = false;
 
-
     }
 
     public IEnumerator StartAnim() {
+        Collider2D collideData = GetComponent<Collider2D>();
 
+        collideData.enabled = false;
 
         for (int x = 2; x < tileData.gridX; x++)
         {
@@ -235,6 +240,9 @@ public class ProfitScreen : MonoBehaviour
             }
 
         }
+
+
+        collideData.enabled =true;
     }
 
 

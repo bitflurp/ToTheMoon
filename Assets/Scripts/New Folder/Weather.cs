@@ -80,7 +80,7 @@ public class Weather : MonoBehaviour
                     if (!(nowTile is PaleTile))
                     {
 
-                        //Effects only chosen weather
+                        //Effects only chosen weather state
                         switch (weatherForecast[turnData.weatherIndex, 2])
                         {
 
