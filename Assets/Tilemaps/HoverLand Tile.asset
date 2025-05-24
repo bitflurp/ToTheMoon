@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39eb208f008c754290559c9e5ddda39, type: 3}
   m_Name: HoverLand Tile
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -1526537889, guid: 1c1daf41ff858884b8e17cea41e7dd9c, type: 3}
+  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   m_Transform:
     e00: 1
     e01: 0
