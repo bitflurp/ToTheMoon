@@ -55,6 +55,7 @@ public class Procedures : MonoBehaviour
         //closes popup 
         // Use the thingy to recognize which game object it is
         EventSystem.current.currentSelectedGameObject.SetActive(false);
+        clickData.hoverData.click = false;
     }
 
 
@@ -159,7 +160,7 @@ public class Procedures : MonoBehaviour
         ExpoditionCheck(stateTile);
 
         EventSystem.current.currentSelectedGameObject.SetActive(false);
-
+        clickData.hoverData.click = false;
     }
 
     public void ExpoditionCheck(TileBase stateTile)

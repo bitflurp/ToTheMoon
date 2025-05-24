@@ -15,6 +15,8 @@ public class TilemapControls : MonoBehaviour
     //TileData Vars
     public Vector3Int clickedCell;
     public TileBase tile;
+    public GameObject hoverTilemap;
+    public HoverEffect hoverData;
 
     //Coroutine
     private Coroutine startCo;
@@ -26,7 +28,7 @@ public class TilemapControls : MonoBehaviour
     private Turns turnData;
     private TileData tileData;
     private ProfitScreen psData; 
-
+    
   
     
 
@@ -40,12 +42,12 @@ public class TilemapControls : MonoBehaviour
         turnData = GetComponent<Turns>();
         tileData = GetComponent<TileData>();
         psData = GetComponent<ProfitScreen>();
-
+        hoverData = hoverTilemap.GetComponent<HoverEffect>();
 
 
         RecourceAdd();
 
-        startCo = StartCoroutine(psData.StartAnim());
+       
 
         uiData.dayText.text = $"{$"DAY {turnData.dayCounter}"}";
 
@@ -71,8 +73,10 @@ public class TilemapControls : MonoBehaviour
         // tile type is tile
         uiData.stateText.text = $"{$"TILE INFO" + clickedCell + tile + playerData.rec}";
 
+        hoverData.click = true;
 
-        switch (tile) {
+        switch (tile)
+        {
 
             case LandTile:
 
@@ -109,7 +113,7 @@ public class TilemapControls : MonoBehaviour
                     uiData.stateText.text = $"{$"there is {tileData.workForceProduction[clickedCell]} Producing"}";
                 }
 
-              
+
 
                 break;
 
@@ -125,14 +129,14 @@ public class TilemapControls : MonoBehaviour
                 uiData.stateText.text = $"{tileData.recData[clickedCell]}/30 Recourses left";
 
 
-                if (tileData.workForceGather.ContainsKey(clickedCell) )
+                if (tileData.workForceGather.ContainsKey(clickedCell))
                 {
                     uiData.stateText.text = $"{$"there is {tileData.workForceGather[clickedCell]} Gathering"}";
 
                 }
 
 
-            
+
 
                 break;
 
@@ -144,13 +148,13 @@ public class TilemapControls : MonoBehaviour
                 uiData.buttonExpodition.SetActive(true);
                 //stateText.text = $"{$"locked"}";
 
-           
+
                 break;
-        
-        
-        
-        
-        
+
+
+
+
+
         }
 
 
@@ -184,24 +188,7 @@ public class TilemapControls : MonoBehaviour
             }
         }
 
-        //Test
-        for (int x = 1; x < tileData.gridX; x++)
-        {
-            for (int y = 1; y < tileData.gridY; y++)
-            {
-                Vector3Int nowTilePos = new Vector3Int(x, y, 0);
-                TileBase nowTile = tilemap.GetTile(nowTilePos);
-
-                if (nowTile != null)
-                {
-
-                    tileData.startData.Add(nowTilePos, nowTile);
-                    tilemap.SetTile(nowTilePos, null);
-
-                }
-
-            }
-        }
+      
 
 
 

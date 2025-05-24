@@ -44,7 +44,7 @@ public class WFA : MonoBehaviour
 
                 if (playerData.workForce >= workForceAllocation && playerData.rec >= workForceAllocation)
                 {
-                   
+
                     tileData.workForceProduction.Add(clickData.clickedCell, workForceAllocation);
 
                     //costs
@@ -68,7 +68,7 @@ public class WFA : MonoBehaviour
                 if (playerData.workForce >= workForceAllocation)
                 {
 
-                   
+
 
                     // add location of current cell + when the stall will end for that specific cell
                     tileData.stallData.Add(clickData.clickedCell, whenStallEnds);
@@ -123,7 +123,7 @@ public class WFA : MonoBehaviour
                 break;
 
 
-            
+
 
 
 
@@ -132,6 +132,7 @@ public class WFA : MonoBehaviour
         // set WFA to 1 so on next procedure it starts on 1 WF chosen
         workForceAllocation = 1;
         uiData.RemoveUI();
+        clickData.hoverData.click = false;
     }
 
     public void WFAChoice()

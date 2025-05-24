@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Land Tile
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: -1280852735, guid: 9c86e4023a9e4b041823774d34c4d986, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_Transform:
     e00: 1
     e01: 0

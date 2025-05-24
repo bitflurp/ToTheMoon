@@ -91,34 +91,6 @@ public class ProfitScreen : MonoBehaviour
 
     }
 
-    public IEnumerator StartAnim() {
-
-
-        for (int x = 2; x < tileData.gridX; x++)
-        {
-            for (int y = 1; y < tileData.gridY; y++)
-            {
-                Vector3Int nowTilePos = new Vector3Int(x, y, 0);
-                //TileBase nowTile = tilemap.GetTile(nowTilePos);
-
-                if (tileData.startData.ContainsKey(nowTilePos)) { 
-                
-                tilemap.SetTile(nowTilePos, tileData.startData[nowTilePos]);
-
-                    for (int i = 0; i < 20; i++)
-                    {
-                        yield return null;
-                    }
-
-
-
-                }
-                
-
-            }
-
-        }
-    }
 
 
 

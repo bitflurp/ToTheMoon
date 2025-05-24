@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da2b699e267d58458275c2ac57b5e4d, type: 3}
   m_Name: Stall Tile
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1676709510, guid: d2ddd027814f94642a5b138bae0550b5, type: 3}
+  m_Sprite: {fileID: -701674471, guid: 30f7e987fdd0fe845a570af450f472d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
