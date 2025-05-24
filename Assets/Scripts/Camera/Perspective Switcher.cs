@@ -10,7 +10,7 @@ public class PerspectiveSwitcher : MonoBehaviour
 {
 
     private UserInterface uiData;
-    
+
     public GameObject buttonMain;
 
     public GameObject buttonWeather;
@@ -42,7 +42,6 @@ public class PerspectiveSwitcher : MonoBehaviour
     void Start()
     {
 
-       
 
         aspect = (float)Screen.width / (float)Screen.height;
 

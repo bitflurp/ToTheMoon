@@ -1,17 +1,11 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Camera))]
 public class MatrixBlender : MonoBehaviour {
     Camera m_camera;
-    public GameObject grid;
-    private TilemapCollider2D colliderData;
-    private void Start()
-    {
-        colliderData = grid.GetComponent<TilemapCollider2D>();
+    private void Start() {
         m_camera = GetComponent<Camera>();
-
     }
 
     public static Matrix4x4 MatrixLerp(Matrix4x4 from, Matrix4x4 to, float time) {
@@ -22,7 +16,6 @@ public class MatrixBlender : MonoBehaviour {
     }
 
     private IEnumerator LerpFromTo(Matrix4x4 src, Matrix4x4 dest, float duration, float ease, bool reverse) {
-        colliderData.enabled = false;
         float startTime = Time.time;
         while (Time.time - startTime < duration) {
             float step;
@@ -32,14 +25,11 @@ public class MatrixBlender : MonoBehaviour {
             yield return 1;
         }
         m_camera.projectionMatrix = dest;
-        colliderData.enabled = true;
     }
 
     public Coroutine BlendToMatrix(Matrix4x4 targetMatrix, float duration, float ease, bool reverse) {
-       
         StopAllCoroutines();
         return StartCoroutine(LerpFromTo(m_camera.projectionMatrix, targetMatrix, duration, ease, reverse));
-      
     }
 }
 
