@@ -99,7 +99,7 @@ public class UserInterface : MonoBehaviour
         // shows Current Rec
         recText.text = $"REC: {playerData.rec}";
 
-        workForceText.text = $"WF: {playerData.workForce}";
+        workForceText.text = $"WF:{playerData.maxWF}/{playerData.workForce}";
 
         moneyText.text = $"PROFIT: {playerData.money}";
 
@@ -209,7 +209,7 @@ public class UserInterface : MonoBehaviour
                 //recCostText.enabled = true;
                 moneyCostText.enabled = true;
 
-                wfCostText.text = $"-  {wfaData.workForceAllocation}";
+                wfCostText.text = $"- {wfaData.workForceAllocation}";
                 //recCostText.text = $"{wfaData.workForceAllocation}";
                 moneyCostText.text = $"- {wfaData.workForceAllocation*2}";
 
@@ -222,7 +222,7 @@ public class UserInterface : MonoBehaviour
                 moneyCostText.enabled = true;
 
 
-                wfCostText.text = $"-  {wfaData.workForceAllocation}";
+                wfCostText.text = $"- {wfaData.workForceAllocation}";
                 moneyCostText.text = $"- {wfaData.workForceAllocation*2}";
 
 

@@ -156,10 +156,10 @@ public class Profits : MonoBehaviour
                         int addWorkForce = totalWF * 1;
 
                         //add profit Recourse to player Recourse 
-                        playerData.workForce += addWorkForce;
+                        playerData.maxWF += addWorkForce;
 
                         //Resets workforce
-                        playerData.workForce += totalWF;
+                        playerData.workForce += totalWF + addWorkForce;
 
                         // Reset Factory Production 
                         //recruitCounter = 0;
@@ -183,6 +183,9 @@ public class Profits : MonoBehaviour
                         //weatherData.ContainsValue(factoryStateData[nowTilePos])
                         // and if it is will set the tile to weathered" and add that tile to weatherdata
                         //so as weather stops , all effected state tiles will be set back to their og state
+
+                        //BTW if factory tile is created before hand, this code bugs out as factory state data is empty since
+                        //it only adds after in game creation
                         if (tileData.weatherData.ContainsValue(tileData.factoryStateData[nowTilePos]))
                         {
 

@@ -10,6 +10,7 @@ public class Turns : MonoBehaviour
     private Weather weatherData;
     private Pale paleData;
     private ProfitScreen psData;
+    private TilemapControls clickData;
    
     public int dayCounter = 1;
     public int nextQuota = 8;
@@ -25,6 +26,7 @@ public class Turns : MonoBehaviour
         weatherData = GetComponent<Weather>();
         paleData = GetComponent<Pale>();
         psData = GetComponent<ProfitScreen>();
+        clickData = GetComponent<TilemapControls>();
 
         //test Delete after 
 
@@ -42,7 +44,7 @@ public class Turns : MonoBehaviour
     {
 
         uiData.RemoveUI();
-
+        clickData.hoverData.click = false;
 
         //Increment Turn
         dayCounter++;
@@ -59,7 +61,7 @@ public class Turns : MonoBehaviour
         profitData.ProductionProfit();
         profitData.GatherProfit();
 
-        profitCo = StartCoroutine(psData.ProfitAnim());  
+       // profitCo = StartCoroutine(psData.ProfitAnim());  
 
 
 
