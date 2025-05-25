@@ -9,6 +9,7 @@ public class UserInterface : MonoBehaviour
     private WFA wfaData;
     private Weather weatherData;
     private Procedures procedureData;
+    private Turns turnData;
 
     //For Buttons
     public GameObject buttonCreate;
@@ -37,7 +38,7 @@ public class UserInterface : MonoBehaviour
     public TMP_Text recCostText;
     public TMP_Text moneyCostText;
 
-
+    public TMP_Text quotaText;
     
 
     //PS DATA
@@ -62,8 +63,9 @@ public class UserInterface : MonoBehaviour
         wfaData = GetComponent<WFA>();
         weatherData = GetComponent<Weather>();
         procedureData = GetComponent<Procedures>();
+        turnData = GetComponent<Turns>();
 
-        
+
 
 
         //test Delete after
@@ -104,6 +106,7 @@ public class UserInterface : MonoBehaviour
 
         moneyText.text = $"{playerData.money}";
 
+        quotaText.text = $"Quota|{turnData.quota} $ \nBy|Day {turnData.nextQuota}";
 
         //workForceCostText.text = $"Produce: {wfaData.workForceAllocation}$ :{wfaData.workForceAllocation} Rec \nRecruit: {wfaData.workForceAllocation * 2}$ : TURN STALL \nGather: {wfaData.workForceAllocation * 2}$";
 

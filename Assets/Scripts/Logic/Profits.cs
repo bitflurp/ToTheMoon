@@ -68,7 +68,7 @@ public class Profits : MonoBehaviour
 
 
         // Multiply Factories producing by product per factory producing (2)
-        addMoney = totalWF * 2;
+        addMoney = totalWF * 3;
         psData.moneyProfit = addMoney;
         //add profit Recourse to player Recourse 
         playerData.money += addMoney;
@@ -118,7 +118,7 @@ public class Profits : MonoBehaviour
 
         // Multiply Factories producing by product per factory producing (2)
         int addRec = totalWF * 2;
-      
+        psData.recProfit = addRec;
 
         //add profit Recourse to player Recourse 
         playerData.rec += addRec;
@@ -157,7 +157,7 @@ public class Profits : MonoBehaviour
 
                         //add profit Recourse to player Recourse 
                         playerData.maxWF += addWorkForce;
-
+                        psData.wfProfit = addWorkForce;
                         //Resets workforce
                         playerData.workForce += totalWF + addWorkForce;
 

@@ -16,6 +16,7 @@ public class Turns : MonoBehaviour
     public int nextQuota = 8;
     public int weatherIndex = -1;
 
+    public int quota = 10;
     private Coroutine profitCo;
 
     private void Start()
@@ -64,7 +65,7 @@ public class Turns : MonoBehaviour
         
         if(dayCounter != nextQuota)
         {
-             profitCo = StartCoroutine(psData.ProfitAnim());  
+           profitCo = StartCoroutine(psData.ProfitAnim());  
          }
 
 
@@ -96,11 +97,12 @@ public class Turns : MonoBehaviour
     public void QuotaReach()
     {
 
-        if (playerData.money >= 30)
+        if (playerData.money >= quota)
         {
+            quota = quota + 10;
             profitCo = StartCoroutine(psData.ProfitAnim());  
             uiData.stateText.text = $"{$"QUOTA REACHED"}";
-
+            
         }
         else
         {

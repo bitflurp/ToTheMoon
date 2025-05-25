@@ -11,6 +11,8 @@ public class ProfitScreen : MonoBehaviour
     private AudioManager audioData;
  
     public int moneyProfit;
+    public int wfProfit;
+    public int recProfit;
 
     private void Start()
     {
@@ -19,7 +21,7 @@ public class ProfitScreen : MonoBehaviour
         tilemap = GetComponent<Tilemap>();
         audioData = GetComponent<AudioManager>();
 
-        //Coroutine startCo = StartCoroutine(StartScreen());
+        Coroutine startCo = StartCoroutine(StartScreen());
     }
     public IEnumerator ProfitAnim()
     {
@@ -34,11 +36,11 @@ public class ProfitScreen : MonoBehaviour
 
 
         string wfStr = $"\n\nWF Profit =";
-        string wfStrNum = $" {moneyProfit}";
+        string wfStrNum = $" {wfProfit}";
 
 
         string rStr = $"\n\nRec Profit =";
-        string rStrNum = $" {moneyProfit}";
+        string rStrNum = $" {recProfit}";
 
 
 
@@ -212,7 +214,7 @@ public class ProfitScreen : MonoBehaviour
 
      char[] characters2 = Str2.ToCharArray();
 
-     string Str3 = $"\n\nWe regret to inform you that due to your dog ass perfomance you position at Space Co has been ";
+     string Str3 = $"\n\nWe regret to inform you that due to your subpar perfomance, your position at Space Co has been ";
 
      char[] characters3 = Str3.ToCharArray();
 
