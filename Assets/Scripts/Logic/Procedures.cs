@@ -77,6 +77,7 @@ public class Procedures : MonoBehaviour
 
             //uiData.wfCostText.enabled = true;
             //uiData.recCostText.enabled = true;
+            uiData.SetUpCost();
         }
         else if (tileData.workForceRecruit.ContainsKey(clickData.clickedCell))
         {
@@ -92,7 +93,7 @@ public class Procedures : MonoBehaviour
         }
 
         EventSystem.current.currentSelectedGameObject.SetActive(false);
-        uiData.SetUpCost();
+        
     }
 
 
@@ -108,23 +109,24 @@ public class Procedures : MonoBehaviour
 
             uiData.buttonStartProcedure.SetActive(true);
             uiData.workForceNoText.text = $"{wfaData.workForceAllocation}";
-
+            uiData.SetUpCost();
         }
         else if (tileData.workForceProduction.ContainsKey(clickData.clickedCell))
         {
             uiData.stateText.text = $"{$"This Factory is in Produciton"}";
+            
 
         }
         else
         {
             uiData.stateText.text = $"{$"Already Recruiting"}";
-
+            
         }
 
 
 
         uiData.buttonProduce.SetActive(false);
-        uiData.SetUpCost();
+        
 
     }
 
@@ -139,7 +141,7 @@ public class Procedures : MonoBehaviour
 
             uiData.buttonStartProcedure.SetActive(true);
             uiData.workForceNoText.text = $"{wfaData.workForceAllocation}";
-
+            uiData.SetUpCost();
 
         }
         else
@@ -150,7 +152,7 @@ public class Procedures : MonoBehaviour
 
 
         EventSystem.current.currentSelectedGameObject.SetActive(false);
-        uiData.SetUpCost();
+        
     }
 
     public void Expodition()

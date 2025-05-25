@@ -29,7 +29,7 @@ public class ProfitScreen : MonoBehaviour
 
         uiData.profitEndText.text = "";
 
-        string mStr = $"money Profit =";
+        string mStr = $"Money Profit =";
         string mStrNum = $" {moneyProfit}";
 
 
