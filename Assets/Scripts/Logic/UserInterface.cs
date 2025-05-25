@@ -97,19 +97,19 @@ public class UserInterface : MonoBehaviour
     void Update()
     {
         // shows Current Rec
-        recText.text = $"REC: {playerData.rec}";
+        recText.text = $"{playerData.rec}";
 
-        workForceText.text = $"WF:{playerData.maxWF}/{playerData.workForce}";
+        workForceText.text = $"{playerData.maxWF}/{playerData.workForce}";
 
-        moneyText.text = $"PROFIT: {playerData.money}";
+        moneyText.text = $"{playerData.money}";
 
 
         //workForceCostText.text = $"Produce: {wfaData.workForceAllocation}$ :{wfaData.workForceAllocation} Rec \nRecruit: {wfaData.workForceAllocation * 2}$ : TURN STALL \nGather: {wfaData.workForceAllocation * 2}$";
 
-        weatherText.text = $"{forecastText[0, 0]} {forecastText[0, 1]} {forecastText[0, 2]}\n " +
-           $"{forecastText[1, 0]}{forecastText[1, 1]} {forecastText[1, 2]} \n" +
-           $" {forecastText[2, 0]}{forecastText[2, 1]}{forecastText[2, 2]} \n" +
-           $"{forecastText[3, 0]} {forecastText[3, 1]}{forecastText[3, 2]} \n" +
+        weatherText.text = $"{forecastText[0, 0]} {forecastText[0, 1]} {forecastText[0, 2]}\n" +
+           $"{forecastText[1, 0]} {forecastText[1, 1]} {forecastText[1, 2]} \n" +
+           $"{forecastText[2, 0]} {forecastText[2, 1]} {forecastText[2, 2]} \n" +
+           $"{forecastText[3, 0]} {forecastText[3, 1]} {forecastText[3, 2]} \n" +
            $"{forecastText[4, 0]} {forecastText[4, 1]} {forecastText[4, 2]} \n" +
            $"{forecastText[5, 0]} {forecastText[5, 1]} {forecastText[5, 2]} \n" +
            $"{forecastText[6, 0]} {forecastText[6, 1]} {forecastText[6, 2]} \n";

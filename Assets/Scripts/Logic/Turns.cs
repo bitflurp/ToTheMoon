@@ -101,7 +101,7 @@ public class Turns : MonoBehaviour
         }
         else
         {
-
+            profitCo = StartCoroutine(psData.LoseScreen());  
             uiData.stateText.text = $"{$"QUOTA FAILED"}";
 
         }
