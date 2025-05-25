@@ -20,6 +20,7 @@ public class UserInterface : MonoBehaviour
     public GameObject buttonIncrement;
     public GameObject buttonReduce;
     public GameObject buttonStartProcedure;
+    public GameObject buttonReset;
 
     //for recource ui
     public TMP_Text recText;

@@ -8,7 +8,7 @@ public class ProfitScreen : MonoBehaviour
     private UserInterface uiData;
     private TileData tileData;
     private Tilemap tilemap;
-   
+    private AudioManager audioData;
  
     public int moneyProfit;
 
@@ -17,72 +17,67 @@ public class ProfitScreen : MonoBehaviour
         uiData = GetComponent<UserInterface>();
         tileData = GetComponent<TileData>();
         tilemap = GetComponent<Tilemap>();
+        audioData = GetComponent<AudioManager>();
 
         //Coroutine startCo = StartCoroutine(StartScreen());
     }
     public IEnumerator ProfitAnim()
     {
-        uiData.profitEndText.text = "";
-
-        string mStr = $"money Profit = {moneyProfit}";
-        
-        char[] charactersM = mStr.ToCharArray();
-
-        string wfStr = $"\nWF Profit = {moneyProfit}";
-
-        char[] charactersWf = wfStr.ToCharArray();
-
-        string rStr = $"\nRec Profit = {moneyProfit}";
-
-        char[] charactersR = rStr.ToCharArray();
-
 
         uiData.psPanel.gameObject.SetActive(true);
         uiData.profitEndText.enabled = true;
 
-        for (int i = 0; i < charactersM.GetLength(0); i++) {
+        uiData.profitEndText.text = "";
+
+        string mStr = $"money Profit =";
+        string mStrNum = $" {moneyProfit}";
 
 
-            uiData.profitEndText.text += charactersM[i];
-           
-            for (int j = 0; j < 20; j++)
-            {
-                yield return null;
-            }
-        }
-           
+        string wfStr = $"\n\nWF Profit =";
+        string wfStrNum = $" {moneyProfit}";
+
+
+        string rStr = $"\n\nRec Profit =";
+        string rStrNum = $" {moneyProfit}";
+
+
+
+        
+
+        uiData.profitEndText.text += mStr;
+        audioData.PlaySFX();
+        yield return new WaitForSeconds(1);
+
+        uiData.profitEndText.text += mStrNum;
+        audioData.PlaySFX();
+
 
         yield return new  WaitForSeconds(1);
 
-        for (int i = 0; i < charactersWf.GetLength(0); i++)
-        {
+
+        uiData.profitEndText.text += wfStr;
+        audioData.PlaySFX();
+        yield return new WaitForSeconds(1);
 
 
-            uiData.profitEndText.text += charactersWf[i];
+        uiData.profitEndText.text += wfStrNum;
+        audioData.PlaySFX();
 
-            for (int j = 0; j < 20; j++)
-            {
-                yield return null;
-            }
-        }
 
         yield return new WaitForSeconds(1);
 
 
-        for (int i = 0; i < charactersWf.GetLength(0); i++)
-        {
+        uiData.profitEndText.text += rStr;
+        audioData.PlaySFX();
+        yield return new WaitForSeconds(1);
 
 
-            uiData.profitEndText.text += charactersR[i];
 
-            for (int j = 0; j < 20; j++)
-            {
-                yield return null;
-            }
-        }
+        uiData.profitEndText.text += rStrNum;
+        audioData.PlaySFX();
 
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
 
 
    
@@ -224,6 +219,7 @@ public class ProfitScreen : MonoBehaviour
      string Str4 = $"\n\nT E R M I N A T E D ";
 
      char[] characters4 = Str4.ToCharArray();
+
      uiData.psPanel.gameObject.SetActive(true);
      uiData.profitEndText.enabled = true;
 
@@ -286,9 +282,11 @@ public class ProfitScreen : MonoBehaviour
      }
 
      yield return new WaitForSeconds(1);
+        
+        audioData.PlaySFX();
 
-     //uiData.buttonRetry.gameObject.SetActive(true);
-
+        uiData.buttonReset.gameObject.SetActive(true);
+    
 
 
 
@@ -299,5 +297,3 @@ public class ProfitScreen : MonoBehaviour
 
 
 }
-
-

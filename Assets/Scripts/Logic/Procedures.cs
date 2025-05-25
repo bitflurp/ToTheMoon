@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Procedures : MonoBehaviour
 {
@@ -16,13 +17,13 @@ public class Procedures : MonoBehaviour
 
     public GameObject curProcedure;
 
-   
+
     private void Start()
     {
         tilemap = GetComponent<Tilemap>();
         playerData = GetComponent<PlayerData>();
         clickData = GetComponent<TilemapControls>();
-        tileData= GetComponent<TileData>();
+        tileData = GetComponent<TileData>();
         uiData = GetComponent<UserInterface>();
         wfaData = GetComponent<WFA>();
     }
@@ -71,9 +72,9 @@ public class Procedures : MonoBehaviour
 
             //UI Script
             uiData.workForceNoText.text = $"{wfaData.workForceAllocation}";
-            
+
             //put in istuff
-            
+
             //uiData.wfCostText.enabled = true;
             //uiData.recCostText.enabled = true;
         }
@@ -255,5 +256,17 @@ public class Procedures : MonoBehaviour
         }
 
 
-    }
+                            }
+                            public void Reset()
+                        {
+
+
+
+
+                            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+
+
+
+                        }
 }

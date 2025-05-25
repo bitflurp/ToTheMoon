@@ -61,8 +61,11 @@ public class Turns : MonoBehaviour
         profitData.ProductionProfit();
         profitData.GatherProfit();
 
-       // profitCo = StartCoroutine(psData.ProfitAnim());  
-
+        
+        if(dayCounter != nextQuota)
+        {
+             profitCo = StartCoroutine(psData.ProfitAnim());  
+         }
 
 
         paleData.PaleFunc();
@@ -95,7 +98,7 @@ public class Turns : MonoBehaviour
 
         if (playerData.money >= 30)
         {
-
+            profitCo = StartCoroutine(psData.ProfitAnim());  
             uiData.stateText.text = $"{$"QUOTA REACHED"}";
 
         }
