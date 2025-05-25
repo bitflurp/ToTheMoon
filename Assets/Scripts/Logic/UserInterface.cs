@@ -45,13 +45,13 @@ public class UserInterface : MonoBehaviour
 
 
     private string[,] forecastText = {
-    {"Day 2","Null","Null"},
-    {"Day 3","Null","Null"},
-    {"Day 4","Null","Null"},
-    {"Day 5","Null","Null"},
-    {"Day 6","Null","Null"},
-    {"Day 7","Null","Null"},
-    {"Day 8","Null","Null"}
+    {"Day 2","Clear","All States"},
+    {"Day 3","Clear","All States"},
+    {"Day 4","Clear","All States"},
+    {"Day 5","Clear","All States"},
+    {"Day 6","Clear","All States"},
+    {"Day 7","Clear","All States"},
+    {"Day 8","Clear","All States"}
     };
 
 
@@ -131,10 +131,10 @@ public class UserInterface : MonoBehaviour
             {
 
                 case 3:
-                    forecastText[i, 1] = "WEATHER";
+                    forecastText[i, 1] = "Storm";
                     break;
                 default:
-                    forecastText[i, 1] = "Null";
+                    forecastText[i, 1] = "Clear";
                     break;
             }
 
@@ -162,7 +162,7 @@ public class UserInterface : MonoBehaviour
             else
             {
 
-                forecastText[i, 2] = "Null";
+                forecastText[i, 2] = "All States";
 
 
             }
