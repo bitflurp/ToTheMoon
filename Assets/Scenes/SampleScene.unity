@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 1945170}
   - component: {fileID: 1945172}
   - component: {fileID: 1945171}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 57243989}
   - component: {fileID: 57243991}
   - component: {fileID: 57243990}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'RecCost '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +604,7 @@ GameObject:
   - component: {fileID: 146160518}
   - component: {fileID: 146160517}
   - component: {fileID: 146160516}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button_Expodition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -814,7 +814,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2105727919
-  m_SortingLayer: 2
+  m_SortingLayer: -3
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -2242,7 +2242,7 @@ GameObject:
   - component: {fileID: 162423992}
   - component: {fileID: 162423994}
   - component: {fileID: 162423993}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Days
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2379,7 +2379,7 @@ GameObject:
   - component: {fileID: 190730096}
   - component: {fileID: 190730095}
   - component: {fileID: 190730094}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Escape button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2511,7 +2511,7 @@ GameObject:
   - component: {fileID: 197486245}
   - component: {fileID: 197486247}
   - component: {fileID: 197486246}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resources
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2825,7 +2825,7 @@ GameObject:
   - component: {fileID: 269626226}
   - component: {fileID: 269626228}
   - component: {fileID: 269626227}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MoneyCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2961,7 +2961,7 @@ GameObject:
   - component: {fileID: 276934156}
   - component: {fileID: 276934158}
   - component: {fileID: 276934157}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: I/A Space Co
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3098,7 +3098,7 @@ GameObject:
   - component: {fileID: 287241680}
   - component: {fileID: 287241679}
   - component: {fileID: 287241678}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button_Recruit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3572,7 +3572,7 @@ GameObject:
   - component: {fileID: 405024934}
   - component: {fileID: 405024936}
   - component: {fileID: 405024935}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: State
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3829,7 +3829,7 @@ GameObject:
   - component: {fileID: 434949931}
   - component: {fileID: 434949933}
   - component: {fileID: 434949932}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4055,7 +4055,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -751066315
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &507862276
@@ -4070,7 +4070,7 @@ GameObject:
   - component: {fileID: 507862280}
   - component: {fileID: 507862279}
   - component: {fileID: 507862278}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button_End_Turn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4202,7 +4202,7 @@ GameObject:
   - component: {fileID: 603316183}
   - component: {fileID: 603316185}
   - component: {fileID: 603316184}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4338,7 +4338,7 @@ GameObject:
   - component: {fileID: 618996690}
   - component: {fileID: 618996692}
   - component: {fileID: 618996691}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4545,7 +4545,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -356352865
-  m_SortingLayer: 3
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.03125, y: 0.03125, z: 0}
@@ -5695,7 +5695,7 @@ GameObject:
   - component: {fileID: 682358371}
   - component: {fileID: 682358373}
   - component: {fileID: 682358372}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Money Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5771,7 +5771,7 @@ GameObject:
   - component: {fileID: 763842216}
   - component: {fileID: 763842218}
   - component: {fileID: 763842217}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6019,8 +6019,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -119878011
+  m_SortingLayer: -4
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -7124,7 +7124,7 @@ GameObject:
   - component: {fileID: 929107083}
   - component: {fileID: 929107082}
   - component: {fileID: 929107081}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button_Produce
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7257,7 +7257,7 @@ GameObject:
   - component: {fileID: 937024528}
   - component: {fileID: 937024530}
   - component: {fileID: 937024529}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7391,7 +7391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1038640342}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CostText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7432,7 +7432,7 @@ GameObject:
   - component: {fileID: 1120895344}
   - component: {fileID: 1120895343}
   - component: {fileID: 1120895342}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonWFA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7567,7 +7567,7 @@ GameObject:
   - component: {fileID: 1129795843}
   - component: {fileID: 1129795845}
   - component: {fileID: 1129795844}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7704,7 +7704,7 @@ GameObject:
   - component: {fileID: 1259005858}
   - component: {fileID: 1259005857}
   - component: {fileID: 1259005856}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonIncrement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7837,7 +7837,7 @@ GameObject:
   - component: {fileID: 1322313317}
   - component: {fileID: 1322313316}
   - component: {fileID: 1322313315}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UiCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7860,7 +7860,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &1322313316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7952,7 +7952,7 @@ GameObject:
   - component: {fileID: 1348439502}
   - component: {fileID: 1348439504}
   - component: {fileID: 1348439503}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WFCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8189,9 +8189,17 @@ PrefabInstance:
       value: Combuster
       objectReference: {fileID: 0}
     - target: {fileID: 4253280567622488715, guid: 6d61eeaded8d7dc4484236237cb86b82, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4253280567622488715, guid: 6d61eeaded8d7dc4484236237cb86b82, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d77f3724a5597654f9fa4e41fb8bdf37, type: 2}
+    - target: {fileID: 7750397243111347764, guid: 6d61eeaded8d7dc4484236237cb86b82, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -8347,7 +8355,7 @@ GameObject:
   - component: {fileID: 1401058636}
   - component: {fileID: 1401058638}
   - component: {fileID: 1401058637}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Work Force
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8483,7 +8491,7 @@ GameObject:
   - component: {fileID: 1408721698}
   - component: {fileID: 1408721700}
   - component: {fileID: 1408721699}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8619,7 +8627,7 @@ GameObject:
   - component: {fileID: 1481687207}
   - component: {fileID: 1481687209}
   - component: {fileID: 1481687208}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8760,7 +8768,7 @@ GameObject:
   - component: {fileID: 1485643049}
   - component: {fileID: 1485643051}
   - component: {fileID: 1485643050}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Workforce icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8836,7 +8844,7 @@ GameObject:
   - component: {fileID: 1487547624}
   - component: {fileID: 1487547626}
   - component: {fileID: 1487547625}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8993,7 +9001,7 @@ GameObject:
   - component: {fileID: 1607371865}
   - component: {fileID: 1607371864}
   - component: {fileID: 1607371863}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button_Gather
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9465,7 +9473,7 @@ GameObject:
   - component: {fileID: 1651510961}
   - component: {fileID: 1651510963}
   - component: {fileID: 1651510962}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9766,7 +9774,7 @@ GameObject:
   - component: {fileID: 1970605251}
   - component: {fileID: 1970605253}
   - component: {fileID: 1970605252}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resource icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9842,7 +9850,7 @@ GameObject:
   - component: {fileID: 1971063553}
   - component: {fileID: 1971063555}
   - component: {fileID: 1971063554}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9978,7 +9986,7 @@ GameObject:
   - component: {fileID: 1977787469}
   - component: {fileID: 1977787468}
   - component: {fileID: 1977787467}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WorkForceNo.
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10115,7 +10123,7 @@ GameObject:
   - component: {fileID: 2002930640}
   - component: {fileID: 2002930639}
   - component: {fileID: 2002930638}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonReduce
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10405,7 +10413,7 @@ GameObject:
   - component: {fileID: 6200054302821147770}
   - component: {fileID: 138298333552947393}
   - component: {fileID: 2679243132119319164}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10592,7 +10600,7 @@ GameObject:
   - component: {fileID: 3382759774330149167}
   - component: {fileID: 3477240548052785567}
   - component: {fileID: 9167492784096685325}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonY_N
   m_TagString: Untagged
   m_Icon: {fileID: 0}

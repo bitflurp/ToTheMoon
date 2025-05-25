@@ -36,13 +36,18 @@ public class HoverEffect : MonoBehaviour
 
                 }
             }
-            else { HoverTilemap.SetTile(preMouse, landTile); }
+            else {
+                
+
+             HoverTilemap.SetTile(preMouse, landTile); 
+            
+            }
         }
         else
         {
-            
-         }
-        
-        
+
+        }
+
+
     }
 }
