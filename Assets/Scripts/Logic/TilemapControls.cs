@@ -27,7 +27,8 @@ public class TilemapControls : MonoBehaviour
     private UserInterface uiData;
     private Turns turnData;
     private TileData tileData;
-    private ProfitScreen psData; 
+    private ProfitScreen psData;
+    private AudioManager audioData;
     
   
     
@@ -43,6 +44,7 @@ public class TilemapControls : MonoBehaviour
         tileData = GetComponent<TileData>();
         psData = GetComponent<ProfitScreen>();
         hoverData = hoverTilemap.GetComponent<HoverEffect>();
+        audioData = GetComponent<AudioManager>();
 
 
         RecourceAdd();
@@ -87,6 +89,9 @@ public class TilemapControls : MonoBehaviour
                     hoverData.click = true;
 
                 }
+
+        audioData.PlaySFX();
+
 
         switch (tile)
         {
