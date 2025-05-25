@@ -44,7 +44,7 @@ public class ProfitScreen : MonoBehaviour
 
 
 
-        
+
 
         uiData.profitEndText.text += mStr;
         audioData.PlaySFX();
@@ -54,7 +54,7 @@ public class ProfitScreen : MonoBehaviour
         audioData.PlaySFX();
 
 
-        yield return new  WaitForSeconds(1);
+        yield return new WaitForSeconds(1);
 
 
         uiData.profitEndText.text += wfStr;
@@ -82,10 +82,13 @@ public class ProfitScreen : MonoBehaviour
         yield return new WaitForSeconds(1);
 
 
-   
-        uiData.psPanel.gameObject.SetActive(false);
-        uiData.profitEndText.enabled = false ;
 
+        uiData.psPanel.gameObject.SetActive(false);
+        uiData.profitEndText.enabled = false;
+
+        moneyProfit = 0;
+        wfProfit = 0;
+        recProfit = 0;
 
     }
 
