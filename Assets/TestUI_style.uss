@@ -1,0 +1,11 @@
+.button {
+    font-size: 20px;
+    -unity-font-definition: url("project://database/Assets/Font/Nouveau_IBM.ttf?fileID=12800000&guid=12940cff9ff9a884eadc2d96bb12172b&type=3#Nouveau_IBM");
+    color: rgb(0, 199, 0);
+    width: 110px;
+    height: 40px;
+    background-image: url("project://database/Assets/Sprites/UI/tiles_button_anim.png?fileID=-1147239180&guid=96e8287e215532343a3925891e7f2ff8&type=3#button_anim_0");
+    align-self: flex-end;
+    justify-content: center;
+    align-content: auto;
+}

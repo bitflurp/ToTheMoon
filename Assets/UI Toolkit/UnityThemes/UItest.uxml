@@ -1,0 +1,6 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/TestUI_style.uss?fileID=7433441132597879392&amp;guid=08377277658e67b42888ed95bf602f4e&amp;type=3#TestUI_style" />
+    <engine:VisualElement name="Container" style="flex-grow: 1;">
+        <engine:Button text="Escape" name="Escape" class="button" />
+    </engine:VisualElement>
+</engine:UXML>
