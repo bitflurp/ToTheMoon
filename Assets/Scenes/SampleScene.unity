@@ -837,13 +837,13 @@ Tilemap:
   - first: {x: 2, y: 1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileIndex: 3
+      m_TileSpriteIndex: 3
       m_TileMatrixIndex: 0
-      m_TileColorIndex: 2
+      m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
-      m_AllTileFlags: 1073741825
+      m_AllTileFlags: 1073741826
   - first: {x: 3, y: 1, z: 0}
     second:
       serializedVersion: 2
@@ -1836,25 +1836,27 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 83
+  - m_RefCount: 82
     m_Data: {fileID: 11400000, guid: 05982f72bd64e81418cb98dc1956d6eb, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: 82eed57374e49004d9e7e5bf90deefac, type: 2}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: bde4b815fc4cf594fa99c58a85200af1, type: 2}
   - m_RefCount: 9
     m_Data: {fileID: 11400000, guid: 8aa1a8d15c7d1194d8b0cef15f114039, type: 2}
   - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: 6474145ab8cc0404bb97d1bccd627176, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 83
+  - m_RefCount: 82
     m_Data: {fileID: -1280852735, guid: 9c86e4023a9e4b041823774d34c4d986, type: 3}
   - m_RefCount: 13
     m_Data: {fileID: 378479605, guid: 30f7e987fdd0fe845a570af450f472d5, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: 262337102, guid: 30f7e987fdd0fe845a570af450f472d5, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -1471525195, guid: 9466bc09131a5b949bb4e5b2e1c2fee3, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 100
     m_Data:
@@ -1877,9 +1879,9 @@ Tilemap:
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: 6.5895e-41, g: 6.5895e-41, b: 6.5895e-41, a: 6.5895e-41}
-  - m_RefCount: 17
+  - m_RefCount: 18
     m_Data: {r: 1, g: 1, b: 1, a: 1}
-  - m_RefCount: 83
+  - m_RefCount: 82
     m_Data: {r: 1, g: 1, b: 1, a: 0}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -2089,6 +2091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curProcedure: {fileID: 0}
+  factoryCounter: 0
 --- !u!114 &154400150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2106,7 +2109,7 @@ MonoBehaviour:
   stallTile: {fileID: 11400000, guid: 81c7f36e6ffe4a240afe931cbf5f8f12, type: 2}
   recTile: {fileID: 11400000, guid: 82eed57374e49004d9e7e5bf90deefac, type: 2}
   paleTile: {fileID: 11400000, guid: 0f62e3aa1ba1f44418f2d7fcd1940cb5, type: 2}
-  paleJuice: {fileID: 11400000, guid: e163cb1c570114c49859f07f75e43103, type: 2}
+  weatherTile: {fileID: 11400000, guid: 8c8c1c20183bef94090c9f708d9c460e, type: 2}
   nyLand: {fileID: 11400000, guid: 30a116ad8f58de74db9d1b67eb0d1341, type: 2}
   wyoLand: {fileID: 11400000, guid: cdc019ff265f6984e9c4d68347d5ea81, type: 2}
   gridX: 12
@@ -2249,7 +2252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19268e3d700f7af4c8b05d51a2114485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pSystem: {fileID: 0}
 --- !u!1 &162423991
 GameObject:
   m_ObjectHideFlags: 0
