@@ -95,7 +95,7 @@ public class Weather : MonoBehaviour
 
                                     tileData.weatherData.Add(nowTilePos, nowTile);
 
-                                    tilemap.SetTile(nowTilePos, null);
+                                    tilemap.SetTile(nowTilePos, tileData.weatherTile);
 
                                     // Debug.Log($"Bad weather has made {nowTile} unworkable");
                                 }
@@ -113,7 +113,7 @@ public class Weather : MonoBehaviour
 
                                     tileData.weatherData.Add(nowTilePos, nowTile);
 
-                                    tilemap.SetTile(nowTilePos, null);
+                                    tilemap.SetTile(nowTilePos, tileData.weatherTile);
 
                                     //Debug.Log($"Bad weather has made {nowTile} unworkable");
                                 }

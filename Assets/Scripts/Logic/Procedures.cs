@@ -16,9 +16,10 @@ public class Procedures : MonoBehaviour
     private WFA wfaData;
     
 
+
     public GameObject curProcedure;
 
-
+    public int factoryCounter = 0;
     private void Start()
     {
         tilemap = GetComponent<Tilemap>();
@@ -46,7 +47,8 @@ public class Procedures : MonoBehaviour
             tilemap.SetTile(clickData.clickedCell, tileData.factoryTile);
             playerData.rec -= 5;
 
-            
+            factoryCounter++;
+
 
 
         }

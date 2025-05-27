@@ -17,8 +17,7 @@ public class TileData : MonoBehaviour
     public StallTile stallTile;
     public ResTile recTile;
     public PaleTile paleTile;
-    public PaleJuicedTile paleJuice;
-
+    public WeatherTile weatherTile;
     //For LandTiles
     public NewYorkLand nyLand;
     public WyomingLand wyoLand;

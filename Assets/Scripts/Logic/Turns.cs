@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Turns : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class Turns : MonoBehaviour
     private Pale paleData;
     private ProfitScreen psData;
     private TilemapControls clickData;
+    private Procedures procedureData;
+    private Tilemap tilemap;
+    private TileData tileData;
    
     public int dayCounter = 1;
     public int nextQuota = 8;
@@ -28,6 +32,9 @@ public class Turns : MonoBehaviour
         paleData = GetComponent<Pale>();
         psData = GetComponent<ProfitScreen>();
         clickData = GetComponent<TilemapControls>();
+        procedureData = GetComponent<Procedures>();
+        tilemap = GetComponent<Tilemap>();
+        tileData = GetComponent<TileData>();
 
         //test Delete after 
 
@@ -68,8 +75,16 @@ public class Turns : MonoBehaviour
            profitCo = StartCoroutine(psData.ProfitAnim());  
          }
 
-
         paleData.PaleFunc();
+
+        if (procedureData.factoryCounter >= 5) {
+
+            tilemap.SetTile(new Vector3Int(11, 10, 0), tileData.paleTile);
+        
+        
+        }
+
+   
        
 
         if (dayCounter == nextQuota)
