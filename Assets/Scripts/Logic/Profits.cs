@@ -146,9 +146,8 @@ public class Profits : MonoBehaviour
                     if (tileData.stallData[nowTilePos] == turnData.dayCounter)
                     {
 
-                        totalWF += tileData.workForceRecruit[nowTilePos];
-
-
+                        totalWF = tileData.workForceRecruit[nowTilePos];
+                        
 
 
 
@@ -157,9 +156,9 @@ public class Profits : MonoBehaviour
 
                         //add profit Recourse to player Recourse 
                         playerData.maxWF += addWorkForce;
-                        psData.wfProfit = addWorkForce;
+                        psData.wfProfit += addWorkForce;
                         //Resets workforce
-                        playerData.workForce += totalWF + addWorkForce;
+                        playerData.workForce +=  addWorkForce * 2;
 
                         // Reset Factory Production 
                         //recruitCounter = 0;
